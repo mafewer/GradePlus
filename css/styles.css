@@ -1,0 +1,22 @@
+body {
+    transition: background-color 0.5s, color 0.5s;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-wrapper {
+    transition: background-color 0.5s, color 0.5s;
+}
+
+div.c1 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1.2rem 0;
+
+    h5 {
+        margin: 0;
+    }
+}
