@@ -2,7 +2,7 @@
 ECE 6400 Project
 
 > [!WARNING]
-> This repository will be made private soon. Please complete the setup by **8 PM Friday, 13 September 2024**. After this date, please send me your github username so I can add you to the repository manually.
+> This repository will be made private soon. Please complete this setup by **8 PM Monday, 16 September 2024**. After this date, please send me your github username so I can add you to the repository manually.
 
 ### Team Members
 Not shown for privacy
@@ -15,6 +15,7 @@ Download and install the following software:
 
 - [XAMPP](https://www.apachefriends.org/) (Comes with Apache, PHP, and MySQL bundled)
 - [Git](https://git-scm.com/downloads) (Required - macOS users can `brew install git` if needed)
+- VSCode
 - Any Chromium Browser (Google Chrome, Microsoft Edge, etc.)
 
 ### VSCode Extensions
@@ -45,7 +46,7 @@ git clone <YOUR FORKED REPO ADDRESS> <OPTIONAL FOLDER NAME>
 
 ### XAMPP
 
-To run the initial boiler plate code, you only need PHP which comes bundled with XAMPP. XAMPP will be used to run the PHP server and MySQL database in the future. Here is an quick look. Just clicking the first two buttons will do the job. No need for complex MySQL or Docker setups. Again not needed for initial setup.
+To run the initial boiler plate code, you only need PHP which comes bundled with XAMPP. XAMPP will be used to run the PHP server and MySQL database in the future. Here is a quick look. Just clicking the first two buttons will do the job. No need for complex MySQL or Docker setups. Again not needed for initial setup.
 
 <img width="400px" src="https://github.com/user-attachments/assets/4e48b96c-a4b2-488b-b4c1-ff2142fc9b36">
 <br><br>
@@ -56,7 +57,7 @@ Install XAMPP in the root directory of your C: drive. Please add the PHP directo
 <br><br>
 
 > [!IMPORTANT]
-> Finally add php cs fixer VSCode Extenstion as the default formatter. This is **important**. If we do not use a consistent formatter, PRs may have incorrect indentation when you `CTRL+S` php files leading to huge unnecessary changes across the whole file.
+> Finally add `php cs fixer` VSCode Extenstion as the default formatter. This is **important**. If we do not use a consistent formatter, PRs may have incorrect indentation when you `CTRL+S` php files leading to huge unnecessary changes across the whole file.
 
 <img width="400px" src="https://github.com/user-attachments/assets/694af1ea-c7f5-4024-9fdf-052dad042019">
 
