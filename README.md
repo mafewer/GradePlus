@@ -48,6 +48,7 @@ git clone <YOUR FORKED REPO ADDRESS> <OPTIONAL FOLDER NAME>
 To run the initial boiler plate code, you only need PHP which comes bundled with XAMPP. XAMPP will be used to run the PHP server and MySQL database in the future. Here is an quick look. Just clicking the first two buttons will do the job. No need for complex MySQL or Docker setups. Again not needed for initial setup.
 
 <img width="400px" src="https://github.com/user-attachments/assets/4e48b96c-a4b2-488b-b4c1-ff2142fc9b36">
+<br><br>
 
 Install XAMPP in the root directory of your C: drive. Please add the PHP directory to user PATH during or after installation. In some cases, you may need to add to VSCode settings as well. It would be `C:\xampp\php`.
 
