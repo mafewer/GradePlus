@@ -67,7 +67,7 @@ You should see a green themed GradePlus website with the access signup sheet. If
 
 If you have any questions, please give me a tag in the discord or `asamanta@mun.ca`.
 
-Best Regards,
+Best Regards,<br>
 Akash Samanta
 
 
