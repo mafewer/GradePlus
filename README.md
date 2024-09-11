@@ -56,8 +56,19 @@ Install XAMPP in the root directory of your C: drive. Please add the PHP directo
 <img width="400px" src="https://github.com/user-attachments/assets/68df2e84-7ebc-4b80-92a5-4bfcc8ab6db0">
 <br><br>
 
+To verify your PHP installation, run the following command in a terminal window.
+
+```
+php --version
+```
+
+You should see your installed PHP version.
+
+<img width="400px" src="https://github.com/user-attachments/assets/5f70ca0d-44e1-4863-87e4-257a9154abac">
+<br><br>
+
 > [!IMPORTANT]
-> Finally add `php cs fixer` VSCode Extenstion as the default formatter. This is **important**. If we do not use a consistent formatter, PRs may have incorrect indentation when you `CTRL+S` php files leading to huge unnecessary changes across the whole file.
+> Finally add `php cs fixer` VSCode Extension as the default formatter. This is **important**. If we do not use a consistent formatter, PRs may have incorrect indentation when you `CTRL+S` php files leading to huge unnecessary changes across the whole file.
 
 <img width="400px" src="https://github.com/user-attachments/assets/694af1ea-c7f5-4024-9fdf-052dad042019">
 
