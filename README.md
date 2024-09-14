@@ -65,19 +65,22 @@ php --version
 You should see your installed PHP version.
 
 <img width="400px" src="https://github.com/user-attachments/assets/5f70ca0d-44e1-4863-87e4-257a9154abac">
-<br><br>
 
+
+## Formatter
 > [!IMPORTANT]
-> Finally add `php cs fixer` VSCode Extension as the default formatter. This is **important**. If we do not use a consistent formatter, PRs may have incorrect indentation when you `CTRL+S` php files leading to huge unnecessary changes across the whole file.
+> Finally add `php cs fixer` VSCode Extension as the default formatter in VSCode Settings. This is **important**. If we do not use a consistent formatter, PRs may have incorrect indentation when you `CTRL+S` php files leading to huge unnecessary changes across the whole file.
 
 <img width="400px" src="https://github.com/user-attachments/assets/694af1ea-c7f5-4024-9fdf-052dad042019">
 
 ### Running the Code
-Go to the `index.php` file in the project folder after you have cloned the repository. Right click and select `PHP Server: Serve Project`. This will open up your default browser automatically.
-You should see a green themed GradePlus website with the access signup sheet. If you see that, you are good to go.
+Go to the `index.php` file in the project folder. Click the button on top right or right click and select `PHP Server: Serve Project`. This will open up your default browser automatically.
+You should see a green themed GradePlus website with the access signup sheet. If you see that, you are good to go. If you have any questions, please give me a tag in the discord or `asamanta@mun.ca`.
+<br>
+> [!IMPORTANT]
+> Please fill up the Google Form Access Sign-Up form found on the website. You will get an imaginery treat. This will help me giving you access to the repository once it is made private. Make sure to also make your fork private once the switch happens.
 
-If you have any questions, please give me a tag in the discord or `asamanta@mun.ca`.
-
+<br>
 Best Regards,<br>
 Akash Samanta
 
