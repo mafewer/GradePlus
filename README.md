@@ -75,7 +75,7 @@ You should see your installed PHP version.
 
 ### Running the Code
 Go to the `index.php` file in the project folder. Click the button on top right or right click and select `PHP Server: Serve Project`. This will open up your default browser automatically.
-You should see a green themed GradePlus website with the access signup sheet. If you see that, you are good to go. If you have any questions, please give me a tag in the discord or `asamanta@mun.ca`.
+You should see a green themed GradePlus website with the access form. If you see that, you are good to go. If you have any questions, please give me a tag in the discord or `asamanta@mun.ca`.
 <br>
 > [!IMPORTANT]
 > Please fill up the Google Form Access Sign-Up form found on the website. You will get an imaginery treat. This will help me giving you access to the repository once it is made private. Make sure to also make your fork private once the switch happens.
