@@ -2,7 +2,7 @@
 ECE 6400 Project
 
 > [!WARNING]
-> This repository will be made private soon. Please complete this setup by **8 PM Monday, 16 September 2024**. After this date, please send me your github username so I can add you to the repository manually.
+> Overdue - This repository will be made private soon. Please complete this setup as soon as possible.
 
 ### Team Members
 Not shown for privacy
