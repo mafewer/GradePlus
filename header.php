@@ -16,11 +16,10 @@
 <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper">
-      <a href="" style="margin-left: 1.75rem;" class="brand-logo"><img style="width: 2rem; position: relative; right: 0.7rem; top: 0.25rem;" src="img/logoGreen.png">GradePlus</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a class="theme">Dark</a></li>
-        <li><a>Login</a></li>
-        <li><a>Sign Up</a></li>
+      <a href="index.php" style="margin-left: 1.75rem;" class="brand-logo"><img style="width: 2rem; position: relative; right: 0.7rem; top: 0.25rem;" src="img/logoGreen.png">GradePlus</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right: 0.5rem;">
+        <li><a class="theme"><i class="material-icons left theme">dark_mode</i><span class="theme">Dark</span></a></li>
+        <li><a href="login.php"><i class="material-icons left">person</i>Login</a></li>
       </ul>
     </div>
   </nav>
@@ -36,5 +35,10 @@ body {
 
 .nav-wrapper {
     transition: background-color 0.5s, color 0.5s;
+}
+
+ul#nav-mobile li a i {
+    margin-right: 0.5rem;
+    margin-top: 0.05rem;
 }
 </style>
