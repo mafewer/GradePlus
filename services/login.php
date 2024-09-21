@@ -40,7 +40,7 @@ if (isset($_POST['authorize'])) {
             $sqlCommand->bind_result($username, $dname);
             $sqlCommand->fetch();
 
-            $_SESSION['logtime'] = time() + 1;
+            $_SESSION['logtime'] = time() + (60 * 6);
             $_SESSION['username'] = $username;
             $_SESSION['dname'] = $dname;
             $loggedin = 1;
