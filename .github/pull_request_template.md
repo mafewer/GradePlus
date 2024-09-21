@@ -3,6 +3,3 @@
 ## Solution
 
 ## Testing
-
-- [ ] Ready to Merge
-- [ ] Requires Changes
