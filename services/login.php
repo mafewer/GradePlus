@@ -46,9 +46,6 @@ if ($sqlCommand->execute()) {
         $loggedin = 1;
         $sqlUpdate = $conn->prepare("UPDATE login SET loggedin = ? WHERE username = ?");
         $sqlUpdate->bind_param("is", $loggedin, $username);
-        if ($sqlUpdate->execute() != 1) {
-            echo "Error updating record: " . $sqlUpdate->error;
-        }
         header('Location: account.php');
         $success = 1;
     } else {
