@@ -1,5 +1,6 @@
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="img/logoGreen.png">
@@ -24,3 +25,16 @@
     </div>
   </nav>
 </div>
+<style>
+body {
+    transition: background-color 0.5s, color 0.5s;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-wrapper {
+    transition: background-color 0.5s, color 0.5s;
+}
+</style>
