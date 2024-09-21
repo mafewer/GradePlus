@@ -1,6 +1,6 @@
 <?php
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
-if ($_POST["authorize"] == "gradeplus") {
+if ($_GET["authorize"] == "gradeplus") {
     try {
         // Initialize/Reset Demo Database
         // Connect to MySQL as admin
@@ -18,17 +18,17 @@ if ($_POST["authorize"] == "gradeplus") {
             $createUserSql = "CREATE USER 'gradeplusclient'@'localhost' IDENTIFIED BY 'gradeplussql'";
             $result = mysqli_query($conn, $createUserSql);
             if (!$result){
-                error_log("Create user query failed: " . mysqli_error());
+                error_log("Create user query failed: " . mysqli_error($conn));
             }
 
             $grantPrivilegesSql = "GRANT ALL PRIVILEGES ON gradeplus.* TO 'gradeplusclient'@'localhost';";
             $result = mysqli_query($conn, $grantPrivilegesSql);
             if (!$result){
-                error_log("Grant privileges query failed: " . mysqli_error());
+                error_log("Grant privileges query failed: " . mysqli_error($conn));
             }
             $result = mysqli_query($conn, "FLUSH PRIVILEGES");
             if (!$result){
-                error_log("Flush privileges query failed: " . mysqli_error());
+                error_log("Flush privileges query failed: " . mysqli_error($conn));
             }
         }
 
@@ -46,14 +46,14 @@ if ($_POST["authorize"] == "gradeplus") {
         $result = mysqli_query($conn, $createDbSql);
         mysqli_select_db($conn, 'gradeplus');
         if (!$result){
-            error_log("Create database query failed: " . mysqli_error());
+            error_log("Create database query failed: " . mysqli_error($conn));
         }
 
         // Drop table if it exists
         $resetTableSql = "DROP TABLE IF EXISTS login;";
         $result = mysqli_query($conn, $resetTableSql);
         if (!$result){
-            error_log("Drop table query failed: " . mysqli_error());
+            error_log("Drop table query failed: " . mysqli_error($conn));
         }
 
         // Create table
@@ -67,7 +67,7 @@ if ($_POST["authorize"] == "gradeplus") {
         );";
         $result = mysqli_query($conn, $createTableSql);
         if (!$result){
-            error_log("Create table query failed: " . mysqli_error());
+            error_log("Create table query failed: " . mysqli_error($conn));
         }
 
         // Insert dummy data
@@ -78,7 +78,7 @@ if ($_POST["authorize"] == "gradeplus") {
         ";
         $result = mysqli_query($conn, $insertDataSql);
         if (!$result){
-            error_log("Insert dummy data query failed: " . mysqli_error());
+            error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }
 
         $success = 1;
@@ -94,6 +94,5 @@ if ($_POST["authorize"] == "gradeplus") {
     echo json_encode(["success" => $success,"error" => $error,"illegal" => 0]);
 } else {
     // User is not authorized
-    header('Content-Type: application/json');
-    echo json_encode(["success" => 0,"error" => 0,"illegal" => 1]);
+    header("Location: illegal.php");
 }
