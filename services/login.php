@@ -10,7 +10,6 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
     if ($_SESSION['logtime'] > time()) {
         header('Location: account.php');
     } else {
-        echo "Moaaz";
         unset($_SESSION['username']);
         unset($_SESSION['logtime']);
         unset($_SESSION['dname']);
