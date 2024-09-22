@@ -8,7 +8,11 @@ $empty = 0;
 if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
 
     if ($_SESSION['logtime'] > time()) {
-        header('Location: account.php');
+        if ($_SESSION['username'] == 'admin'|| $_SESSION['email'] == "admin@gradeplus.com") {
+            header('Location: admin.php');
+        } else {
+            header('Location: account.php');
+        }
     } else {
         unset($_SESSION['username']);
         unset($_SESSION['logtime']);
@@ -40,6 +44,7 @@ if (isset($_POST['username'])) {
                 $_SESSION['logtime'] = time() + (60 * 6);
                 $_SESSION['username'] = $username;
                 $_SESSION['dname'] = $dname;
+                $_SESSION['email'] = $email;
                 $loggedin = 1;
                 $sqlUpdate = $conn->prepare("UPDATE login SET loggedin = ? WHERE username = ?");
                 $sqlUpdate->bind_param("is", $loggedin, $username);
