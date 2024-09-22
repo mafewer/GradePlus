@@ -45,7 +45,11 @@ if ((empty($username) || empty($email)) && empty($password)) {
             $loggedin = 1;
             $sqlUpdate = $conn->prepare("UPDATE login SET loggedin = ? WHERE username = ?");
             $sqlUpdate->bind_param("is", $loggedin, $username);
-            header('Location: account.php');
+            if ($username == "admin" || $email == "admin@gradeplus.com") {
+                header('Location: admin.php');
+            } else {
+                header('Location: account.php');
+            }
             $success = 1;
         } else {
             $incorrect = 1;
