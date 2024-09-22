@@ -53,8 +53,6 @@ if (isset($_POST['username'])) {
                 } else {
                     $incorrect = 1;
                 }
-            } else {
-                $error = 1;
             }
             
             $sqlCommand->close();
