@@ -132,4 +132,10 @@ if (isset($_POST['username'])) {
             $("p.status-text").slideUp();
         }, 3000);
     };
+
+    $(document).keypress(function(e) {
+        if (e.which == 13 && $("#password").is(":focus")) {
+            $(".login-btn").click();
+        }
+    });
 </script>
