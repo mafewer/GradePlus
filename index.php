@@ -1,6 +1,12 @@
+<?php session_start(); ?>
 <html>
-<link rel="stylesheet" type="text/css" href="css/styles.css">
 <?php include("header.php"); ?>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>GradePlus</title>
+    <link rel="icon" href="img/logoGreen.png">
+</head>
 
 <body class="white-text">
     <div class="container">

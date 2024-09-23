@@ -1,10 +1,15 @@
-div.c1 {
+div.icon-holder {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     margin: 1.2rem 0;
 
+    h4,
     h5 {
         margin: 0;
     }
+}
+
+.input-field {
+    padding: 0;
 }
