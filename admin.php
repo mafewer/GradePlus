@@ -1,4 +1,14 @@
-<?php session_start(); ?>
+<?php 
+session_start();
+if (!isset($_SESSION['logtime']) || $_SESSION['logtime'] < time()) {
+    unset($_SESSION['username']);
+    unset($_SESSION['logtime']);
+    unset($_SESSION['dname']);
+}
+if (!isset($_SESSION['username']) || $_SESSION['username'] != 'admin') {
+    header('Location: login.php');
+}
+?>
 <html>
 <?php include("header.php"); ?>
 
