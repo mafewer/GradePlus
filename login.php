@@ -34,13 +34,13 @@ if (isset($_POST['username'])) {
             $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
 
-            $sqlCommand = $conn->prepare("SELECT username, dname FROM login WHERE (username = ? OR email = ?) AND password = ?");
+            $sqlCommand = $conn->prepare("SELECT username, dname, email FROM login WHERE (username = ? OR email = ?) AND password = ?");
             $sqlCommand->bind_param("sss", $username, $email, $password);
 
             if ($sqlCommand->execute()) {
                 $sqlCommand->store_result();
                 if ($sqlCommand->num_rows > 0) {
-                    $sqlCommand->bind_result($username, $dname);
+                    $sqlCommand->bind_result($username, $dname, $email);
                     $sqlCommand->fetch();
 
                     $_SESSION['logtime'] = time() + (60 * 6);
