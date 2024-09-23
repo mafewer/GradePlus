@@ -5,6 +5,7 @@ $incorrect = 0;
 $error = 0;
 $empty = 0;
 
+//Redirect to account page if already logged in
 if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
 
     if ($_SESSION['logtime'] > time()) {
@@ -19,6 +20,8 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
         unset($_SESSION['dname']);
     }
 }
+
+//Empty check
 if (isset($_POST['username'])) {
     $username = htmlspecialchars($_POST['username'] ?? '');
     $email = htmlspecialchars($_POST['email'] ?? '');
@@ -26,6 +29,7 @@ if (isset($_POST['username'])) {
     if ((empty($username) || empty($email)) && empty($password)) {
         $empty = 1;
     } else {
+        //SQL Connection
         try {
             $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
@@ -46,6 +50,7 @@ if (isset($_POST['username'])) {
                     $loggedin = 1;
                     $sqlUpdate = $conn->prepare("UPDATE login SET loggedin = ? WHERE username = ?");
                     $sqlUpdate->bind_param("is", $loggedin, $username);
+                    $sqlUpdate->execute();
                     if ($username == "admin" || $email == "admin@gradeplus.com") {
                         header('Location: admin.php');
                     } else {
@@ -60,6 +65,7 @@ if (isset($_POST['username'])) {
             $sqlCommand->close();
             $conn->close();
 
+            //Error handling
         } catch (exception $e) {
             $error = 1;
         }
