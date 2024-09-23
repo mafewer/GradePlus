@@ -33,6 +33,6 @@ if($_POST["authorize"] == "gradeplus") {
         ]);
     }
 } else {
-    header("Loaction: illegal.php");
+    header("Location: illegal.php");
 }
 ?>
