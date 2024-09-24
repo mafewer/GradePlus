@@ -1,15 +1,13 @@
-div.container
-{
+div.c1 {
     display: block;
     text-align: center;
+    gap: 0.5rem;
+    margin: 1.2rem 0;
+
+    h1 {
+        margin: 0;
+    }
 }
 
-.button{
-    background-color: rgb(3, 151, 3);
-    border: none;
-    padding: 0.5rem 2rem;
-    color: white;
-    font-size: 2rem;
-    margin-top: 5rem;
-    border-radius: 1rem;
-}
+
+

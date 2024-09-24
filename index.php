@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <html>
-<?php include("header.php"); ?>
+
 
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -9,19 +9,27 @@
 </head>
 
 <body class="white-text">
+<?php include("header.php"); ?>
+<main>
     <div class="container">
-        <h1>
-            Welcome to GradePlus!
-        </h1>
-        <div class="flow-text">
-            View your grades and peer reviews at one glance!
+        <div class="c1">
+            <h1>
+                Welcome to GradePlus!
+            </h1>
+            <div class="flow-text">
+                View your grades and peer reviews at one glance!
+            </div>
+            <br>
+            <div class="divider"></div>
+            <a href="login.php" class="waves-effect waves-light btn-large" style="margin: 10rem; text-align: center;">
+                Get Started <i class="material-icons right">arrow_forward</i>
+            </a>
         </div>
-        <br>
-        <div class="divider"></div>
-        
-        <button class="button">Get Started <i class="material-icons prefix">arrow_forward</i></button>
     </div>
+</main>
+<?php include("footer.php"); ?>
 </body>
+
 <script src="js/theme.js"></script>
 
 </html>

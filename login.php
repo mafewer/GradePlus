@@ -72,7 +72,7 @@ if (isset($_POST['username'])) {
     }
 }
 ?>
-<?php include("header.php"); ?>
+
 
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles-login.css">
@@ -81,6 +81,8 @@ if (isset($_POST['username'])) {
 </head>
 
 <body class="white-text">
+<?php include("header.php"); ?>
+<main>
     <div class="login-holder">
         <div class="login-box bwcolor">
             <h5>
@@ -123,6 +125,8 @@ if (isset($_POST['username'])) {
                 </div>
             </button>
         </div>
+                    </main>
+<?php include("footer.php"); ?>
 </body>
 
 </html>
