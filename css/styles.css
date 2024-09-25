@@ -1,11 +1,69 @@
-div.c1 {
+div.holder {
+    text-align: center;
+}
+
+img.indexback {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    z-index: -1;
+}
+
+h1.welcome {
+    margin: 10rem;
+    margin-bottom: 3rem;
+}
+
+span.welcome {
+    font-weight: 600;
+    font-size: 6rem;
+    background: linear-gradient(270deg, #ff6ec4, #7873f5, #1fd1f9, #ff6ec4);
+    background-size: 800% 800%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientAnimation 5s ease infinite;
+}
+
+div.subhead {
+    font-weight: 300;
+}
+
+a.getstarted {
+    margin: 10rem;
+    border-radius: 2rem;
+}
+
+
+a.getstarted:hover {
+    scale: 1.1;
+    transition: scale 0.2s;
+
+    i.getarrow {
+        rotate: 360deg;
+        transition: rotate 0.2s;
+    }
+}
+
+div.icon-holder {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin: 1.2rem 0;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+}
 
-    h5 {
-        margin: 0;
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
     }
 }
 

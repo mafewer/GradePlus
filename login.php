@@ -15,9 +15,7 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
             header('Location: account.php');
         }
     } else {
-        unset($_SESSION['username']);
-        unset($_SESSION['logtime']);
-        unset($_SESSION['dname']);
+        session_unset();
     }
 }
 
@@ -34,13 +32,13 @@ if (isset($_POST['username'])) {
             $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
 
-            $sqlCommand = $conn->prepare("SELECT username, dname FROM login WHERE (username = ? OR email = ?) AND password = ?");
+            $sqlCommand = $conn->prepare("SELECT username, dname, email FROM login WHERE (username = ? OR email = ?) AND password = ?");
             $sqlCommand->bind_param("sss", $username, $email, $password);
 
             if ($sqlCommand->execute()) {
                 $sqlCommand->store_result();
                 if ($sqlCommand->num_rows > 0) {
-                    $sqlCommand->bind_result($username, $dname);
+                    $sqlCommand->bind_result($username, $dname, $email);
                     $sqlCommand->fetch();
 
                     $_SESSION['logtime'] = time() + (60 * 6);
@@ -81,6 +79,7 @@ if (isset($_POST['username'])) {
 </head>
 
 <body class="white-text">
+    <img src="img/loginback.png" class="loginback">
     <div class="login-holder">
         <div class="login-box bwcolor">
             <h5>
@@ -92,11 +91,11 @@ if (isset($_POST['username'])) {
                         if ($success == 1) {
                             echo "";
                         } elseif ($incorrect == 1) {
-                            echo "Incorrect username or password!";
+                            echo "Incorrect username or password";
                         } elseif ($error == 1) {
                             echo "500 - Server Error";
                         } elseif ($empty == 1) {
-                            echo "Please fill in all fields!";
+                            echo "Fields cannot be left blank";
                         }
 ?>
                 </p>

@@ -9,6 +9,7 @@
 </head>
 
 <body class="white-text">
+    <img src="img/admin.svg" class="adminback">
     <div class="container">
         <h2>
             Administrator Dashboard
