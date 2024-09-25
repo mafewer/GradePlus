@@ -1,20 +1,16 @@
-<?php include("loader.php"); ?>
+<?php session_start(); ?>
+<html>
 
+<head>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>GradePlus - Home</title>
+    <link rel="icon" href="img/logoGreen.png">
+</head>
 
-<div class = mainapp>
-    <?php session_start(); ?>
-    <html>
-
-
-    <?php include("header.php"); ?>
-
-    <head>
-        <link rel="stylesheet" type="text/css" href="css/styles.css">
-        <title>GradePlus - Home</title>
-        <link rel="icon" href="img/logoGreen.png">
-    </head>
-
-    <body class="white-text">
+<body class="white-text">
+    <?php include("loader.php"); ?>
+    <div class="mainapp">
+        <?php include("header.php"); ?>
         <img src="img/indexback.png" class="indexback">
         <div class="container">
             <div class="holder col s12">
@@ -30,28 +26,27 @@
             </div>
         </div>
         <?php include("footer.php"); ?>
-    </body>
-    <script src="js/theme.js"></script>
-    <script>
-        const lang = ["Welcome", "Bienvenido", "Bienvenue", "Willkommen", "स्वागत है", "ようこそ", "환영합니다", "خوش آمدید"];
-        var index = 1;
-        setInterval(() => {
-            $("span.welcome").fadeOut(500, function() {
-                $("span.welcome").text(lang[index]).fadeIn(500);
-            });
-            index++;
-            if (index == lang.length) {
-                index = 0;
-            }
-        }, 5000);
-    </script>
-    <script>
-        $(window).on("load", () => {
-            $("div.loader").fadeOut(200); // Hide the loader
-            setTimeout(() => {
-                $("div.mainapp").fadeIn(200); // Show the main app after a short delay
-            }, 200);
+    </div>
+</body>
+<script src="js/theme.js"></script>
+<script>
+    const lang = ["Welcome", "Bienvenido", "Bienvenue", "Willkommen", "स्वागत है", "ようこそ", "환영합니다", "خوش آمدید"];
+    var index = 1;
+    setInterval(() => {
+        $("span.welcome").fadeOut(500, function() {
+            $("span.welcome").text(lang[index]).fadeIn(500);
         });
-    </script>
-    </html>
-</div>
+        index++;
+        if (index == lang.length) {
+            index = 0;
+        }
+    }, 5000);
+    $(window).on("load", () => {
+        $("div.loader").fadeOut(200); // Hide the loader
+        setTimeout(() => {
+            $("div.mainapp").fadeIn(200); // Show the main app after a short delay
+        }, 200);
+    });
+</script>
+
+</html>
