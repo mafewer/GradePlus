@@ -79,6 +79,7 @@ if (isset($_POST['username'])) {
 </head>
 
 <body class="white-text">
+    <img src="img/loginback.png" class="loginback">
     <div class="login-holder">
         <div class="login-box bwcolor">
             <h5>
@@ -90,11 +91,11 @@ if (isset($_POST['username'])) {
                         if ($success == 1) {
                             echo "";
                         } elseif ($incorrect == 1) {
-                            echo "Incorrect username or password!";
+                            echo "Incorrect username or password";
                         } elseif ($error == 1) {
                             echo "500 - Server Error";
                         } elseif ($empty == 1) {
-                            echo "Please fill in all fields!";
+                            echo "Fields cannot be left blank";
                         }
 ?>
                 </p>

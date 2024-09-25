@@ -24,9 +24,10 @@
   <nav>
     <div class="nav-wrapper">
       <a href="index.php" style="margin-left: 1.75rem;" class="brand-logo"><img
-          style="width: 2rem; position: relative; right: 0.7rem; top: 0.25rem;" src="img/logoGreen.png">GradePlus</a>
+          style="width: 2.4rem; position: relative; right: 0.7rem; top: 0.4rem;" src="img/logoGreen.png">GradePlus</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right: 0.5rem;">
         <li><a class="theme"><i class="material-icons left theme"></i><span class="theme"></span></a></li>
+        <li><a href="index.php"><i class="material-icons left">home</i>Home</a></li>
         <?php if(isset($_SESSION['dname'])): ?>
         <li><a class="dropdown-trigger" data-target="dropdown1"><i
               class="material-icons left">person</i><?php echo $_SESSION['dname']?><i
