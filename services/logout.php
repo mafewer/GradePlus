@@ -24,10 +24,7 @@ if ($_POST['authorize'] == 'gradeplus') {
         $sqlUpdate->execute();
 
         // Unset session variables
-        unset($_SESSION['username']);
-        unset($_SESSION['logtime']);
-        unset($_SESSION['dname']);
-        unset($_SESSION['email']);
+        session_unset();
 
         $success = 1; // Indicate success
     } catch (Exception $e) {

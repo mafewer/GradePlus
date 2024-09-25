@@ -15,9 +15,7 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
             header('Location: account.php');
         }
     } else {
-        unset($_SESSION['username']);
-        unset($_SESSION['logtime']);
-        unset($_SESSION['dname']);
+        session_unset();
     }
 }
 

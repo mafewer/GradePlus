@@ -16,7 +16,10 @@
 <div class="navbar-fixed">
   <ul id="dropdown1" class="dropdown-content bwcolornotext">
     <li><a class="logout"><i class="material-icons left">logout</i>Logout</a></li>
-    <li><a class="accountservice"><i class="material-icons left">account_circle</i>Account Settings</a></li>
+    <li><a class="accountdashboard"><i class="material-icons left">account_circle</i>Dashboard</a></li>
+    <?php if($_SESSION['username'] != 'admin'): ?>
+    <li><a class="accountservice"><i class="material-icons left">settings</i>Account Settings</a></li>
+    <?php endif;?>
   </ul>
   <nav>
     <div class="nav-wrapper">
@@ -77,5 +80,8 @@
         }
       }
     });
+  });
+  $("a.accountdashboard").click(() => {
+    window.location.href = "login.php";
   });
 </script>
