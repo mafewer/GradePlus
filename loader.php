@@ -26,13 +26,12 @@
         }
     </style>
     <title>Loader</title>
-    <link rel="icon" href="img/logoGreen_noBackground.png">
 </head>
 
 <body>
     <div class="loader">
         <div class="imagecontainer">
-            <img style="width: 15rem" src="img/logoBlack.png">
+            <img style="width: 15rem" src="img/logoGreen_noBackground.png">
         </div>
     </div>
 </body>
