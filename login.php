@@ -70,7 +70,6 @@ if (isset($_POST['username'])) {
     }
 }
 ?>
-<?php include("header.php"); ?>
 
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles-login.css">
@@ -79,15 +78,18 @@ if (isset($_POST['username'])) {
 </head>
 
 <body class="white-text">
-    <img src="img/loginback.png" class="loginback">
-    <div class="login-holder">
-        <div class="login-box bwcolor">
-            <h5>
-                Login
-            </h5>
-            <div class="flow-text">
-                <p class="status-text">
-                    <?php
+    <?php include("loader.php"); ?>
+    <div class="mainapp">
+        <?php include("header.php"); ?>
+        <img src="img/loginback.png" class="loginback">
+        <div class="login-holder">
+            <div class="login-box bwcolor">
+                <h5>
+                    Login
+                </h5>
+                <div class="flow-text">
+                    <p class="status-text">
+                        <?php
                         if ($success == 1) {
                             echo "";
                         } elseif ($incorrect == 1) {
@@ -98,29 +100,30 @@ if (isset($_POST['username'])) {
                             echo "Fields cannot be left blank";
                         }
 ?>
+                    </p>
+                </div>
+                <form action="" method="POST">
+                    <div class="input-field" style="padding: 0;">
+                        <i class="material-icons prefix">person</i>
+                        <input id="username" name="username" type="text" class="white-text">
+                        <label for="username">Username or Email</label>
+                    </div>
+                    <br>
+                    <div class="input-field" style="padding: 0;">
+                        <i class="material-icons prefix">key</i>
+                        <input id="password" name="password" type="password" class="white-text">
+                        <label for="password">Password</label>
+                    </div>
+                </form>
+                <p>
+                    New to GradePlus? <a>Register</a>
                 </p>
+                <button class="waves-effect waves-light btn login-btn">
+                    <div class="icon-holder">
+                        <i class="material-icons prefix">login</i>LOGIN
+                    </div>
+                </button>
             </div>
-            <form action="" method="POST">
-                <div class="input-field" style="padding: 0;">
-                    <i class="material-icons prefix">person</i>
-                    <input id="username" name="username" type="text" class="white-text">
-                    <label for="username">Username or Email</label>
-                </div>
-                <br>
-                <div class="input-field" style="padding: 0;">
-                    <i class="material-icons prefix">key</i>
-                    <input id="password" name="password" type="password" class="white-text">
-                    <label for="password">Password</label>
-                </div>
-            </form>
-            <p>
-                New to GradePlus? <a>Register</a>
-            </p>
-            <button class="waves-effect waves-light btn login-btn">
-                <div class="icon-holder">
-                    <i class="material-icons prefix">login</i>LOGIN
-                </div>
-            </button>
         </div>
 </body>
 
@@ -142,5 +145,12 @@ if (isset($_POST['username'])) {
         if (e.which == 13 && $("#password").is(":focus")) {
             $(".login-btn").click();
         }
+    });
+
+    $(window).on("load", () => {
+        $("div.loader").fadeOut(200); // Hide the loader
+        setTimeout(() => {
+            $("div.mainapp").fadeIn(200); // Show the main app after a short delay
+        }, 200);
     });
 </script>

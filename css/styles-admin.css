@@ -1,3 +1,7 @@
+div.mainapp {
+    display: none;
+}
+
 div.icon-holder {
     display: flex;
     align-items: center;
