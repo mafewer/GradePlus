@@ -2,7 +2,6 @@
 
 // Start the session
 session_start();
-$_POST['authorize'] = 'gradeplus';
 // Check if the authorization token is correct
 if ($_POST['authorize'] == 'gradeplus') {
     try {
@@ -25,13 +24,8 @@ if ($_POST['authorize'] == 'gradeplus') {
         $sqlUpdate->execute();
 
         // Unset session variables
-        unset($_SESSION['username']);
-        unset($_SESSION['logtime']);
-        unset($_SESSION['dname']);
-        unset($_SESSION['email']);
+        session_unset();
 
-        // Redirect to the login page
-        header('Location: ../login.php');
         $success = 1; // Indicate success
     } catch (Exception $e) {
         $success = 0; // Indicate failure
@@ -39,6 +33,9 @@ if ($_POST['authorize'] == 'gradeplus') {
 
     // Close the database connection
     mysqli_close($conn);
+
+    header('Content-Type: application/json');
+    echo json_encode(["success" => $success]);
 } else {
     // User is not authorized, redirect to the illegal access page
     header("Location: illegal.php");

@@ -6,7 +6,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <title>GradePlus</title>
+    <title>GradePlus - Home</title>
     <link rel="icon" href="img/logoGreen.png">
 </head>
 
