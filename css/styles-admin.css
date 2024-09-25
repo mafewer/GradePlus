@@ -10,6 +10,20 @@ div.icon-holder {
     }
 }
 
+img.adminback {
+    width: 25rem;
+    height: 25rem;
+    object-fit: cover;
+    position: fixed;
+    z-index: -1;
+    right: 10rem;
+    bottom: 5rem;
+}
+
+a.reset-demo {
+    margin-top: 1rem;
+}
+
 .input-field {
     padding: 0;
 }

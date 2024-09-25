@@ -11,26 +11,35 @@
 </head>
 
 <body class="white-text">
-    <main>
-        <div class="container">
-            <div class="holder col s12">
-                <h1 class="welcome">
-                    Welcome to GradePlus!
-                </h1>
-                <div class="flow-text">
-                    View your grades and peer reviews at one glance!
-                </div>
-                <br>
-                <a href="login.php" class="waves-effect waves-light btn-large"
-                    style="margin: 10rem; text-align: center;">
-                    Get Started <i class="material-icons right">arrow_forward</i>
-                </a>
+    <img src="img/indexback.png" class="indexback">
+    <div class="container">
+        <div class="holder col s12">
+            <h1 class="welcome">
+                <span class="welcome">Welcome</span>
+            </h1>
+            <div class="flow-text subhead">
+                View your grades and peer reviews at one glance!
             </div>
+            <a href="login.php" class="waves-effect waves-light btn-large getstarted">
+                <div class="icon-holder">Get Started <i class="material-icons getarrow">arrow_forward</i></div>
+            </a>
         </div>
-    </main>
+    </div>
     <?php include("footer.php"); ?>
 </body>
-
 <script src="js/theme.js"></script>
+<script>
+    const lang = ["Welcome", "Bienvenido", "Bienvenue", "Willkommen", "स्वागत है", "ようこそ", "환영합니다", "خوش آمدید"];
+    var index = 1;
+    setInterval(() => {
+        $("span.welcome").fadeOut(500, function() {
+            $("span.welcome").text(lang[index]).fadeIn(500);
+        });
+        index++;
+        if (index == lang.length) {
+            index = 0;
+        }
+    }, 5000);
+</script>
 
 </html>
