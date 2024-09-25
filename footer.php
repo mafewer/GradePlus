@@ -1,23 +1,37 @@
 <?php
 $year = date("Y");
 ?>
-
 <html>
-<script src="js/copyright.js"></script>
-<footer class="page-footer" style="text-align: center;">
-<div class = "container">
-<p><i class="material-icons">copyright</i> Copyright <?php echo $year ?> GradePlus</p> 
-</div>   
-</footer>
+<div class="page-footer">
+    <div class="icon-holder">
+        <i class="material-icons">copyright</i> Copyright
+        <?php echo $year ?> GradePlus
+    </div>
+</div>
 <style>
-body {
-    display: flex;
-    min-height: 54rem;
-    flex-direction: column;
+    div.page-footer {
+        background-color: #2e7d32;
+        color: white;
+        padding: 0.5rem 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        transition: background-color 0.5s, color 0.5s;
     }
 
-main {
-    flex: 1 0 auto;
+    div.icon-holder {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin: 0;
+        padding: 0;
+
+        i {
+            font-size: 1.3rem;
+        }
     }
 </style>
+
 </html>

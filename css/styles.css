@@ -1,13 +1,7 @@
-div.c1 {
-    display: block;
+div.holder {
     text-align: center;
-    gap: 0.5rem;
-    margin: 1.2rem 0;
-
-    h1 {
-        margin: 0;
-    }
 }
 
-
-
+h1.welcome {
+    margin: 5rem;
+}
