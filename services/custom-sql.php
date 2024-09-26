@@ -1,6 +1,7 @@
 <?php
+
 // Service to send custom SQL commands from the admin page
-if($_POST["authorize"] == "gradeplus") {
+if ($_POST["authorize"] == "gradeplus") {
     if (isset($_POST['command'])) {
         try {
             $conn = new mysqli("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
@@ -22,12 +23,12 @@ if($_POST["authorize"] == "gradeplus") {
 
         $conn->close();
 
-        header('Content-Type: application/json'); 
+        header('Content-Type: application/json');
         echo json_encode([
             "success" => $success
         ]);
     } else {
-        header('Content-Type: application/json'); 
+        header('Content-Type: application/json');
         echo json_encode([
             "success" => 0
         ]);
@@ -35,4 +36,3 @@ if($_POST["authorize"] == "gradeplus") {
 } else {
     header("Location: illegal.php");
 }
-?>
