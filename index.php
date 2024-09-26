@@ -29,7 +29,7 @@
 </body>
 <script src="js/theme.js"></script>
 <script>
-    const lang = ["Welcome", "Bienvenido", "Bienvenue", "Willkommen", "स्वागत है", "ようこそ", "환영합니다", "خوش آمدید"];
+    const lang = ["Welcome", "Bienvenido", "Bienvenue", "Willkommen", "स्वागत है", "ようこそ", "환영합니다", "مرحبًا"];
     var index = 1;
     setInterval(() => {
         $("span.welcome").fadeOut(500, function() {
