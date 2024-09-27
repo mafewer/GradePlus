@@ -2,13 +2,13 @@
 
 session_start();
 // Service to update account email
-if ($_GET["authorize"] == "gradeplus") {
+if ($_POST["authorize"] == "gradeplus") {
     if (!isset($_SESSION['username']) || $_SESSION['username'] == 'admin') {
         header('Location: ../login.php');
     }
-    if (isset($_GET['newemail'])) {
+    if (isset($_POST['newemail'])) {
         try {
-            $newEmail = $_GET['newemail'];
+            $newEmail = $_POST['newemail'];
             $currentName = $_SESSION['username'];
             $conn = mysqli_connect("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
             if (!$conn) {
