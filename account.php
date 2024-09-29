@@ -11,7 +11,9 @@
     <?php include("loader.php"); ?>
     <div class="mainapp">
         <?php include("header.php"); ?>
-        <div class="container">
+        <img src="img/loginback.png" class="indexback">
+        <img src="img/loginbackdark.png" class="indexback2">
+        <div class="container bwcolortext">
             <h2>
                 Welcome
                 <?php echo $_SESSION['dname']; ?>!
@@ -21,6 +23,7 @@
             </div>
         </div>
     </div>
+    <?php include("footer.php"); ?>
 </body>
 <script>
     $(window).on("load", () => {

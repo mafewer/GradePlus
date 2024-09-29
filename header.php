@@ -37,6 +37,7 @@
 <style>
   body {
     transition: background-color 0.5s, color 0.5s;
+    background-color: black;
   }
 
   ::-webkit-scrollbar {

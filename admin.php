@@ -15,12 +15,14 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] != 'admin') {
     <link rel="icon" href="img/logoGreen.png">
 </head>
 
-<body class="white-text">
+<body>
     <?php include("loader.php"); ?>
     <div class="mainapp">
         <?php include("header.php"); ?>
+        <img src="img/adminback.png" class="indexback">
+        <img src="img/adminbackdark.png" class="indexback2">
         <img src="img/admin.svg" class="adminback">
-        <div class="container">
+        <div class="container bwcolortext">
             <h2>
                 Administrator Dashboard
             </h2>
@@ -48,7 +50,7 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] != 'admin') {
                 </p>
                 <div class="row" style="margin: 0;">
                     <div class="input-field col s6" style="padding: 0;">
-                        <textarea id="textarea1" class="materialize-textarea white-text"></textarea>
+                        <textarea id="textarea1" class="materialize-textarea bwcolortext"></textarea>
                         <label style="left: 0;" for="textarea1">Command</label>
                     </div>
                 </div>

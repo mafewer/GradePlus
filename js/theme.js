@@ -38,21 +38,25 @@ function checkTheme() {
     if (localStorage.getItem("isDark") == "true") {
         $("i.theme").text("light_mode");
         $("span.theme").text("Light");
+        $("img.indexback").fadeOut(250);
+        $("img.indexback2").fadeIn(250);
         $(".nav-wrapper").removeClass("green darken-1").addClass("grey darken-4");
         $(".btn-large").removeClass("green darken-1").addClass("grey darken-4");
-        $(".page-footer").removeClass("green darken-1").addClass("grey darken-4");
-        $("body").removeClass("green darken-4").addClass("black accent-4");
+        $(".page-footer-holder").removeClass("green darken-1").addClass("grey darken-4");
         $(".bwcolor").removeClass("white black-text").addClass("grey darken-4 white-text");
+        $(".bwcolortext").removeClass("black-text").addClass("white-text");
         $(".bwcolornotext").removeClass("white").addClass("grey darken-4");
         $("body").css({"--font-color": "black", "--warn-color": "yellow"});
     } else {
         $("i.theme").text("dark_mode");
         $("span.theme").text("Dark");
+        $("img.indexback2").fadeOut(250);
+        $("img.indexback").fadeIn(250);
         $(".nav-wrapper").removeClass("grey darken-4").addClass("green darken-1");
         $(".btn-large").removeClass("grey darken-4").addClass("green darken-1");
-        $(".page-footer").removeClass("grey darken-4").addClass("green darken-1");
-        $("body").removeClass("black accent-4").addClass("green darken-4");
+        $(".page-footer-holder").removeClass("grey darken-4").addClass("green darken-1");
         $(".bwcolor").removeClass("grey darken-4 white-text").addClass("white black-text");
+        $(".bwcolortext").removeClass("white-text").addClass("black-text");
         $(".bwcolornotext").removeClass("grey darken-4").addClass("white");
         $("body").css({"--font-color": "black", "--warn-color": "red"});
     }

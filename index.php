@@ -12,6 +12,7 @@
     <div class="mainapp">
         <?php include("header.php"); ?>
         <img src="img/indexback.png" class="indexback">
+        <img src="img/indexbackdark.png" class="indexback2">
         <div class="container">
             <div class="holder col s12">
                 <h1 class="welcome">

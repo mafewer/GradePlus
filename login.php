@@ -81,7 +81,8 @@ if (isset($_POST['username'])) {
     <?php include("loader.php"); ?>
     <div class="mainapp">
         <?php include("header.php"); ?>
-        <img src="img/loginback.png" class="loginback">
+        <img src="img/loginback.png" class="indexback">
+        <img src="img/loginbackdark.png" class="indexback2">
         <div class="login-holder">
             <div class="login-box bwcolor">
                 <h5>
@@ -103,20 +104,20 @@ if (isset($_POST['username'])) {
                     </p>
                 </div>
                 <form action="" method="POST">
-                    <div class="input-field" style="padding: 0;">
+                    <div class="input-field">
                         <i class="material-icons prefix">person</i>
                         <input id="username" name="username" type="text" class="white-text">
                         <label for="username">Username or Email</label>
                     </div>
                     <br>
-                    <div class="input-field" style="padding: 0;">
+                    <div class="input-field">
                         <i class="material-icons prefix">key</i>
                         <input id="password" name="password" type="password" class="white-text">
                         <label for="password">Password</label>
                     </div>
                 </form>
                 <p>
-                    New to GradePlus? <a>Register</a>
+                    New to GradePlus? <a class="switch">Register</a>
                 </p>
                 <button class="waves-effect waves-light btn login-btn">
                     <div class="icon-holder">
@@ -124,7 +125,55 @@ if (isset($_POST['username'])) {
                     </div>
                 </button>
             </div>
+            <div class="login-box-2 bwcolor">
+                <h5>
+                    Create your account
+                </h5>
+                <div class="flow-text">
+                    <p class="status-text-2">
+                        <?php
+                        if ($success == 1) {
+                            echo "";
+                        } elseif ($incorrect == 1) {
+                            echo "Incorrect username or password";
+                        } elseif ($error == 1) {
+                            echo "500 - Server Error";
+                        } elseif ($empty == 1) {
+                            echo "Fields cannot be left blank";
+                        }
+?>
+                    </p>
+                </div>
+                <form action="" method="POST">
+                    <div class="input-field">
+                        <i class="material-icons prefix">person</i>
+                        <input id="username2" name="username2" type="text" class="white-text">
+                        <label for="username2">Username</label>
+                    </div>
+                    <br>
+                    <div class="input-field">
+                        <i class="material-symbols-outlined prefix">mail</i>
+                        <input id="email2" name="email2" type="email" class="white-text">
+                        <label for="email2">Email</label>
+                    </div>
+                    <br>
+                    <div class="input-field">
+                        <i class="material-icons prefix">key</i>
+                        <input id="password2" name="password2" type="password" class="white-text">
+                        <label for="password2">Password</label>
+                    </div>
+                </form>
+                <p>
+                    Already a member? <a class="switch">Login</a>
+                </p>
+                <button class="waves-effect waves-light btn create-btn">
+                    <div class="icon-holder">
+                        <i class="material-icons prefix">add_circle</i>CREATE
+                    </div>
+                </button>
+            </div>
         </div>
+        <?php include("footer.php"); ?>
 </body>
 
 </html>
@@ -140,6 +189,55 @@ if (isset($_POST['username'])) {
             $("p.status-text").slideUp();
         }, 3000);
     };
+
+    $(".create-btn").click(function() {
+        $(ajax({
+            url: "services/register.php",
+            type: "POST",
+            data: {
+                username: $("input[name='username2']").val(),
+                email: $("input[name='email2']").val(),
+                password: $("input[name='password2']").val()
+            },
+            success: (response) => {
+                if (response["success"] == 1) {
+                    $("a.switch").click();
+                } else if (response["exists"] == 1) {
+                    $("p.status-text-2").text("Username or Email already exists");
+                } else if (response["empty"] == 1) {
+                    $("p.status-text-2").text("Fields cannot be left blank");
+                } else {
+                    $("p.status-text-2").text("500 - Server Error");
+                }
+                $("p.status-text-2").slideDown();
+                setTimeout(() => {
+                    $("p.status-text-2").slideUp();
+                }, 3000);
+            }
+        }));
+    });
+
+    isLogin = true;
+    $("a.switch").click(function() {
+        isLogin = !isLogin;
+        if (!isLogin) {
+            $("div.login-box-2").css({
+                transform: "rotateY(0deg)"
+            });
+            $("div.login-box").css({
+                transform: "rotateY(-90deg)"
+            });
+        } else {
+            $("div.login-box-2").css({
+                transform: "rotateY(90deg)"
+            });
+            setTimeout(() => {
+                $("div.login-box").css({
+                    transform: "rotateY(0deg)"
+                });
+            }, 500);
+        }
+    });
 
     $(document).keypress(function(e) {
         if (e.which == 13 && $("#password").is(":focus")) {
