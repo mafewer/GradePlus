@@ -83,6 +83,27 @@ if ($_POST["authorize"] == "gradeplus") {
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }
 
+        // Drop courses table if it exists
+        $resetTableSql = "DROP TABLE IF EXISTS courses;";
+        $result = mysqli_query($conn, $resetTableSql);
+        if (!$result) {
+            error_log("Drop courses table query failed: " . mysqli_error($conn));
+        }
+
+        // Create courses table
+        $createTableSql = "
+        CREATE TABLE courses (
+            course_code VARCHAR(255) PRIMARY KEY,
+            course_name VARCHAR(255) NOT NULL,
+            course_banner VARCHAR(255),
+            instructor_name VARCHAR(255) NOT NULL
+        );";
+
+        $result = mysqli_query($conn, $createTableSql);
+        if (!$result) {
+            error_log("Failed to create courses table: " . mysqli_error($conn));
+        }
+
         $success = 1;
         $error = 0;
     } catch (Exception $e) {
