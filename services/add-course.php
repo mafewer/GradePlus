@@ -11,9 +11,19 @@ if ($_POST["authorize"] == "gradeplus") {
             throw new Exception();
         }
 
+        // Create path to banner image to store in database
+        $img_dir = "../img/";
+        $banner_img = basename($_FILES['banner']['name']);
+        $upload_dir = $img_dir . $banner_img;
+
+        // Upload image to /img directory
+        if (!move_uploaded_file($_FILES['banner']['tmp_name'], $upload_dir)) {
+            throw new Exception("Failed to upload file to img directory");
+        }
+
         // Generate a unique course invite code by hashing the course name and instructor name
         // and taking the first 10 characters of the resulting SHA-256 hash
-        $course_invite_code = substr(hash('sha256', $_POST['coursename'] . $_POST['instructorname']), 0, 9);
+        $course_invite_code = strtoupper(substr(hash('sha256', $_POST['coursename'] . $_POST['instructorname']), 0, 6));
 
         // Prepare an SQL query to insert the new course into the 'courses' table
         $addCourseSql = $conn->prepare("
@@ -22,7 +32,7 @@ if ($_POST["authorize"] == "gradeplus") {
         ");
 
         // Bind the values to the prepared statement
-        $addCourseSql->bind_param("sssss", $_POST['coursecode'], $_POST['coursename'], $_POST['banner'], $_POST['instructorname'], $course_invite_code);
+        $addCourseSql->bind_param("sssss", $_POST['coursecode'], $_POST['coursename'], $upload_dir, $_POST['instructorname'], $course_invite_code);
 
         // Execute the prepared SQL statement
         $result = $addCourseSql->execute();
