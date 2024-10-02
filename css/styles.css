@@ -4,14 +4,24 @@ div.mainapp {
 
 div.holder {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80dvh;
 }
 
-img.indexback {
+img.indexback,
+img.indexback2 {
     width: 100%;
     height: 100vh;
     object-fit: cover;
     position: fixed;
     z-index: -1;
+}
+
+img.indexback2 {
+    z-index: -2;
 }
 
 h1.welcome {
@@ -22,7 +32,7 @@ h1.welcome {
 span.welcome {
     font-weight: 600;
     font-size: 6rem;
-    background: linear-gradient(270deg, #ff6ec4, #7873f5, #1fd1f9, #ff6ec4);
+    background: linear-gradient(270deg, #00ff00, #ffff00, #adff2f, #00ff00);
     background-size: 800% 800%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -35,7 +45,7 @@ div.subhead {
 
 a.getstarted {
     margin: 10rem;
-    border-radius: 2rem;
+    border-radius: 1rem;
 }
 
 
