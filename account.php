@@ -1,12 +1,36 @@
-<?php session_start();
-//Dummy User Type Retrieve
-$usertype = "instructor";
-$usertype = "student";
-
-
-//Dummy Courses
-$courses = [["ECE 6400","Software Development Practices","Raja Abbas"],["ECE 6500","Computer Architecture","Hamed Nasiri"],["ECE 6600","Communication Principles","Weimin Huang"]]
+<?php
+session_start();
+$success = 0;
+$error = 0;
+if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
+    if ($_SESSION['logtime'] > time()) {
+        if (isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+            $email = $_SESSION['email'];
+            $_SESSION['logtime'] = time() + (60 * 6);
+            try {
+                $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
+                $loggedin = 1;
+                $sqlUpdate = $conn->prepare("UPDATE login SET loggedin = ? WHERE username = ?");
+                $sqlUpdate->bind_param("is", $loggedin, $username);
+                $sqlUpdate->execute();
+                $success = 1;
+                $sqlUpdate->close();
+                $conn->close();
+            } catch (exception $e) {
+                $error = 1;
+            }
+        }
+    } else {
+        header('Location: login.php');
+        session_unset();
+    }
+} else {
+    header('Location: login.php');
+    session_unset();
+}
 ?>
+
 <html>
 
 <head>
