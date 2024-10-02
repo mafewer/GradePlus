@@ -93,11 +93,11 @@ if ($_POST["authorize"] == "gradeplus") {
         // Create courses table
         $createTableSql = "
         CREATE TABLE courses (
-            course_code VARCHAR(255) PRIMARY KEY,
+            course_code VARCHAR(255) NOT NULL,
             course_name VARCHAR(255) NOT NULL,
             course_banner VARCHAR(255),
             instructor_name VARCHAR(255) NOT NULL,
-            invite_code VARCHAR(10) NOT NULL
+            invite_code VARCHAR(10) PRIMARY KEY
         );";
 
         $result = mysqli_query($conn, $createTableSql);
