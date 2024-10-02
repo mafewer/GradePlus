@@ -35,7 +35,7 @@ function checkTheme() {
     if (localStorage.getItem("isDark") == null) {
         localStorage.setItem("isDark", "false");
     }
-    if (localStorage.getItem("isDark") == "true") {
+    if (localStorage.getItem("isDark") == "true") { // Dark Mode
         $("i.theme").text("light_mode");
         $("span.theme").text("Light");
         $("img.indexback").fadeOut(250);
@@ -46,8 +46,9 @@ function checkTheme() {
         $(".bwcolor").removeClass("white black-text").addClass("grey darken-4 white-text");
         $(".bwcolortext").removeClass("black-text").addClass("white-text");
         $(".bwcolornotext").removeClass("white").addClass("grey darken-4");
-        $("body").css({"--font-color": "black", "--warn-color": "yellow"});
-    } else {
+        $("img.addcourseimg").attr("src","img/addcoursedark.png");
+        $("body").css({"--transparent":"rgba(0,0,0,0.75)","--hover-color":"rgb(20,20,20)","--font-color": "white", "--warn-color": "yellow","background-color":"black"});
+    } else { // Light Mode
         $("i.theme").text("dark_mode");
         $("span.theme").text("Dark");
         $("img.indexback2").fadeOut(250);
@@ -58,7 +59,8 @@ function checkTheme() {
         $(".bwcolor").removeClass("grey darken-4 white-text").addClass("white black-text");
         $(".bwcolortext").removeClass("white-text").addClass("black-text");
         $(".bwcolornotext").removeClass("grey darken-4").addClass("white");
-        $("body").css({"--font-color": "black", "--warn-color": "red"});
+        $("img.addcourseimg").attr("src","img/addcourse.png");
+        $("body").css({"--transparent":"rgba(255,255,255,0.75)","--hover-color":"rgb(200,200,200)","--font-color": "black", "--warn-color": "red","background-color":"#225325"});
     }
 }
 

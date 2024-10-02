@@ -6,6 +6,20 @@ div.mainapp {
     transform: color 0.5s;
 }
 
+div.admin-holder {
+    border-radius: 1rem;
+    width: fit-content;
+    position: fixed;
+    left: 2rem;
+    top: 4rem;
+    margin: 2rem auto;
+    margin-bottom: 4rem;
+    padding: 2rem;
+    transition: background-color 0.5s, color 0.5s;
+    user-select: none;
+    background-color: var(--transparent);
+}
+
 img.indexback,
 img.indexback2 {
     width: 100%;
@@ -43,4 +57,10 @@ a.reset-demo {
 
 .input-field {
     padding: 0;
+}
+
+div.modal {
+    transform: translateY(30dvh);
+    z-index: 2;
+    width: 40rem;
 }
