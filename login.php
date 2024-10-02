@@ -81,7 +81,8 @@ if (isset($_POST['username'])) {
     <?php include("loader.php"); ?>
     <div class="mainapp">
         <?php include("header.php"); ?>
-        <img src="img/loginback.png" class="loginback">
+        <img src="img/loginback.png" class="indexback">
+        <img src="img/loginbackdark.png" class="indexback2">
         <div class="login-holder">
             <div class="login-box bwcolor">
                 <h5>
@@ -103,54 +104,78 @@ if (isset($_POST['username'])) {
                     </p>
                 </div>
                 <form action="" method="POST">
-                    <div class="input-field" style="padding: 0;">
+                    <div class="input-field">
                         <i class="material-icons prefix">person</i>
                         <input id="username" name="username" type="text" class="white-text">
                         <label for="username">Username or Email</label>
                     </div>
                     <br>
-                    <div class="input-field" style="padding: 0;">
+                    <div class="input-field">
                         <i class="material-icons prefix">key</i>
                         <input id="password" name="password" type="password" class="white-text">
                         <label for="password">Password</label>
                     </div>
                 </form>
                 <p>
-                    New to GradePlus? <a>Register</a>
+                    New to GradePlus? <a class="switch">Register</a>
                 </p>
-                <button class="waves-effect waves-light btn login-btn">
+                <button class="waves-effect waves-light green btn login-btn">
                     <div class="icon-holder">
                         <i class="material-icons prefix">login</i>LOGIN
                     </div>
                 </button>
             </div>
+            <div class="login-box-2 bwcolor">
+                <h5>
+                    Create your account
+                </h5>
+                <div class="flow-text">
+                    <p class="status-text-2">
+                        <?php
+                        if ($success == 1) {
+                            echo "";
+                        } elseif ($incorrect == 1) {
+                            echo "Incorrect username or password";
+                        } elseif ($error == 1) {
+                            echo "500 - Server Error";
+                        } elseif ($empty == 1) {
+                            echo "Fields cannot be left blank";
+                        }
+?>
+                    </p>
+                </div>
+                <form action="" method="POST">
+                    <div class="input-field">
+                        <i class="material-icons prefix">person</i>
+                        <input id="username2" name="username2" type="text" class="white-text">
+                        <label for="username2">Username</label>
+                    </div>
+                    <br>
+                    <div class="input-field">
+                        <i class="material-symbols-outlined prefix">mail</i>
+                        <input id="email2" name="email2" type="email" class="white-text">
+                        <label for="email2">Email</label>
+                    </div>
+                    <br>
+                    <div class="input-field">
+                        <i class="material-icons prefix">key</i>
+                        <input id="password2" name="password2" type="password" class="white-text">
+                        <label for="password2">Password</label>
+                    </div>
+                </form>
+                <p>
+                    Already a member? <a class="switch">Login</a>
+                </p>
+                <button class="waves-effect waves-light green btn create-btn">
+                    <div class="icon-holder">
+                        <i class="material-symbols-outlined prefix">add_circle</i>CREATE
+                    </div>
+                </button>
+            </div>
+            <?php include("footer.php"); ?>
         </div>
 </body>
 
 </html>
 <script src="js/theme.js"></script>
-<script>
-    $(".login-btn").click(function() {
-        $(".login-btn").addClass("disabled").text("LOGGING IN");
-        $("form")[0].submit();
-    });
-    if ($("p.status-text").text() != "") {
-        $("p.status-text").slideDown();
-        setTimeout(() => {
-            $("p.status-text").slideUp();
-        }, 3000);
-    };
-
-    $(document).keypress(function(e) {
-        if (e.which == 13 && $("#password").is(":focus")) {
-            $(".login-btn").click();
-        }
-    });
-
-    $(window).on("load", () => {
-        $("div.loader").fadeOut(200); // Hide the loader
-        setTimeout(() => {
-            $("div.mainapp").fadeIn(200); // Show the main app after a short delay
-        }, 200);
-    });
-</script>
+<script src="js/login.js"></script>

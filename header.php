@@ -11,7 +11,7 @@
   <ul id="dropdown1" class="dropdown-content bwcolornotext">
     <li><a class="logout"><i class="material-icons left">logout</i>Logout</a></li>
     <li><a class="accountdashboard"><i class="material-icons left">account_circle</i>Dashboard</a></li>
-    <?php if($_SESSION['username'] != 'admin'): ?>
+    <?php if($_SESSION['username'] != 'admin' && basename($_SERVER['PHP_SELF']) == 'account.php'): ?>
     <li><a class="accountservice"><i class="material-icons left">settings</i>Account Settings</a></li>
     <?php endif;?>
   </ul>
@@ -37,6 +37,7 @@
 <style>
   body {
     transition: background-color 0.5s, color 0.5s;
+    background-color: black;
   }
 
   ::-webkit-scrollbar {
@@ -45,6 +46,7 @@
 
   .nav-wrapper {
     transition: background-color 0.5s, color 0.5s;
+    z-index: 10 !important;
     user-select: none;
   }
 
