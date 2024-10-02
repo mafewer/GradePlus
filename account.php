@@ -29,6 +29,12 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
     header('Location: login.php');
     session_unset();
 }
+
+//User Type
+$usertype = "student";
+
+//Dummy Data
+$courses = [["ECE 6400","Software Development","Raja Abbas"]]
 ?>
 
 <html>
