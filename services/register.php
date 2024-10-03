@@ -2,13 +2,6 @@
 
 header('Content-Type: application/json');
 
-// Simulate POST data
-$_POST['username'] = 'testuser_12';
-$_POST['email'] = 'testuser2@example.com';
-$_POST['password'] = 'testpassword';
-// You can uncomment the following lines if you want to test authorization
-$_POST['authorize'] = 'gradeplus';
-
 // Shared secret for authorization
 $sharedSecret = "gradeplus";
 
