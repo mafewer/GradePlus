@@ -2,7 +2,7 @@
 
 session_start();
 // Service to delete user account
-if ($_GET["authorize"] == "gradeplus") {
+if ($_POST["authorize"] == "gradeplus") {
     if (!isset($_SESSION['username']) || $_SESSION['username'] == 'admin') {
         header('Location: ../login.php');
     }
