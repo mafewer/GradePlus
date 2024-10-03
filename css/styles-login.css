@@ -1,12 +1,24 @@
+div.mainapp {
+    display: none;
+}
+
 .bwcolor {
     transition: background-color 0.5s, color 0.5s;
+}
+
+img.indexback,
+img.indexback2 {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    z-index: -1;
 }
 
 div.icon-holder {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin: 1.2rem 0;
     margin: 0;
     padding: 0;
 
@@ -16,7 +28,7 @@ div.icon-holder {
     }
 }
 
-.input-field {
+div.input-field {
     padding: 0;
     margin: 0;
     width: 20rem;
@@ -28,15 +40,18 @@ div.icon-holder {
 }
 
 div.login-holder {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100dvh;
+    height: 90dvh;
 }
 
-div.login-box {
+div.login-box,
+div.login-box-2 {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,15 +59,29 @@ div.login-box {
     gap: 1rem;
     padding: 2rem;
     border-radius: 1rem;
+    transition: transform 0.5s, background-color 0.5s, color 0.5s;
 }
 
-.login-btn {
-    padding: 0rem 3em;
+div.login-box-2 {
+    transform: rotateY(90deg);
 }
 
-p.status-text {
+button.login-btn,
+button.create-btn {
+    padding: 0rem 1.5rem;
+    border-radius: 0.5rem;
+}
+
+p.status-text,
+p.status-text-2 {
     display: none;
     margin: 0.2rem;
     color: var(--warn-color);
     font-size: 1.1rem;
 }
+
+a.switch {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 750px) {}

@@ -76,3 +76,10 @@ function modalMessage(title, message, type) {
         );
     }
 }
+
+$(window).on("load", () => {
+    $("div.loader").fadeOut(200); // Hide the loader
+    setTimeout(() => {
+        $("div.mainapp").fadeIn(200); // Show the main app after a short delay
+    }, 200);
+});

@@ -64,7 +64,8 @@ if ($_POST["authorize"] == "gradeplus") {
             email VARCHAR(50),
             password VARCHAR(50),
             dname VARCHAR(50),
-            loggedin INT
+            loggedin INT,
+            profilePicture LONGBLOB
         );";
         $result = mysqli_query($conn, $createTableSql);
         if (!$result) {
