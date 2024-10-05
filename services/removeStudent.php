@@ -4,9 +4,6 @@ session_start();
 $success = 0; // Indicate failure
 $error = 0;
 // Check if authorization value is correct
-$_POST['authorize'] = 'gradeplus';
-$_POST['studentname'] = 'demo';  
-$_POST['coursecode'] = '6400';
 if ($_POST['authorize'] == 'gradeplus') {
     try {
         // Connect to the MySQL database
