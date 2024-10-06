@@ -20,15 +20,44 @@ $("a.account-settings-back").click(()=>{
 //Add or Enroll Course Modal
 $(".addenrolcourse").click(()=>{
     if ($("p.addenrolcourse-text").attr("id")==="enroltrue"){
-        $("div.modal-content h4").text("Enter Course Invite Code");
+        $("div.modal-content h4").text("Enter Course Code");
+        $("div.course-name").remove();
+        $("div.banner-select").remove();
+        $("div.input-field").css('margin', '0');
     } else {
         $("div.modal-content h4").text("Add Course");
     }
     $("div.modal").fadeIn(100);
 })
 
-$("a.addenrol-modal-close").click(()=>{
+$("a.addenrol-modal-close").click(() => {
+    let formData = new FormData();
+    formData.append("coursecode", $("input[name='coursecode']").val());
+    formData.append("coursename", $("input[name='coursename']").val());
+    formData.append("banner", $("input[name='coursebanner']")[0].files[0]); // Get the file
+    formData.append("instructorname", $("span.display-name").text());
+    formData.append("authorize", "gradeplus");
+
+    $.ajax({
+        url: "services/add-course.php",
+        type: "POST",
+        data: formData,
+        processData: false, // Prevent jQuery from processing the data
+        contentType: false, // Prevent jQuery from overriding the content type
+        dataType : "json",
+        success: (response) => {
+            if (response["success"] != 1) {
+                alert("500 - Server Error")
+            }
+            $("div.modal").fadeOut(100);
+            $("div.input-field input").val("");
+        }
+    });
+})
+
+$("a.addenrol-modal-cancel").click(() => {
     $("div.modal").fadeOut(100);
+    $("div.input-field input").val("");
 })
 
 //Opening a Course
