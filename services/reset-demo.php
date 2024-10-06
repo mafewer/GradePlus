@@ -65,8 +65,7 @@ if ($_POST["authorize"] == "gradeplus") {
             password VARCHAR(50),
             dname VARCHAR(50),
             loggedin INT,
-            profilePicture LONGBLOB,
-            usertype VARCHAR(20) NOT NULL DEFAULT 'Student'
+            profilePicture LONGBLOB
         );";
         $result = mysqli_query($conn, $createTableSql);
         if (!$result) {
@@ -75,15 +74,35 @@ if ($_POST["authorize"] == "gradeplus") {
 
         // Insert dummy data
         $insertDataSql = "
-        INSERT INTO login (username, email, password, dname, loggedin, usertype) VALUES
-        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0, 'Student'),
-        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, 'Admin'),
-        ('instructor', 'instructor@gradeplus.com', 'instructorPass', 'Instructor', 0, 'Instructor'),
-        ('student', 'student@gradeplus.com', 'studentPass', 'Student User', 0, 'Student');
+        INSERT INTO login (username, email, password, dname, loggedin) VALUES
+        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0),
+        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0);
         ";
         $result = mysqli_query($conn, $insertDataSql);
         if (!$result) {
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
+        }
+
+        // Drop courses table if it exists
+        $resetTableSql = "DROP TABLE IF EXISTS courses;";
+        $result = mysqli_query($conn, $resetTableSql);
+        if (!$result) {
+            error_log("Drop courses table query failed: " . mysqli_error($conn));
+        }
+
+        // Create courses table
+        $createTableSql = "
+        CREATE TABLE courses (
+            course_code VARCHAR(255) NOT NULL,
+            course_name VARCHAR(255) NOT NULL,
+            course_banner VARCHAR(255),
+            instructor_name VARCHAR(255) NOT NULL,
+            invite_code VARCHAR(10) PRIMARY KEY
+        );";
+
+        $result = mysqli_query($conn, $createTableSql);
+        if (!$result) {
+            error_log("Failed to create courses table: " . mysqli_error($conn));
         }
 
         $success = 1;
