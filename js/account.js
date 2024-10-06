@@ -38,12 +38,12 @@ $("div.course-card").click((event) => {
         duration: 100,
         easing: 'swing'
     });
-    console.log(event);
     var coursecode = $(event.currentTarget).find("span.card-title").text();
     $("p.side-nav-course-code").text(coursecode);
-    $("div.courseholder").fadeOut(200);
-    $("div.coursedash").fadeIn(400).css("display", "flex");
-    $("h3.coursedash-header").text("Assignments");
+    $("div.courseholder").fadeOut(200,()=>{
+        $("div.coursedash").fadeIn(200).css("display", "flex");
+        $("h3.coursedash-header").text("Assignments");
+    });
 });
 
 //Closing a Course

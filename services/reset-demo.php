@@ -1,5 +1,7 @@
 <?php
 
+$_POST["authorize"] = "gradeplus";
+
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
 if ($_POST["authorize"] == "gradeplus") {
     try {
@@ -78,8 +80,8 @@ if ($_POST["authorize"] == "gradeplus") {
         INSERT INTO login (username, email, password, dname, loggedin, usertype) VALUES
         ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0, 'Student'),
         ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, 'Admin'),
-        ('instructor', 'instructor@gradeplus.com', 'instructorPass', 'Instructor', 0, 'Instructor'),
-        ('student', 'student@gradeplus.com', 'studentPass', 'Student User', 0, 'Student');
+        ('instructor', 'instructor@gradeplus.com', 'instructor', 'Instructor', 0, 'Instructor'),
+        ('student', 'student@gradeplus.com', 'student', 'Student', 0, 'Student');
         ";
         $result = mysqli_query($conn, $insertDataSql);
         if (!$result) {

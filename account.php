@@ -31,7 +31,7 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
 }
 
 //User Type
-$usertype = "student";
+$usertype = $_SESSION['usertype'];
 
 //Dummy Data
 $courses = [["ECE 6400","Software Development","Raja Abbas"]]
@@ -55,9 +55,6 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]]
         <ul id="slide-out" class="side-nav bwcolor sidenav-fixed">
             <img class="side-nav-img" src='img/card.jpg'>
             <p class="side-nav-course-code">Loading</p>
-            <li><a class="side-nav-item bwcolor backuserdashboard"><i class="material-icons">reply</i>Back
-                    to Course List</a>
-            </li>
             <li><a class="side-nav-item bwcolor assignments"><i class="material-icons">assignment</i>Assignments</a>
             </li>
             <li><a class="side-nav-item bwcolor grades"><i class="material-icons">bar_chart</i>Grades</a></li>
@@ -136,14 +133,14 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]]
                       </div>";
                     }
 ?>
-                    <div class='card addenrolcourse std-hover'>
+                    <div class='card addenrolcourse std-hover bwcolor'>
                         <div class='card-image'>
                             <img class="addcourseimg" src='img/addcourse.png'>
                             <a class='btn-floating halfway-fab waves-effect waves-light green addenrolcourse'><i
                                     class='material-symbols-outlined'>add_circle</i></a>
                         </div>
                         <div class='card-content bwcolor'>
-                            <p class="addenrolcourse-text" id=<?php echo $usertype == "student" ? "enroltrue" : "enrolfalse"; ?>><?php echo $usertype == "student" ? "Enrol in a Course" : "Add a Course"; ?>
+                            <p class="addenrolcourse-text" id=<?php echo $usertype == "Student" ? "enroltrue" : "enrolfalse"; ?>><?php echo $usertype == "Student" ? "Enrol in a Course" : "Add a Course"; ?>
                             </p>
                         </div>
                     </div>
