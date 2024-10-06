@@ -31,10 +31,10 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
 }
 
 //User Type
-$usertype = "student";
+$usertype = "instructor";
 
 //Dummy Data
-$courses = [["ECE 6400","Software Development","Raja Abbas"]]
+$courses = [["ECE 6400","Software Development","Raja Abbas"]];
 ?>
 
 <html>
@@ -89,7 +89,7 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]]
                 <div class="top-info-holder">
                     <h2 class="top-info-header">
                         Welcome
-                        <?php echo $_SESSION['dname']; ?>!
+                        <span class="display-name"><?php echo $_SESSION['dname'];?></span>!
                     </h2>
                     <p class="accountemail">
                         <?php echo $_SESSION['email']; ?>
@@ -109,10 +109,33 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]]
             <div class="modal bwcolor">
                 <div class="modal-content">
                     <h4>Loading</h4>
-                    <p>Not Implemented Yet</p>
+                    <div class="input-field course-code">
+                        <i class="material-icons prefix">key</i>
+                        <input id="coursecode" name="coursecode" type="text">
+                        <label for="coursecode">Course Code</label>
+                    </div>
+                    
+                    <!--Below is not visible to Students -->
+                    <div class="input-field course-name">
+                        <i class="material-icons prefix">menu_book</i>
+                        <input id="coursename" name="coursename" type="text">
+                        <label for="coursename">Course Name</label>
+                    </div>
+                    <div class="input-field file-field upload-banner">
+                        <div class="btn banner-btn">
+                            <span>File</span>
+                            <input type="file" name="coursebanner" accept="image/*" required>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" id="bannername" name="bannername" type="text">
+                            <label for="bannername">Upload Banner</label>
+                         </div>
+                        
+                    </div>
                 </div>
                 <div class="modal-footer bwcolor">
-                    <a href="#!" class="addenrol-modal-close waves-effect white-text green btn-flat">DONE</a>
+                    <a class="addenrol-modal-cancel waves-effect bwcolortext btn-flat">CANCEL</a>
+                    <a class="addenrol-modal-close waves-effect white-text green btn-flat">DONE</a>
                 </div>
             </div>
             <!-- Course List -->
