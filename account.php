@@ -31,7 +31,7 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
 }
 
 //User Type
-$usertype = "instructor";
+$usertype = $_SESSION['usertype'];
 
 //Dummy Data
 $courses = [["ECE 6400","Software Development","Raja Abbas"]];
@@ -55,9 +55,6 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]];
         <ul id="slide-out" class="side-nav bwcolor sidenav-fixed">
             <img class="side-nav-img" src='img/card.jpg'>
             <p class="side-nav-course-code">Loading</p>
-            <li><a class="side-nav-item bwcolor backuserdashboard"><i class="material-icons">reply</i>Back
-                    to Course List</a>
-            </li>
             <li><a class="side-nav-item bwcolor assignments"><i class="material-icons">assignment</i>Assignments</a>
             </li>
             <li><a class="side-nav-item bwcolor grades"><i class="material-icons">bar_chart</i>Grades</a></li>
@@ -89,7 +86,10 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]];
                 <div class="top-info-holder">
                     <h2 class="top-info-header">
                         Welcome
-                        <span class="display-name"><?php echo $_SESSION['dname'];?></span>!
+                        <span
+                            class="display-name"><?php echo $_SESSION['dname'];?></span>!
+                        <span class="user-name"
+                            style="display: none;"><?php echo $_SESSION['username'];?></span>
                     </h2>
                     <p class="accountemail">
                         <?php echo $_SESSION['email']; ?>
@@ -108,29 +108,27 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]];
             <!-- Add or Enrol Modals -->
             <div class="modal bwcolor">
                 <div class="modal-content">
-                    <h4>Loading</h4>
-                    <div class="input-field course-code">
-                        <i class="material-icons prefix">key</i>
-                        <input id="coursecode" name="coursecode" type="text">
-                        <label for="coursecode">Course Code</label>
-                    </div>
-                    
-                    <!--Below is not visible to Students -->
-                    <div class="input-field course-name">
-                        <i class="material-icons prefix">menu_book</i>
-                        <input id="coursename" name="coursename" type="text">
-                        <label for="coursename">Course Name</label>
-                    </div>
-                    <div class="input-field file-field upload-banner">
-                        <div class="btn banner-btn">
-                            <span>File</span>
-                            <input type="file" name="coursebanner" accept="image/*" required>
+                    <h4 style="margin-bottom: 1.5rem;">Loading</h4>
+                    <p class="status-text"></p>
+                    <div class="modal-addenrol-holder">
+                        <div class="input-field course-code">
+                            <i class="material-icons prefix">key</i>
+                            <input id="coursecode" name="coursecode" type="text">
+                            <label for="coursecode">Course Code</label>
                         </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" id="bannername" name="bannername" type="text">
-                            <label for="bannername">Upload Banner</label>
-                         </div>
-                        
+                        <!--Instructors Only -->
+                        <div class="input-field course-name">
+                            <i class="material-symbols-outlined prefix">import_contacts</i>
+                            <input id="coursename" name="coursename" type="text">
+                            <label for="coursename">Course Name</label>
+                        </div>
+                        <div class="input-field upload-banner">
+                            <i class="material-symbols-outlined prefix">add_photo_alternate</i>
+                            <a style="position: relative; left: 3rem; top: 0.3rem;" id="file-picker-btn"
+                                class="waves-effect green white-text btn-flat">BANNER IMAGE</a>
+                            <input type="file" name="coursebanner" id="coursebanner" accept="image/*" required
+                                style="display: none;">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer bwcolor">
@@ -159,14 +157,14 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]];
                       </div>";
                     }
 ?>
-                    <div class='card addenrolcourse std-hover'>
+                    <div class='card addenrolcourse std-hover bwcolor'>
                         <div class='card-image'>
                             <img class="addcourseimg" src='img/addcourse.png'>
                             <a class='btn-floating halfway-fab waves-effect waves-light green addenrolcourse'><i
                                     class='material-symbols-outlined'>add_circle</i></a>
                         </div>
                         <div class='card-content bwcolor'>
-                            <p class="addenrolcourse-text" id=<?php echo $usertype == "student" ? "enroltrue" : "enrolfalse"; ?>><?php echo $usertype == "student" ? "Enrol in a Course" : "Add a Course"; ?>
+                            <p class="addenrolcourse-text" id=<?php echo $usertype == "Student" ? "enroltrue" : "enrolfalse"; ?>><?php echo $usertype == "Student" ? "Enrol in a Course" : "Add a Course"; ?>
                             </p>
                         </div>
                     </div>

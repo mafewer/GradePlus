@@ -32,19 +32,20 @@ if (isset($_POST['username'])) {
             $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
 
-            $sqlCommand = $conn->prepare("SELECT username, dname, email FROM login WHERE (username = ? OR email = ?) AND password = ?");
+            $sqlCommand = $conn->prepare("SELECT username, dname, email, usertype FROM login WHERE (username = ? OR email = ?) AND password = ?");
             $sqlCommand->bind_param("sss", $username, $email, $password);
 
             if ($sqlCommand->execute()) {
                 $sqlCommand->store_result();
                 if ($sqlCommand->num_rows > 0) {
-                    $sqlCommand->bind_result($username, $dname, $email);
+                    $sqlCommand->bind_result($username, $dname, $email, $usertype);
                     $sqlCommand->fetch();
 
                     $_SESSION['logtime'] = time() + (60 * 6);
                     $_SESSION['username'] = $username;
                     $_SESSION['dname'] = $dname;
                     $_SESSION['email'] = $email;
+                    $_SESSION['usertype'] = $usertype;
                     $loggedin = 1;
                     $sqlUpdate = $conn->prepare("UPDATE login SET loggedin = ? WHERE username = ?");
                     $sqlUpdate->bind_param("is", $loggedin, $username);
@@ -130,21 +131,19 @@ if (isset($_POST['username'])) {
                     Create your account
                 </h5>
                 <div class="flow-text">
-                    <p class="status-text-2">
-                        <?php
-                        if ($success == 1) {
-                            echo "";
-                        } elseif ($incorrect == 1) {
-                            echo "Incorrect username or password";
-                        } elseif ($error == 1) {
-                            echo "500 - Server Error";
-                        } elseif ($empty == 1) {
-                            echo "Fields cannot be left blank";
-                        }
-?>
-                    </p>
+                    <p class="status-text-2" style="margin-bottom: 0.5rem;"></p>
                 </div>
-                <form action="" method="POST">
+                <div class="user-type-form">
+                    <div class="user-type-student user-type"><i class="material-icons">person</i>Student</div>
+                    <div class="user-type-instructor user-type"><i class="material-icons">school</i>Instructor</div>
+                </div>
+                <form class="register-form" method="POST">
+                    <div class="input-field">
+                        <i class="material-icons prefix">person</i>
+                        <input id="dname2" name="dname2" type="text" class="white-text">
+                        <label for="dname2">Full Name</label>
+                    </div>
+                    <br>
                     <div class="input-field">
                         <i class="material-icons prefix">person</i>
                         <input id="username2" name="username2" type="text" class="white-text">
