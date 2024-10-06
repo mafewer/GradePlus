@@ -85,7 +85,7 @@ if ($_POST["authorize"] == "gradeplus") {
         if (!$result) {
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }
-        
+
         // Drop courses table if it exists
         $resetTableSql = "DROP TABLE IF EXISTS courses;";
         $result = mysqli_query($conn, $resetTableSql);
