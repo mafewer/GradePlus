@@ -57,11 +57,7 @@ if ($_POST["authorize"] == "gradeplus") {
             error_log("Drop table query failed: " . mysqli_error($conn));
         }
 
-        $resetTableSqlEnrollment = "DROP TABLE IF EXISTS enrollment;";
-        $result = mysqli_query($conn, $resetTableSqlEnrollment);
-        if (!$result) {
-            error_log("Drop table query failed: " . mysqli_error($conn));
-        }
+
         // Create table
         $createTableSql = "
         CREATE TABLE login (
@@ -88,6 +84,13 @@ if ($_POST["authorize"] == "gradeplus") {
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }
 
+        // Drop enrollment table if it exists
+        $resetTableSqlEnrollment = "DROP TABLE IF EXISTS enrollment;";
+        $result = mysqli_query($conn, $resetTableSqlEnrollment);
+        if (!$result) {
+            error_log("Drop table query failed: " . mysqli_error($conn));
+        }
+        
         $createTableSqlEnrollment = "
         CREATE TABLE enrollment (
             username VARCHAR(50),
