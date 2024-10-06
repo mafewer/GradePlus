@@ -13,17 +13,22 @@ if ($("p.status-text").text() != "") {
 
 //Create Account AJAX
 $(".create-btn").click(function() {
-    $(ajax({
+    console.log("Test1");
+    $.ajax({
         url: "services/register.php",
         type: "POST",
         data: {
+            dname: $("input[name='dname2']").val(),
             username: $("input[name='username2']").val(),
             email: $("input[name='email2']").val(),
-            password: $("input[name='password2']").val()
+            password: $("input[name='password2']").val(),
+            authorize: "gradeplus"
         },
+        dataType: "json",
         success: (response) => {
+            console.log(response);
             if (response["success"] == 1) {
-                $("a.switch").click();
+                window.location.href = "login.php";
             } else if (response["exists"] == 1) {
                 $("p.status-text-2").text("Username or Email already exists");
             } else if (response["empty"] == 1) {
@@ -36,7 +41,7 @@ $(".create-btn").click(function() {
                 $("p.status-text-2").slideUp();
             }, 3000);
         }
-    }));
+    });
 });
 
 //Rotate Animation

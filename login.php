@@ -130,21 +130,15 @@ if (isset($_POST['username'])) {
                     Create your account
                 </h5>
                 <div class="flow-text">
-                    <p class="status-text-2">
-                        <?php
-                        if ($success == 1) {
-                            echo "";
-                        } elseif ($incorrect == 1) {
-                            echo "Incorrect username or password";
-                        } elseif ($error == 1) {
-                            echo "500 - Server Error";
-                        } elseif ($empty == 1) {
-                            echo "Fields cannot be left blank";
-                        }
-?>
-                    </p>
+                    <p class="status-text-2" style="margin-bottom: 1.5rem;"></p>
                 </div>
                 <form action="" method="POST">
+                    <div class="input-field">
+                        <i class="material-symbols-outlined prefix">person</i>
+                        <input id="dname2" name="dname2" type="text" class="white-text">
+                        <label for="dname2">Full Name</label>
+                    </div>
+                    <br>
                     <div class="input-field">
                         <i class="material-icons prefix">person</i>
                         <input id="username2" name="username2" type="text" class="white-text">
