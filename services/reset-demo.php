@@ -65,7 +65,8 @@ if ($_POST["authorize"] == "gradeplus") {
             password VARCHAR(50),
             dname VARCHAR(50),
             loggedin INT,
-            profilePicture LONGBLOB
+            profilePicture LONGBLOB,
+            usertype VARCHAR(20) NOT NULL DEFAULT 'Student'
         );";
         $result = mysqli_query($conn, $createTableSql);
         if (!$result) {
@@ -74,9 +75,11 @@ if ($_POST["authorize"] == "gradeplus") {
 
         // Insert dummy data
         $insertDataSql = "
-        INSERT INTO login (username, email, password, dname, loggedin) VALUES
-        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0),
-        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0);
+        INSERT INTO login (username, email, password, dname, loggedin, usertype) VALUES
+        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0, 'Student'),
+        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, 'Admin'),
+        ('instructor', 'instructor@gradeplus.com', 'instructorPass', 'Instructor', 0, 'Instructor'),
+        ('student', 'student@gradeplus.com', 'studentPass', 'Student User', 0, 'Student');
         ";
         $result = mysqli_query($conn, $insertDataSql);
         if (!$result) {
