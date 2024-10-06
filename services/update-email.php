@@ -16,12 +16,12 @@ if ($_POST["authorize"] == "gradeplus") {
             }
 
             // Check if new email is already taken
-            $checkNameTakenSql = sprintf("SELECT 1 FROM login WHERE email = '%s'", $newEmail);
-            $result = mysqli_query($conn, $checkNameTakenSql);
+            $checkEmailTakenSql = sprintf("SELECT 1 FROM login WHERE email = '%s'", $newEmail);
+            $result = mysqli_query($conn, $checkEmailTakenSql);
             $row = mysqli_fetch_array($result);
 
             if (!$result) {
-                error_log("Username taken check failed: " . mysqli_error($conn));
+                error_log("Email taken check failed: " . mysqli_error($conn));
             }
 
             if ($row[0] != 0) {
