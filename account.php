@@ -34,7 +34,7 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
 $usertype = $_SESSION['usertype'];
 
 //Dummy Data
-$courses = [["ECE 6400","Software Development","Raja Abbas"]]
+$courses = [["ECE 6400","Software Development","Raja Abbas"]];
 ?>
 
 <html>
@@ -86,7 +86,10 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]]
                 <div class="top-info-holder">
                     <h2 class="top-info-header">
                         Welcome
-                        <?php echo $_SESSION['dname']; ?>!
+                        <span
+                            class="display-name"><?php echo $_SESSION['dname'];?></span>!
+                        <span class="user-name"
+                            style="display: none;"><?php echo $_SESSION['username'];?></span>
                     </h2>
                     <p class="accountemail">
                         <?php echo $_SESSION['email']; ?>
@@ -105,11 +108,32 @@ $courses = [["ECE 6400","Software Development","Raja Abbas"]]
             <!-- Add or Enrol Modals -->
             <div class="modal bwcolor">
                 <div class="modal-content">
-                    <h4>Loading</h4>
-                    <p>Not Implemented Yet</p>
+                    <h4 style="margin-bottom: 1.5rem;">Loading</h4>
+                    <p class="status-text"></p>
+                    <div class="modal-addenrol-holder">
+                        <div class="input-field course-code">
+                            <i class="material-icons prefix">key</i>
+                            <input id="coursecode" name="coursecode" type="text">
+                            <label for="coursecode">Course Code</label>
+                        </div>
+                        <!--Instructors Only -->
+                        <div class="input-field course-name">
+                            <i class="material-symbols-outlined prefix">import_contacts</i>
+                            <input id="coursename" name="coursename" type="text">
+                            <label for="coursename">Course Name</label>
+                        </div>
+                        <div class="input-field upload-banner">
+                            <i class="material-symbols-outlined prefix">add_photo_alternate</i>
+                            <a style="position: relative; left: 3rem; top: 0.3rem;" id="file-picker-btn"
+                                class="waves-effect green white-text btn-flat">BANNER IMAGE</a>
+                            <input type="file" name="coursebanner" id="coursebanner" accept="image/*" required
+                                style="display: none;">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer bwcolor">
-                    <a href="#!" class="addenrol-modal-close waves-effect white-text green btn-flat">DONE</a>
+                    <a class="addenrol-modal-cancel waves-effect bwcolortext btn-flat">CANCEL</a>
+                    <a class="addenrol-modal-close waves-effect white-text green btn-flat">DONE</a>
                 </div>
             </div>
             <!-- Course List -->
