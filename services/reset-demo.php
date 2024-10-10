@@ -2,6 +2,7 @@
 
 $_POST["authorize"] = "gradeplus";
 
+// Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
 if ($_POST["authorize"] == "gradeplus") {
     try {
         // Initialize/Reset Demo Database
@@ -51,23 +52,15 @@ if ($_POST["authorize"] == "gradeplus") {
             error_log("Create database query failed: " . mysqli_error($conn));
         }
 
-        // **Drop Child Table First: enrollment**
-        $resetTableSql = "DROP TABLE IF EXISTS enrollment;";
-        $result = mysqli_query($conn, $resetTableSql);
-        if (!$result) {
-            error_log("Drop enrollment table query failed: " . mysqli_error($conn));
-            exit();
-        }
-
-        // **Then Drop Parent Table: login**
+        // Drop table if it exists
         $resetTableSql = "DROP TABLE IF EXISTS login;";
         $result = mysqli_query($conn, $resetTableSql);
         if (!$result) {
-            error_log("Drop login table query failed: " . mysqli_error($conn));
-            exit();
+            error_log("Drop table query failed: " . mysqli_error($conn));
         }
 
-        // Create login table
+
+        // Create table
         $createTableSql = "
         CREATE TABLE login (
             username VARCHAR(50) PRIMARY KEY,
@@ -75,62 +68,86 @@ if ($_POST["authorize"] == "gradeplus") {
             password VARCHAR(50),
             dname VARCHAR(50),
             loggedin INT,
-            profilePicture LONGBLOB
+            profilePicture LONGBLOB,
+            usertype VARCHAR(20) NOT NULL DEFAULT 'Student'
         );";
         $result = mysqli_query($conn, $createTableSql);
         if (!$result) {
-            error_log("Create login table query failed: " . mysqli_error($conn));
-            exit();
+            error_log("Create table query failed: " . mysqli_error($conn));
         }
 
-        // Insert dummy data into login table
+        // Insert dummy data
         $insertDataSql = "
-        INSERT INTO login (username, email, password, dname, loggedin) VALUES
-        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0),
-        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0);
+        INSERT INTO login (username, email, password, dname, loggedin, usertype) VALUES
+        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0, 'Student'),
+        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, 'Admin'),
+        ('instructor', 'instructor@gradeplus.com', 'instructor', 'Instructor', 0, 'Instructor'),
+        ('student', 'student@gradeplus.com', 'student', 'Student', 0, 'Student');
         ";
         $result = mysqli_query($conn, $insertDataSql);
         if (!$result) {
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }
 
-        // Create enrollment table
-        $createEnrollmentTableSql = "
-        CREATE TABLE enrollment (
-            username VARCHAR(50) NOT NULL,
-            course_code VARCHAR(255) NOT NULL,
-            course_name VARCHAR(255) NOT NULL,
-            pinned TINYINT DEFAULT 0,
-            invite_code VARCHAR(50),
-            instructor VARCHAR(50),
-            PRIMARY KEY (username, course_code),
-            FOREIGN KEY (username) REFERENCES login(username) ON DELETE CASCADE
-        );";
-        $result = mysqli_query($conn, $createEnrollmentTableSql);
+        // Drop enrollment table if it exists
+        $resetTableSqlEnrollment = "DROP TABLE IF EXISTS enrollment;";
+        $result = mysqli_query($conn, $resetTableSqlEnrollment);
         if (!$result) {
-            error_log("Failed to create enrollment table: " . mysqli_error($conn));
-            exit();
+            error_log("Drop table query failed: " . mysqli_error($conn));
+        }
+        
+        $createTableSqlEnrollment = "
+        CREATE TABLE enrollment (
+            username VARCHAR(50),
+            courseCode VARCHAR(50),
+            courseName VARCHAR(50),
+            pinned INT,
+            inviteCode VARCHAR(50),
+            instructor VARCHAR(50)
+        );";
+        $result = mysqli_query($conn, $createTableSqlEnrollment);
+        if (!$result) {
+            error_log("Create table query failed: " . mysqli_error($conn));
         }
 
-//NOTE THAT ENROLLMENT DATA CAN BE DELETED AFTER
-
-        // Insert sample enrollment data
-        $insertEnrollmentDataSql = "
-        INSERT INTO enrollment (username, course_code, course_name, pinned, invite_code, instructor) VALUES
-        ('demo', 'COURSE101', 'Introduction to Programming', 0, NULL, 'Instructor A'),
-        ('admin', 'COURSE101', 'Introduction to Programming', 0, NULL, 'Instructor A'),
-        ('demo', 'COURSE102', 'Data Structures', 0, NULL, 'Instructor B');
+        // Insert dummy data
+        $insertDataSqlEnrollment = "
+        INSERT INTO enrollment (username, courseCode, courseName, pinned, inviteCode, instructor) VALUES
+        ('demo', '6400', 'Software Development', 1 , 'X1XY2Y', 'Raja'),
+        ('demo', '6500', 'Computer Arch', 0 , 'X2XY3Y', 'Hammed'),
+        ('admin', '6400', 'Software Development', 0 , 'X1XY2Y', 'Raja');
         ";
-        $result = mysqli_query($conn, $insertEnrollmentDataSql);
+        $result = mysqli_query($conn, $insertDataSqlEnrollment);
         if (!$result) {
-            error_log("Insert enrollment data query failed: " . mysqli_error($conn));
-            exit();
+            error_log("Insert dummy data query failed: " . mysqli_error($conn));
+        }
+
+        // Drop courses table if it exists
+        $resetTableSql = "DROP TABLE IF EXISTS courses;";
+        $result = mysqli_query($conn, $resetTableSql);
+        if (!$result) {
+            error_log("Drop courses table query failed: " . mysqli_error($conn));
+        }
+
+        // Create courses table
+        $createTableSql = "
+        CREATE TABLE courses (
+            course_code VARCHAR(255) NOT NULL,
+            course_name VARCHAR(255) NOT NULL,
+            course_banner VARCHAR(255),
+            instructor_name VARCHAR(255) NOT NULL,
+            invite_code VARCHAR(10) PRIMARY KEY
+        );";
+
+        $result = mysqli_query($conn, $createTableSql);
+        if (!$result) {
+            error_log("Failed to create courses table: " . mysqli_error($conn));
         }
 
         $success = 1;
         $error = 0;
     } catch (Exception $e) {
-        error_log("Exception caught: " . $e->getMessage());
+        // SQL error
         $success = 0;
         $error = 1;
     }
@@ -142,4 +159,3 @@ if ($_POST["authorize"] == "gradeplus") {
     // User is not authorized
     header("Location: illegal.php");
 }
-?>

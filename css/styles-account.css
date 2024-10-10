@@ -96,12 +96,6 @@ div.card {
     cursor: pointer;
 }
 
-div.modal {
-    z-index: 2;
-    padding: 1rem;
-    width: 40rem;
-}
-
 ul.side-nav {
     position: relative;
     z-index: 1;
@@ -168,4 +162,34 @@ div.coursedash-holder {
 
 h3.coursedash-header {
     margin: 0;
+}
+
+/* Add or Enrol Course Modal */
+div.modal {
+    z-index: 2;
+    padding: 1rem;
+    width: 30rem;
+}
+
+div.input-field input {
+    margin: 0;
+}
+
+div.modal-addenrol-holder {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.input-field input[type="text"],
+.input-field input[type="password"] {
+    color: var(--form-color) !important;
+}
+
+p.status-text {
+    display: none;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--warn-color);
+    font-size: 1.1rem;
 }
