@@ -96,9 +96,9 @@ $courses = [];
                     </p>
                 </div>
             </div>
-            <a class="waves-effect green addenrolcourse std-hover waves-light btn add-enrol"><i
-                    class="material-symbols-outlined left"
-                    id=<?php echo $usertype == "Student" ? "enroltrue" : "enrolfalse"; ?>>add_circle</i><?php echo $usertype == "Student" ? "Enroll in a Course" : "Add a Course"; ?></a>
+            <a class="waves-effect green addenrolcourse std-hover waves-light btn add-enrol"
+                id=<?php echo $usertype == "Student" ? "enroltrue" : "enrolfalse"; ?>><i
+                    class="material-symbols-outlined left">add_circle</i><?php echo $usertype == "Student" ? "Enroll in a Course" : "Add a Course"; ?></a>
             <!-- Account Settings -->
             <div class="account-settings">
                 Not Implemented Yet
