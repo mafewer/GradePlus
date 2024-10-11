@@ -113,7 +113,7 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlEnrollment = "
         INSERT INTO enrollment VALUES
-        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
+        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'student'),
         ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor');
         ";
         $result = mysqli_query($conn, $insertDataSqlEnrollment);

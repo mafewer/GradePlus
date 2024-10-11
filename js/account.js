@@ -19,8 +19,8 @@ function main() {
     })
 
     //Add or Enroll Course Modal
-    $(".addenrolcourse").click(()=>{
-        if ($("p.addenrolcourse-text").attr("id")==="enroltrue"){
+    $("a.addenrolcourse").click(()=>{
+        if ($("a.addenrolcourse").attr("id")==="enroltrue"){
             $("div.modal-content h4").text("Enter Invite Code");
             $("div.course-name").hide();
             $("div.upload-banner").hide();
