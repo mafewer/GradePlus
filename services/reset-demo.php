@@ -113,7 +113,8 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlEnrollment = "
         INSERT INTO enrollment VALUES
-        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor');
+        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
+        ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor');
         ";
         $result = mysqli_query($conn, $insertDataSqlEnrollment);
         if (!$result) {
@@ -134,6 +135,7 @@ if ($_POST["authorize"] == "gradeplus") {
             course_name VARCHAR(255) NOT NULL,
             course_banner VARCHAR(255),
             instructor_name VARCHAR(255) NOT NULL,
+            instructor_dname VARCHAR(255) NOT NULL,
             invite_code VARCHAR(10) PRIMARY KEY
         );";
 
@@ -145,7 +147,7 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlCourses = "
                 INSERT INTO courses VALUES
-                ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'ABCDEF');
+                ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'Instructor', 'ABCDEF');
                 ";
         $result = mysqli_query($conn, $insertDataSqlCourses);
         if (!$result) {

@@ -20,7 +20,7 @@ if ($_POST["authorize"] == "gradeplus") {
         c.invite_code,
         c.course_banner,
         e.pinned,
-        c.instructor_name
+        c.instructor_dname
         FROM courses c
         JOIN enrollment e
         ON c.invite_code = e.invite_code
@@ -33,7 +33,7 @@ if ($_POST["authorize"] == "gradeplus") {
 
         if ($result) {
             $retrieveSql->store_result();
-            $retrieveSql->bind_result($course_code, $course_name, $invite_code, $course_banner, $pinned, $instructor_name);
+            $retrieveSql->bind_result($course_code, $course_name, $invite_code, $course_banner, $pinned, $instructor_dname);
             $courses = [];
             while ($retrieveSql->fetch()) {
                 $courses[] = [
@@ -42,7 +42,7 @@ if ($_POST["authorize"] == "gradeplus") {
                     "invite_code" => $invite_code,
                     "course_banner" => $course_banner,
                     "pinned" => $pinned,
-                    "instructor_name" => $instructor_name
+                    "instructor_name" => $instructor_dname
                 ];
             }
             $success = 1;

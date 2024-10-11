@@ -16,6 +16,7 @@ img.indexback2 {
 }
 
 div.courseholder {
+    position: relative;
     border-radius: 1rem;
     width: 90%;
     margin: 2rem auto;
@@ -142,15 +143,29 @@ a.side-nav-item:hover {
 }
 
 p.side-nav-course-code {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     position: absolute;
-    top: 8.5rem;
+    top: 6.8rem;
     left: 1rem;
     color: white;
 }
 
+p.side-nav-course-invite {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 9.2rem;
+    left: 1rem;
+    color: rgb(194, 194, 194);
+}
+
 div.coursedash {
     display: none;
+}
+
+a.addenrolcourse {
+    position: absolute;
+    right: 4rem;
+    top: 4rem;
 }
 
 div.coursedash-holder {

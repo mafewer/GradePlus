@@ -91,14 +91,11 @@ function main() {
             return;
         }
 
-        if (!bannerFile) {
-            bannerFile = new File([""], "/img/card.jpg", { type: "image/jpeg" });
-        }
-
         formData.append("coursecode", courseCode);
         formData.append("coursename", courseName);
         formData.append("banner", bannerFile);
-        formData.append("instructorname", $("span.user-name").text());
+        formData.append("instructor_name", $("span.user-name").text());
+        formData.append("instructor_dname", $("span.display-name").text());
         formData.append("authorize", "gradeplus");
 
         $.ajax({
@@ -203,21 +200,33 @@ function main() {
                         pinnedlogo = "keep";
                     }
                     let courseCard = `
-                    <div class="card course-card std-hover bwcolor" style="background-color: var(--bwcolor)">
+                    <div class="card course-card std-hover bwcolor" style="background-color: var(--bwcolor); position: relative;">
                         <div class="card-image" style="height: 12rem; overflow: hidden;">
-                            <img style="object-fit: cover;" src="${course["course_banner"]}" alt="Course Banner">
+                            <img style="object-fit: cover;" src="${course["course_banner"]}" alt="Unable to Load Image">
                             <span class="card-title"><span class="card-title-code">${course["course_code"]}</span>
-                            <a id="${course["invite_code"]}" style="position: relative; bottom: 6.5rem; left: 12.7rem;" class='pin btn-floating halfway-fab waves-effect waves-light green addenrolcourse'><i
-                                class='material-symbols-outlined'>${pinnedlogo}</i></a></span>
                         </div>
                         <div class="card-content">
                             <p>${course["course_name"]}</p>
                             <p class='secondary'>${course["instructor_name"]}</p>
                         </div>
+                         <a id="${course["invite_code"]}" style="position: absolute; top: 1rem; right: 1rem;" class='pin btn-floating halfway-fab waves-effect waves-light green addenrolcourse'><i
+                                class='material-symbols-outlined'>${pinnedlogo}</i></a></span>
                     </div>`;
                     courseHolder.append(courseCard);
+                });
+
+                if (courses.length == 0) {
+                    courseHolder.append(
+                        `<div class="card std-hover bwcolor" style="background-color: var(--bwcolor); position: relative;">
+                            <div class="card-image" style="height: 12rem; overflow: hidden;">
+                            <img class="addcourseimg" style="object-fit: cover;" src="img/addcourse.png" alt="Unable to Load Image">
+                        </div>
+                            <div class="card-content">
+                                <p>No Courses Found</p>
+                            </div>
+                        </div>`
+                    );
                 }
-                );
 
                 //Opening a Course
                 $("div.course-card").click((event) => {
@@ -228,6 +237,8 @@ function main() {
                         easing: 'swing'
                     });
                     var coursecode = $(event.currentTarget).find("span.card-title-code").text();
+                    var invitecode = $(event.currentTarget).find("a.addenrolcourse").attr("id");
+                    $("p.side-nav-course-invite").text(invitecode);
                     $("p.side-nav-course-code").text(coursecode);
                     $("div.courseholder").fadeOut(200,()=>{
                         $("div.coursedash").fadeIn(200).css("display", "flex");
