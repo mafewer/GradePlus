@@ -121,6 +121,39 @@ if ($_POST["authorize"] == "gradeplus") {
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }
 
+        // Drop assignment table if it exists
+        $resetTableSqlAssignment = "DROP TABLE IF EXISTS assignment;";
+        $result = mysqli_query($conn, $resetTableSqlAssignment);
+        if (!$result) {
+            error_log("Drop table query failed: " . mysqli_error($conn));
+        }
+        
+        $createTableSqlAssignment = "
+        CREATE TABLE assignment (
+            course_code VARCHAR(50),
+            assignment_name VARCHAR(50),
+            assignment_file LONGBLOB,
+            description VARCHAR(50),
+            due_date Date,
+            instructor VARCHAR(50)
+        );";
+        $result = mysqli_query($conn, $createTableSqlAssignment);
+        if (!$result) {
+            error_log("Create table query failed: " . mysqli_error($conn));
+        }
+
+        // Insert dummy data
+        $insertDataSqlAssignment = "
+        INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor) VALUES
+        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'Raja'),
+        ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed'),
+        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'Raja');
+        ";
+        $result = mysqli_query($conn, $insertDataSqlAssignment);
+        if (!$result) {
+            error_log("Insert dummy data query failed: " . mysqli_error($conn));
+        }
+
         // Drop courses table if it exists
         $resetTableSql = "DROP TABLE IF EXISTS courses;";
         $result = mysqli_query($conn, $resetTableSql);
