@@ -63,13 +63,8 @@ if ($_POST["authorize"] == "gradeplus") {
     header("Location: illegal.php");
 }
 
-#header('Content-Type: application/json');
-#echo json_encode(["success" => $success,"invalid_course" => $invalid_course,"error" => $error]);
-echo "Success: " . $success;
-echo "<br>";
-echo "Invalid_course: " . $invalid_course;
-echo "<br>";
-echo "error: " . $error;
+header('Content-Type: application/json');
+echo json_encode(["success" => $success,"invalid_course" => $invalid_course,"error" => $error]);
 ?>
 
 <!DOCTYPE html>
