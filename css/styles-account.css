@@ -16,6 +16,7 @@ img.indexback2 {
 }
 
 div.courseholder {
+    position: relative;
     border-radius: 1rem;
     width: 90%;
     margin: 2rem auto;
@@ -92,14 +93,12 @@ div.card {
 
 .std-hover:hover {
     transform: scale(1.02);
-    transition: 0.2s;
+    transition: 0.25s;
     cursor: pointer;
 }
 
-div.modal {
-    z-index: 2;
-    padding: 1rem;
-    width: 40rem;
+.std-hover {
+    transition: 0.25s all;
 }
 
 ul.side-nav {
@@ -144,15 +143,29 @@ a.side-nav-item:hover {
 }
 
 p.side-nav-course-code {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     position: absolute;
-    top: 8.5rem;
+    top: 6.8rem;
     left: 1rem;
     color: white;
 }
 
+p.side-nav-course-invite {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 9.2rem;
+    left: 1rem;
+    color: rgb(194, 194, 194);
+}
+
 div.coursedash {
     display: none;
+}
+
+a.addenrolcourse {
+    position: absolute;
+    right: 4rem;
+    top: 4rem;
 }
 
 div.coursedash-holder {
@@ -168,4 +181,34 @@ div.coursedash-holder {
 
 h3.coursedash-header {
     margin: 0;
+}
+
+/* Add or Enrol Course Modal */
+div.modal {
+    z-index: 2;
+    padding: 1rem;
+    width: 30rem;
+}
+
+div.input-field input {
+    margin: 0;
+}
+
+div.modal-addenrol-holder {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.input-field input[type="text"],
+.input-field input[type="password"] {
+    color: var(--form-color) !important;
+}
+
+p.status-text {
+    display: none;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--warn-color);
+    font-size: 1.1rem;
 }
