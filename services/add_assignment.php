@@ -66,36 +66,3 @@ if ($_POST["authorize"] == "gradeplus") {
 header('Content-Type: application/json');
 echo json_encode(["success" => $success,"invalid_course" => $invalid_course,"error" => $error]);
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Assignment</title>
-</head>
-<body>
-    <h2>Add New Assignment</h2>
-    <form action="add_assignment.php" method="POST" enctype="multipart/form-data">
-        <label for="course_code">Course Code:</label><br>
-        <input type="text" id="course_code" name="course_code" required><br><br>
-        
-        <label for="assignment_name">Assignment Name:</label><br>
-        <input type="text" id="assignment_name" name="assignment_name" required><br><br>
-        
-        <label for="assignment_file">Assignment File (PDF, DOCX, etc.):</label><br>
-        <input type="file" id="assignment_file" name="assignment_file"><br><br>
-        
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description" required></textarea><br><br>
-        
-        <label for="due_date">Due Date:</label><br>
-        <input type="date" id="due_date" name="due_date" required><br><br>
-        
-        <label for="instructor">Instructor:</label><br>
-        <input type="text" id="instructor" name="instructor" required><br><br>
-        
-        <input type="submit" value="Add Assignment">
-    </form>
-</body>
-</html>
