@@ -7,12 +7,6 @@ header('Content-Type: application/json');
 // Shared secret for authorization
 $sharedSecret = "gradeplus";
 
-// Get POST data
-$course_code = $_POST['course_code'] ?? '6610'; // Default course code for testing
-$authorize = $_POST['authorize'] ?? null;
-
-$authorize = "gradeplus";
-
 // Check authorization
 if ($authorize !== $sharedSecret) {
     header("Location: illegal.php");
