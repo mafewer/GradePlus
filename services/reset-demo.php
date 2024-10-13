@@ -1,5 +1,7 @@
 <?php
 
+$_POST["authorize"] = "gradeplus";
+
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
 if ($_POST["authorize"] == "gradeplus") {
     try {
@@ -57,6 +59,7 @@ if ($_POST["authorize"] == "gradeplus") {
             error_log("Drop table query failed: " . mysqli_error($conn));
         }
 
+
         // Create table
         $createTableSql = "
         CREATE TABLE login (
@@ -65,7 +68,8 @@ if ($_POST["authorize"] == "gradeplus") {
             password VARCHAR(50),
             dname VARCHAR(50),
             loggedin INT,
-            profilePicture LONGBLOB
+            profilePicture LONGBLOB,
+            usertype VARCHAR(20) NOT NULL DEFAULT 'Student'
         );";
         $result = mysqli_query($conn, $createTableSql);
         if (!$result) {
@@ -74,11 +78,78 @@ if ($_POST["authorize"] == "gradeplus") {
 
         // Insert dummy data
         $insertDataSql = "
-        INSERT INTO login (username, email, password, dname, loggedin) VALUES
-        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0),
-        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0);
+        INSERT INTO login (username, email, password, dname, loggedin, usertype) VALUES
+        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0, 'Student'),
+        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, 'Admin'),
+        ('instructor', 'instructor@gradeplus.com', 'instructor', 'Instructor', 0, 'Instructor'),
+        ('student', 'student@gradeplus.com', 'student', 'Student', 0, 'Student');
         ";
         $result = mysqli_query($conn, $insertDataSql);
+        if (!$result) {
+            error_log("Insert dummy data query failed: " . mysqli_error($conn));
+        }
+
+        // Drop enrollment table if it exists
+        $resetTableSqlEnrollment = "DROP TABLE IF EXISTS enrollment;";
+        $result = mysqli_query($conn, $resetTableSqlEnrollment);
+        if (!$result) {
+            error_log("Drop table query failed: " . mysqli_error($conn));
+        }
+
+        $createTableSqlEnrollment = "
+        CREATE TABLE enrollment (
+            username VARCHAR(50),
+            course_code VARCHAR(50),
+            course_name VARCHAR(50),
+            pinned INT,
+            invite_code VARCHAR(50),
+            instructor VARCHAR(50)
+        );";
+        $result = mysqli_query($conn, $createTableSqlEnrollment);
+        if (!$result) {
+            error_log("Create table query failed: " . mysqli_error($conn));
+        }
+
+        // Insert dummy data
+        $insertDataSqlEnrollment = "
+        INSERT INTO enrollment VALUES
+        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'student'),
+        ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor');
+        ";
+        $result = mysqli_query($conn, $insertDataSqlEnrollment);
+        if (!$result) {
+            error_log("Insert dummy data query failed: " . mysqli_error($conn));
+        }
+
+        // Drop courses table if it exists
+        $resetTableSql = "DROP TABLE IF EXISTS courses;";
+        $result = mysqli_query($conn, $resetTableSql);
+        if (!$result) {
+            error_log("Drop courses table query failed: " . mysqli_error($conn));
+        }
+
+        // Create courses table
+        $createTableSql = "
+        CREATE TABLE courses (
+            course_code VARCHAR(255) NOT NULL,
+            course_name VARCHAR(255) NOT NULL,
+            course_banner VARCHAR(255),
+            instructor_name VARCHAR(255) NOT NULL,
+            instructor_dname VARCHAR(255) NOT NULL,
+            invite_code VARCHAR(10) PRIMARY KEY
+        );";
+
+        $result = mysqli_query($conn, $createTableSql);
+        if (!$result) {
+            error_log("Failed to create courses table: " . mysqli_error($conn));
+        }
+
+        // Insert dummy data
+        $insertDataSqlCourses = "
+                INSERT INTO courses VALUES
+                ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'Instructor', 'ABCDEF');
+                ";
+        $result = mysqli_query($conn, $insertDataSqlCourses);
         if (!$result) {
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }

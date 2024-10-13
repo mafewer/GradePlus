@@ -11,19 +11,44 @@ if ($("p.status-text").text() != "") {
     }, 3000);
 };
 
+var usertype = "Student";
+//User Type Student
+$("div.user-type-student").click(function() {
+    usertype = "Student";
+    $("div.user-type-student").css("border","0.2rem green solid");
+    $("div.user-type-instructor").css("border","0.2rem transparent solid");
+    $("form.register-form").slideDown();
+    $(".create-btn").fadeIn();
+});
+
+//User Type Instructor
+$("div.user-type-instructor").click(function() {
+    usertype = "Instructor";
+    $("div.user-type-instructor").css("border","0.2rem green solid");
+    $("div.user-type-student").css("border","0.2rem transparent solid");
+    $("form.register-form").slideDown();
+    $(".create-btn").fadeIn();
+});
+
 //Create Account AJAX
 $(".create-btn").click(function() {
-    $(ajax({
+    console.log("Test1");
+    $.ajax({
         url: "services/register.php",
         type: "POST",
         data: {
+            dname: $("input[name='dname2']").val(),
             username: $("input[name='username2']").val(),
             email: $("input[name='email2']").val(),
-            password: $("input[name='password2']").val()
+            password: $("input[name='password2']").val(),
+            usertype: usertype,
+            authorize: "gradeplus"
         },
+        dataType: "json",
         success: (response) => {
+            console.log(response);
             if (response["success"] == 1) {
-                $("a.switch").click();
+                window.location.href = "login.php";
             } else if (response["exists"] == 1) {
                 $("p.status-text-2").text("Username or Email already exists");
             } else if (response["empty"] == 1) {
@@ -36,21 +61,24 @@ $(".create-btn").click(function() {
                 $("p.status-text-2").slideUp();
             }, 3000);
         }
-    }));
+    });
 });
 
 //Rotate Animation
 isLogin = true;
 $("a.switch").click(function() {
     isLogin = !isLogin;
-    if (!isLogin) {
+    if (!isLogin) { //Register
         $("div.login-box-2").css({
             transform: "rotateY(0deg)"
         });
         $("div.login-box").css({
             transform: "rotateY(-90deg)"
         });
-    } else {
+    } else { //Login
+        $("form.register-form").slideUp();
+        $("div.user-type").css("border","0.2rem transparent solid");
+        $(".create-btn").hide();
         $("div.login-box-2").css({
             transform: "rotateY(90deg)"
         });
