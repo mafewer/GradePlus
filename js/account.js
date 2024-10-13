@@ -125,33 +125,6 @@ function main() {
         $("div.input-field input").val("");
     })
 
-//Closing a Course
-$("a.backuserdashboard").click(()=>{
-    isCourseOpen = false;
-    $("ul.side-nav").animate({left: '-20rem'}, {
-        duration: 100,
-        easing: 'swing'
-    });
-    $("div.coursedash").fadeOut(200,()=>{
-        $("div.courseholder").fadeIn(200);
-    });
-})
-
-function loadContent(url, headerText) {
-    $("h3.coursedash-header").text(headerText);
-    $("div.coursedash-content").fadeOut(200, function () {
-        $.ajax({
-            url: url,
-            method: 'GET',
-            success: function (data) {
-                $("div.coursedash-content").html(data).fadeIn(200);
-            },
-            error: function (xhr, status, error) {
-                console.error("Failed to load content:", status, error);
-            }
-        });
-    });
-}
     //Closing a Course
     $("a.backuserdashboard").click(()=>{
         isCourseOpen = false;
@@ -163,34 +136,47 @@ function loadContent(url, headerText) {
             $("div.courseholder").fadeIn(200);
         });
     })
+    
+    function loadContent(url, headerText) {
+        $("h3.coursedash-header").text(headerText);
+        $("div.coursedash-content").fadeOut(200, function () {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (data) {
+                    $("div.coursedash-content").html(data).fadeIn(200);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Failed to load content:", status, error);
+                }
+            });
+        });
+    }
 
-    //Testing Only
-    //$("div.course-card").click();
+    // Assignments
+    $("a.assignments").click(() => {
+        loadContent('assignments.php', 'Assignments');
+    });
 
-// Assignments
-$("a.assignments").click(() => {
-    loadContent('assignments.php', 'Assignments');
-});
+    // Grades
+    $("a.grades").click(() => {
+        loadContent('grades.php', 'Grades');
+    });
 
-// Grades
-$("a.grades").click(() => {
-    loadContent('grades.php', 'Grades');
-});
+    // Peer Reviews
+    $("a.peer-reviews").click(() => {
+        loadContent('peer_reviews.php', 'Peer Reviews');
+    });
 
-// Peer Reviews
-$("a.peer-reviews").click(() => {
-    loadContent('peer_reviews.php', 'Peer Reviews');
-});
+    // Discussions
+    $("a.discussions").click(() => {
+        loadContent('discussions.php', 'Discussions');
+    });
 
-// Discussions
-$("a.discussions").click(() => {
-    loadContent('discussions.php', 'Discussions');
-});
-
-// Classlist
-$("a.classlist").click(() => {
-    loadContent('classlist.php', 'Classlist');
-});
+    // Classlist
+    $("a.classlist").click(() => {
+        loadContent('classlist.php', 'Classlist');
+    });
 
     // Settings
     $("a.csettings").click(() => {
