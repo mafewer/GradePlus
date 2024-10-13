@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 $sharedSecret = "gradeplus";
 
 // Get POST data
-$course_code = $_POST['course_code'] ?? 'COURSE102'; // Default course code for testing
+$course_code = $_POST['course_code'] ?? '6610'; // Default course code for testing
 $authorize = $_POST['authorize'] ?? null;
 
 $authorize = "gradeplus";
