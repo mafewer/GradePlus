@@ -135,7 +135,8 @@ if ($_POST["authorize"] == "gradeplus") {
             assignment_file LONGBLOB,
             description VARCHAR(50),
             due_date Date,
-            instructor VARCHAR(50)
+            instructor VARCHAR(50),
+            assignment_id INT PRIMARY KEY
         );";
         $result = mysqli_query($conn, $createTableSqlAssignment);
         if (!$result) {
@@ -144,10 +145,10 @@ if ($_POST["authorize"] == "gradeplus") {
 
         // Insert dummy data
         $insertDataSqlAssignment = "
-        INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor) VALUES
-        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'Raja'),
-        ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed'),
-        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'Raja');
+        INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
+        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'Raja', 0),
+        ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed', 1),
+        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'Raja', 2);
         ";
         $result = mysqli_query($conn, $insertDataSqlAssignment);
         if (!$result) {

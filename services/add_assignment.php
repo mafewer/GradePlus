@@ -3,7 +3,7 @@
 $success = 0;
 $invalid_course = 0;
 $error = 0;
-$_POST["authorize"] = "gradeplus";
+
 if ($_POST["authorize"] == "gradeplus") {
     try {
         $conn = new mysqli("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
@@ -41,8 +41,21 @@ if ($_POST["authorize"] == "gradeplus") {
             if ($result->num_rows > 0) {
                 // Instructor owns the course, execute SQL query
                 $stmt->close();
-                $stmt = $conn->prepare("INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("ssssss", $course_code, $assignment_name, $file_content, $description, $due_date, $instructor);
+                
+                // Prepare the SQL statement with explicit assignment_id handling
+                $stmt = $conn->prepare("
+                    INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                ");
+
+                // Get the next available assignment_id (auto-increment equivalent)
+                $result = $conn->query("SELECT MAX(assignment_id) AS max_id FROM assignment");
+                $row = $result->fetch_assoc();
+                $next_id = ($row['max_id'] !== null) ? $row['max_id'] + 1 : 1;
+
+                // Bind parameters including assignment_id
+                $stmt->bind_param("ssssssi", $course_code, $assignment_name, $file_content, $description, $due_date, $instructor, $next_id);
+
                 if ($stmt->execute()) {
                     $success = 1;
                 } else {
