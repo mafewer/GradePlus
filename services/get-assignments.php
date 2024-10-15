@@ -1,151 +1,107 @@
 <?php
+// File: /services/get-assignments.php
 
-// Set response header to JSON
+// Enable error reporting for debugging (Disable in production)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Set the content type to JSON
 header('Content-Type: application/json');
 
-// Initialize response structure
-$response = [
-    "success" => false,
-    "error" => null,
-    "assignments" => []
-];
-
-// Function to send JSON response and terminate script
-function sendResponse($response, $statusCode = 200) {
-    http_response_code($statusCode);
-    echo json_encode($response);
+// Helper function to send JSON responses
+function sendResponse($success, $error, $data = [], $message = "") {
+    echo json_encode([
+        "success" => $success,
+        "error" => $error,
+        "illegal" => 0,
+        "data" => $data,
+        "message" => $message
+    ]);
     exit();
 }
 
-// Function to sanitize input
-function sanitizeInput($data) {
-    return htmlspecialchars(strip_tags(trim($data)));
+// Validate input parameters
+if (empty($_POST["authorize"]) || empty($_POST["course_code"])) {
+    sendResponse(0, 1, [], "Missing or empty parameters.");
 }
 
-// Retrieve and sanitize input parameters (assuming POST request)
-$course_code = isset($_POST['course_code']) ? sanitizeInput($_POST['course_code']) : null;
-$username = isset($_POST['username']) ? sanitizeInput($_POST['username']) : null;
-
-// Validate required parameters
-if (!$course_code || !$username) {
-    $response['error'] = 'Missing course_code or username parameter.';
-    sendResponse($response, 400); // Bad Request
+// Verify authorization
+if (htmlspecialchars($_POST["authorize"]) !== "gradeplus") {
+    header("Location: illegal.php");
+    exit();
 }
 
-// Database credentials
-$DB_HOST = 'localhost';
-$DB_USER = 'gradeplusclient';
-$DB_PASS = 'gradeplussql';
-$DB_NAME = 'gradeplus';
+// Establish a new MySQLi connection
+$conn = new mysqli('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
-// Connect to MySQL using mysqli
-$conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
-
-// Check connection
+// Check for connection errors
 if ($conn->connect_error) {
-    $response['error'] = 'Database connection failed.';
-    sendResponse($response, 500); // Internal Server Error
+    sendResponse(0, 1, [], "Connection failed: " . $conn->connect_error);
 }
 
-// Step 1: Determine user type
-$stmt = $conn->prepare("SELECT usertype FROM login WHERE username = ?");
+// Sanitize the course code
+$course_code = htmlspecialchars($_POST["course_code"]);
+
+// Check if the course exists
+$checkCourseSql = "SELECT COUNT(*) FROM courses WHERE course_code = ?";
+$checkCourseStmt = $conn->prepare($checkCourseSql);
+if (!$checkCourseStmt) {
+    sendResponse(0, 1, [], "Preparation failed for course check: " . $conn->error);
+}
+$checkCourseStmt->bind_param("s", $course_code);
+$checkCourseStmt->execute();
+$checkCourseStmt->bind_result($courseExists);
+$checkCourseStmt->fetch();
+$checkCourseStmt->close();
+
+// If the course does not exist, return an error
+if ($courseExists == 0) {
+    sendResponse(0, 1, [], "Course code '$course_code' does not exist.");
+}
+
+// Prepare SQL query to retrieve assignments for the given course code
+$sql = "
+SELECT 
+    assignment_name,
+    assignment_file,
+    description,
+    due_date
+FROM 
+    assignment
+WHERE 
+    course_code = ?
+";
+
+$stmt = $conn->prepare($sql);
 if (!$stmt) {
-    $response['error'] = 'Database query preparation failed.';
-    sendResponse($response, 500);
-}
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$stmt->bind_result($usertype);
-if (!$stmt->fetch()) {
-    // User not found
-    $stmt->close();
-    $response['error'] = 'User not found.';
-    sendResponse($response, 404); // Not Found
-}
-$stmt->close();
-
-// Normalize usertype
-$usertype = strtolower($usertype);
-
-// Step 2: Fetch course details
-$stmt = $conn->prepare("SELECT instructor_name FROM courses WHERE course_code = ?");
-if (!$stmt) {
-    $response['error'] = 'Database query preparation failed.';
-    sendResponse($response, 500);
-}
-$stmt->bind_param("s", $course_code);
-$stmt->execute();
-$stmt->bind_result($instructor_name);
-if (!$stmt->fetch()) {
-    // Course not found
-    $stmt->close();
-    $response['error'] = 'Course not found.';
-    sendResponse($response, 404);
-}
-$stmt->close();
-
-// Authorization based on usertype
-if ($usertype === 'admin') {
-    // Admin has access to all assignments in any course
-    // No additional checks needed
-} elseif ($usertype === 'instructor') {
-    // Verify that the instructor is assigned to this course
-    if ($instructor_name !== $username) {
-        $response['error'] = 'Unauthorized: You are not the instructor for this course.';
-        sendResponse($response, 403); // Forbidden
-    }
-} elseif ($usertype === 'student') {
-    // Verify that the student is enrolled in the course
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM enrollment WHERE username = ? AND course_code = ?");
-    if (!$stmt) {
-        $response['error'] = 'Database query preparation failed.';
-        sendResponse($response, 500);
-    }
-    $stmt->bind_param("ss", $username, $course_code);
-    $stmt->execute();
-    $stmt->bind_result($count);
-    $stmt->fetch();
-    $stmt->close();
-
-    if ($count == 0) {
-        $response['error'] = 'Unauthorized: You are not enrolled in this course.';
-        sendResponse($response, 403); // Forbidden
-    }
-} else {
-    // Unknown user type
-    $response['error'] = 'Invalid user type.';
-    sendResponse($response, 400); // Bad Request
+    sendResponse(0, 1, [], "Preparation failed: " . $conn->error);
 }
 
-// Step 3: Fetch assignments for the course
-$stmt = $conn->prepare("SELECT assignment_name, assignment_file, description, due_date, instructor_username FROM assignment WHERE course_code = ?");
-if (!$stmt) {
-    $response['error'] = 'Database query preparation failed.';
-    sendResponse($response, 500);
-}
+// Bind course code parameter and execute the query
 $stmt->bind_param("s", $course_code);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$assignments = [];
+if (!$result) {
+    sendResponse(0, 1, [], "Query failed: " . $conn->error);
+}
 
+// Fetch all assignments and build the response
+$assignments = [];
 while ($row = $result->fetch_assoc()) {
     $assignments[] = [
         "assignment_name" => $row['assignment_name'],
-        "assignment_file" => $row['assignment_file'], // Assuming this is a URL or path
+        "assignment_file" => $row['assignment_file'] ? base64_encode($row['assignment_file']) : null,
         "description" => $row['description'],
-        "due_date" => $row['due_date'],
-        "instructor_username" => $row['instructor_username']
+        "due_date" => $row['due_date']
     ];
 }
 
+// Close resources
 $stmt->close();
 $conn->close();
 
-// Populate response
-$response['success'] = true;
-$response['assignments'] = $assignments;
-
-// Send response
-sendResponse($response);
+// Send the successful response
+sendResponse(1, 0, $assignments, "Assignments retrieved successfully.");
 ?>
