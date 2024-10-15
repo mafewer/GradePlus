@@ -1,0 +1,31 @@
+div.course-settings {
+    position: relative;
+    width: 40%;
+    left: 3rem;
+    top: 1rem;
+}
+
+div.update-banner {
+    display: flex;
+    align-items: center;
+}
+
+div.settings-footer{
+    margin-top: 5rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+div.right-footer{
+    display: flex; 
+    justify-content: flex-end;
+    width: 50%;
+}
+
+div.left-footer{
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+}

@@ -50,7 +50,7 @@
         setTimeout(() => {
             $("div.mainapp").fadeIn(200); // Show the main app after a short delay
             $("div.container")
-                .animate({ right: '-5rem', opacity: 1 }, 400);
+                .animate({ right: '-5rem', opacity: 1 }, 550);
         }
         , 200);
     });
