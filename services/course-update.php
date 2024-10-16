@@ -21,7 +21,7 @@ if ($_POST['authorize'] === 'gradeplus') {
             $banner_img = basename($_FILES['banner']['name']);
             $upload_dir = $img_dir . $banner_img;
 
-            if (!move_uploaded_file($_POST['banner']['tmp_name'], $upload_dir)) {
+            if (!move_uploaded_file($_FILES['banner']['tmp_name'], $upload_dir)) {
                 throw new Exception("Failed to upload file to img directory");
             }
 

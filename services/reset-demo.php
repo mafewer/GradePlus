@@ -1,7 +1,5 @@
 <?php
 
-$_POST["authorize"] = "gradeplus";
-
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
 if ($_POST["authorize"] == "gradeplus") {
     try {
@@ -117,6 +115,40 @@ if ($_POST["authorize"] == "gradeplus") {
         ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor');
         ";
         $result = mysqli_query($conn, $insertDataSqlEnrollment);
+        if (!$result) {
+            error_log("Insert dummy data query failed: " . mysqli_error($conn));
+        }
+
+        // Drop assignment table if it exists
+        $resetTableSqlAssignment = "DROP TABLE IF EXISTS assignment;";
+        $result = mysqli_query($conn, $resetTableSqlAssignment);
+        if (!$result) {
+            error_log("Drop table query failed: " . mysqli_error($conn));
+        }
+        
+        $createTableSqlAssignment = "
+        CREATE TABLE assignment (
+            course_code VARCHAR(50),
+            assignment_name VARCHAR(50),
+            assignment_file LONGBLOB,
+            description VARCHAR(50),
+            due_date Date,
+            instructor VARCHAR(50),
+            assignment_id INT PRIMARY KEY
+        );";
+        $result = mysqli_query($conn, $createTableSqlAssignment);
+        if (!$result) {
+            error_log("Create table query failed: " . mysqli_error($conn));
+        }
+
+        // Insert dummy data
+        $insertDataSqlAssignment = "
+        INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
+        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'Raja', 0),
+        ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed', 1),
+        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'Raja', 2);
+        ";
+        $result = mysqli_query($conn, $insertDataSqlAssignment);
         if (!$result) {
             error_log("Insert dummy data query failed: " . mysqli_error($conn));
         }

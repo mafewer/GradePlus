@@ -1,1 +1,17 @@
 *.pptx
+/vendor
+codeception.yml
+tests/Acceptance.suite.yml
+tests/Functional.suite.yml
+tests/Unit.suite.yml
+tests/_output/.gitignore
+tests/Acceptance/AResetDemoCest.php
+tests/Support/AcceptanceTester.php
+tests/Support/FunctionalTester.php
+tests/Support/UnitTester.php
+tests/Support/_generated/.gitignore
+tests/Support/Data/.gitkeep
+tests/Acceptance.suite.yml
+tests/Support/_generated/AcceptanceTesterActions.php
+tests/Support/_generated/FunctionalTesterActions.php
+tests/Support/_generated/UnitTesterActions.php

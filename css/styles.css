@@ -2,13 +2,33 @@ div.mainapp {
     display: none;
 }
 
-div.holder {
-    text-align: center;
+div.container {
     display: flex;
-    flex-direction: column;
+    opacity: 0;
     align-items: center;
     justify-content: center;
-    height: 80dvh;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    transform: translateX(-5rem);
+}
+
+div.holder {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    width: 50%;
+    margin-left: 10rem;
+    position: relative;
+}
+
+div.index-image {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-right: 10rem;
 }
 
 img.indexback,
@@ -24,9 +44,12 @@ img.indexback2 {
     z-index: -2;
 }
 
+img.scholar-image {
+    width: 200%;
+}
+
 h1.welcome {
-    margin: 10rem;
-    margin-bottom: 3rem;
+    margin-left: 10rem;
 }
 
 span.welcome {
@@ -44,7 +67,8 @@ div.subhead {
 }
 
 a.getstarted {
-    margin: 10rem;
+    margin-top: 3rem;
+    margin-left: 10rem;
     border-radius: 1rem;
 }
 
