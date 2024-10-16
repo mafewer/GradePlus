@@ -7,8 +7,8 @@
 </head>
 
 <body>
-    <div class="table_professor bwcolortext">
-        <table class="responsive-table">
+    <div class="table_professor">
+        <table class="responsive-table bwcolor">
             <tr>
                 <td><img src="img/profilepics/batman_profilepic.jpg" class="profile prof-img"></td>
                 <td>
@@ -24,7 +24,7 @@
         </table>
     </div>
     <div class="table_students bwcolortext">
-        <table class="highlight centered responsive-table">
+        <table class="highlight centered responsive-table bwcolor">
             <thead>
                 <th></th>
                 <th>First Name</th>

@@ -41,6 +41,7 @@ $courses = [];
 
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles-account.css">
+    <link rel="stylesheet" type="text/css" href="css/account-settings.css">
     <title>GradePlus - Dashboard</title>
     <link rel="icon" href="img/logoGreen.png">
 </head>
@@ -98,17 +99,60 @@ $courses = [];
                     </p>
                 </div>
             </div>
-            <a class="waves-effect green addenrolcourse std-hover waves-light btn add-enrol"
-                id=<?php echo $usertype == "Student" ? "enroltrue" : "enrolfalse"; ?>><i
-                    class="material-symbols-outlined left">add_circle</i><?php echo $usertype == "Student" ? "Enroll in a Course" : "Add a Course"; ?></a>
             <!-- Account Settings -->
             <div class="account-settings">
-                Not Implemented Yet
-                <br>
+                <div class="account-item">
+                    <div class="account-item-text">
+                        <h4>Account Settings</h4>
+                        <p>Display Name:
+                            <span
+                                class="display-name"><?php echo $_SESSION['dname'];?></span>
+                        </p>
+                        <p>Profile Picture: </p>
+                        <img src="img/Superman.png" alt="Profile Picture" class="profile-pic">
+                        <p>Account Email:
+                            <?php echo $_SESSION['email']; ?>
+                        </p>
+                        <p>Account Password:
+                            <?php echo isset($_SESSION['password']) ? $_SESSION['password'] : 'Password Not Found'; ?>
+                        </p>
+                        <button class="waves-effect green std-hover waves-light btn edit-account-settings-btn">Edit
+                            Account Settings</button>
+                    </div>
+                </div>
+                <div class="update-form" id="account-settings" style="display: none;">
+                    <p>New Display Name:</p>
+                    <input type="text" id="new-display-name" placeholder="New Display Name"
+                        value="<?php echo $_SESSION['dname']; ?>">
+                    <p>New Profile Picture:</p>
+                    <input type="file" id="new-profile-pic" accept="image/*">
+                    <p>New Account Email:</p>
+                    <input type="email" id="new-account-email" placeholder="New Email"
+                        value="<?php echo $_SESSION['email']; ?>">
+                    <p>New Account Password:</p>
+                    <input type="password" id="new-account-password" placeholder="New Password"
+                        value="<?php echo isset($_SESSION['password']) ? $_SESSION['password'] : ''; ?>">
+                    <div class="update-form-actions">
+                        <a class="waves-effect green std-hover waves-light btn save-btn">Save</a>
+                        <a class="waves-effect red std-hover waves-light btn return-btn">Return</a>
+                    </div>
+                </div>
+                <div class="delete-account-item">
+                    <button class="delete-account-btn waves-effect red std-hover waves-light btn delete-account-btn"><i
+                            class="material-icons left">warning</i>Delete
+                        Account</button>
+                </div>
+                <div class="delete-account-safety" id="account-settings" style="display: none;">
+                    <p>Are you sure you want to delete your account?</p>
+                    <div class="delete-account-form-actions">
+                        <a class="waves-effect red std-hover waves-light btn delete-account-confirm-btn">Yes, delete my
+                            account </a>
+                        <a class="waves-effect green std-hover waves-light btn delete-account-cancel-btn">No</a>
+                    </div>
+                </div>
                 <br>
                 <a class="waves-effect green std-hover waves-light btn account-settings-back"><i
-                        class="material-icons left">arrow_back</i>BACK TO
-                    DASHBOARD</a>
+                        class="material-icons left">arrow_back</i>BACK TO DASHBOARD</a>
             </div>
             <!-- Add or Enrol Modals -->
             <div class="modal bwcolor">
@@ -149,6 +193,9 @@ $courses = [];
                 </p>
                 <div class="course-list-holder">
                 </div>
+                <a class="waves-effect green addenrolcourse std-hover waves-light btn add-enrol"
+                    id=<?php echo $usertype == "Student" ? "enroltrue" : "enrolfalse"; ?>><i
+                        class="material-symbols-outlined left">add_circle</i><?php echo $usertype == "Student" ? "Enroll in a Course" : "Add a Course"; ?></a>
             </div>
         </div>
         <?php include("footer.php"); ?>

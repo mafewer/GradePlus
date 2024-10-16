@@ -18,6 +18,86 @@ function main() {
         $("h2.top-info-header").text(topinfo);
     })
 
+    //Edit Accounts Settings
+    $(".edit-account-settings-btn").click(()=>{
+        $("div.update-form").fadeIn(200);
+        $("div.account-item").fadeOut(200);
+    })
+
+    //Return to Account Settings
+    $(".return-btn").click(()=>{
+        $("div.update-form").fadeOut(200);
+        $("div.account-item").fadeIn(200);
+    })
+
+    //Update Account Settings
+    $(".save-btn").click(()=>{
+        /*TODO: Implement Update Account Settings
+
+        SAMPLE CODE:
+        let formData = new FormData();
+        let displayname = $("input[name='displayname']").val();
+        let email = $("input[name='email']").val();
+        let password = $("input[name='password']").val();
+        let profilepic = $("input[name='profilepic']")[0].files[0];
+
+        if (!displayname || !email || !password) {
+            $("p.status-text").text("Fields cannot be left blank");
+            $("p.status-text").slideDown();
+            setTimeout(() => {
+                $("p.status-text").slideUp();
+            }, 3000);
+            return;
+        }
+
+        formData.append("displayname", displayname);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("profilepic", profilepic);
+        formData.append("username", $("span.user-name").text());
+        formData.append("authorize", "gradeplus");
+
+        $.ajax({
+            url: "services/update-account.php",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType : "json",
+            success: (response) => {
+                if (response["success"] != 1) {
+                    $("p.status-text").text("500 - Server Error");
+                    $("p.status-text").slideDown();
+                    setTimeout(() => {
+                        $("p.status-text").slideUp();
+                    }, 3000);
+                    return;
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+        */
+    })
+
+    //Delete Account
+    $(".delete-account-btn").click(()=>{
+        $("div.delete-account-item").fadeOut(200);
+        $("div.delete-account-safety").fadeIn(200);
+    })
+
+    //Delete Confirmation
+    $(".delete-account-confirm-btn").click(()=>{
+        //TODO: IMPLEMENT DELETE ACCOUNT
+    })
+
+    //Cancel Delete
+    $(".delete-account-cancel-btn").click(()=>{
+        $("div.delete-account-safety").fadeOut(200);
+        $("div.delete-account-item").fadeIn(200);
+    })
+
+
     //Add or Enroll Course Modal
     $("a.addenrolcourse").click(()=>{
         if ($("a.addenrolcourse").attr("id")==="enroltrue"){
