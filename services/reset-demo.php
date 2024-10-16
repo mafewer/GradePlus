@@ -1,7 +1,5 @@
 <?php
 
-$_POST["authorize"] = "gradeplus";
-
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
 if ($_POST["authorize"] == "gradeplus") {
     try {
