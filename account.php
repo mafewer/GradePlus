@@ -6,10 +6,17 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
     if ($_SESSION['logtime'] > time()) {
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
-            $email = $_SESSION['email'];
             $_SESSION['logtime'] = time() + (60 * 6);
             try {
                 $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
+
+                $sql = $conn->prepare("SELECT password, profilePicture FROM login WHERE username = ?");
+                $sql->bind_param("s", $username);
+                $sql->execute();
+                $sql->bind_result($password, $profilePicture);
+                $sql->fetch();
+                $sql->close();
+
                 $loggedin = 1;
                 $sqlUpdate = $conn->prepare("UPDATE login SET loggedin = ? WHERE username = ?");
                 $sqlUpdate->bind_param("is", $loggedin, $username);
@@ -32,6 +39,9 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
 
 //User Type
 $usertype = $_SESSION['usertype'];
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
+$dname = $_SESSION['dname'];
 
 //Courses Data
 $courses = [];
@@ -85,14 +95,19 @@ $courses = [];
         <div class="courseholder bwcolortext">
             <!-- Top Info -->
             <div class="top-icon-holder">
+                <?php if ($profilePicture): ?>
+                <img src="<?php echo $profilePicture; ?>"
+                    alt="Profile Picture" class="profile-pic">
+                <?php else: ?>
                 <i class="material-symbols-outlined accounticon">account_circle</i>
+                <?php endif; ?>
                 <div class="top-info-holder">
                     <h2 class="top-info-header">
                         Welcome
                         <span
-                            class="display-name"><?php echo $_SESSION['dname'];?></span>!
+                            class="display-name"><?php echo $dname;?></span>!
                         <span class="user-name"
-                            style="display: none;"><?php echo $_SESSION['username'];?></span>
+                            style="display: none;"><?php echo $username;?></span>
                     </h2>
                     <p class="accountemail">
                         <?php echo $_SESSION['email']; ?>
@@ -104,34 +119,46 @@ $courses = [];
                 <div class="account-item">
                     <div class="account-item-text">
                         <h4>Account Settings</h4>
+                        <p> Username:
+                            <span
+                                class="user-name"><?php echo $username;?></span>
+                        </p>
                         <p>Display Name:
                             <span
-                                class="display-name"><?php echo $_SESSION['dname'];?></span>
+                                class="display-name"><?php echo $dname;?></span>
                         </p>
                         <p>Profile Picture: </p>
-                        <img src="img/Superman.png" alt="Profile Picture" class="profile-pic">
+                        <?php if ($profilePicture): ?>
+                        <img src="<?php echo $profilePicture; ?>"
+                            alt="Profile Picture" class="profile-pic">
+                        <?php else: ?>
+                        <i class="material-symbols-outlined accounticon">account_circle</i>
+                        <?php endif; ?>
                         <p>Account Email:
-                            <?php echo $_SESSION['email']; ?>
+                            <?php echo $email; ?>
                         </p>
                         <p>Account Password:
-                            <?php echo isset($_SESSION['password']) ? $_SESSION['password'] : 'Password Not Found'; ?>
+                            <?php echo isset($password) ? str_repeat('*', strlen($password)) : 'Password Not Found'; ?>
                         </p>
                         <button class="waves-effect green std-hover waves-light btn edit-account-settings-btn">Edit
                             Account Settings</button>
                     </div>
                 </div>
                 <div class="update-form" id="account-settings" style="display: none;">
+                    <p>New Username:</p>
+                    <input type="text" id="new-user-name"
+                        placeholder="<?php echo $username; ?>">
                     <p>New Display Name:</p>
-                    <input type="text" id="new-display-name" placeholder="New Display Name"
-                        value="<?php echo $_SESSION['dname']; ?>">
+                    <input type="text" id="new-display-name"
+                        placeholder="<?php echo $dname; ?>">
                     <p>New Profile Picture:</p>
                     <input type="file" id="new-profile-pic" accept="image/*">
                     <p>New Account Email:</p>
-                    <input type="email" id="new-account-email" placeholder="New Email"
-                        value="<?php echo $_SESSION['email']; ?>">
+                    <input type="email" id="new-account-email"
+                        placeholder="<?php echo $email; ?>">
                     <p>New Account Password:</p>
-                    <input type="password" id="new-account-password" placeholder="New Password"
-                        value="<?php echo isset($_SESSION['password']) ? $_SESSION['password'] : ''; ?>">
+                    <input type="password" id="new-account-password"
+                        placeholder="<?php echo isset($password) ? str_repeat('*', strlen($password)) : 'Password Not Found'; ?>">
                     <div class="update-form-actions">
                         <a class="waves-effect green std-hover waves-light btn save-btn">Save</a>
                         <a class="waves-effect red std-hover waves-light btn return-btn">Return</a>
@@ -173,8 +200,8 @@ $courses = [];
                         </div>
                         <div style="display: flex; align-items: center;" class="input-field file-field upload-banner">
                             <i class="material-symbols-outlined prefix">add_photo_alternate</i>
-                            <button style="position: relative; margin-left: 3rem; margin-top: 0.3rem;" id="file-picker-btn"
-                                class="waves-effect green white-text btn-flat">
+                            <button style="position: relative; margin-left: 3rem; margin-top: 0.3rem;"
+                                id="file-picker-btn" class="waves-effect green white-text btn-flat">
                                 BANNER IMAGE
                                 <input type="file" name="coursebanner" id="coursebanner" accept="image/*" required>
                             </button>

@@ -24,24 +24,21 @@ function main() {
         $("div.account-item").fadeOut(200);
     })
 
-    //Return to Account Settings
-    $(".return-btn").click(()=>{
+    // Return to Account Settings
+    $(".return-btn").click(() => {
         $("div.update-form").fadeOut(200);
         $("div.account-item").fadeIn(200);
-    })
+    });
 
-    //Update Account Settings
-    $(".save-btn").click(()=>{
-        /*TODO: Implement Update Account Settings
+    // Update Account Settings
+    $(".save-btn").click(() => {
+        let newusername = $("#new-user-name").val()
+        let newdname = $("#new-display-name").val();
+        let newemail = $("#new-account-email").val();
+        let newpassword = $("#new-account-password").val();
+        let profilepic = $("#new-profile-pic")[0].files[0];
 
-        SAMPLE CODE:
-        let formData = new FormData();
-        let displayname = $("input[name='displayname']").val();
-        let email = $("input[name='email']").val();
-        let password = $("input[name='password']").val();
-        let profilepic = $("input[name='profilepic']")[0].files[0];
-
-        if (!displayname || !email || !password) {
+        if (!newusername && !newdname && !newemail && !newpassword && !profilepic) {
             $("p.status-text").text("Fields cannot be left blank");
             $("p.status-text").slideDown();
             setTimeout(() => {
@@ -50,35 +47,160 @@ function main() {
             return;
         }
 
-        formData.append("displayname", displayname);
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("profilepic", profilepic);
-        formData.append("username", $("span.user-name").text());
-        formData.append("authorize", "gradeplus");
-
-        $.ajax({
-            url: "services/update-account.php",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType : "json",
-            success: (response) => {
-                if (response["success"] != 1) {
-                    $("p.status-text").text("500 - Server Error");
-                    $("p.status-text").slideDown();
-                    setTimeout(() => {
-                        $("p.status-text").slideUp();
-                    }, 3000);
-                    return;
-                } else {
-                    window.location.reload();
+        if (newusername) {
+            $.ajax({
+                url: 'services/update-username.php',
+                type: 'POST',
+                data: {
+                    authorize: "gradeplus",
+                    newusername: newusername },
+                dataType: 'json',  // Expecting a JSON response
+                success: function(response) {
+                    if (response.success) {
+                        console.log("Username updated successfully!");
+                        window.location.reload();
+                    } else if (response.error) {
+                        console.error("Error updating username.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to update username:", status, error);
                 }
-            }
-        });
-        */
-    })
+            });
+        }
+
+        if (newdname) {
+            $.ajax({
+                url: 'services/update-dname.php',
+                type: 'POST',
+                data: { 
+                    authorize: "gradeplus",
+                    newdname: newdname },
+                dataType: 'json',  // Expecting a JSON response
+                success: function(response) {
+                    if (response.success) {
+                       console.log("Display name updated successfully!");
+                       window.location.reload();
+                    } else if (response.error) {
+                        console.error("Error updating display name.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to update display name:", status, error);
+                }
+            });
+        }
+
+        if (newemail) {
+            $.ajax({
+                url: 'services/update-email.php',
+                type: 'POST',
+                data: {
+                    authorize: "gradeplus",  
+                    newemail: newemail },
+                dataType: 'json',  // Expecting a JSON response
+                success: function(response) {
+                    if (response.success) {
+                        console.log("Email updated successfully!");
+                        window.location.reload();
+                    } else if (response.error) {
+                        console.error("Error updating Email.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to update Email:", status, error);
+                }
+            });
+        }
+
+        if (newpassword) {
+            $.ajax({
+                url: 'services/update-password.php',
+                type: 'POST',
+                data: { 
+                    authorize: "gradeplus",
+                    newpassword: newpassword },
+                dataType: 'json',  // Expecting a JSON response
+                success: function(response) {
+                    if (response.success) {
+                        console.log("Password updated successfully!");
+                        $.ajax({
+                            url: 'services/logout.php',
+                            type: 'POST',
+                            data: { 
+                                authorize: "gradeplus" // Send the authorization token
+                            },
+                            dataType: 'json',
+                            success: function(logoutResponse) {
+                                if (logoutResponse.success) {
+                                    console.log("Logged out successfully.");
+                                    // Redirect to the login page or home page after logout
+                                    window.location.href = 'login.php'; // Change to the appropriate page
+                                } else {
+                                    console.error("Error during logout.");
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Failed to log out:", status, error);
+                            }
+                        });
+                    } else if (response.error) {
+                        console.error("Error updating profile pic.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to update profile pic:", status, error);
+                }
+            });
+        }
+        /*
+        let formData = new FormData(); // Create a FormData object to handle file uploads
+        
+        if (profilepic) {
+            console.log(profilepic);
+
+            formData.append("authorize", "gradeplus");
+            formData.append("profilepic", profilepic); // Add the profile picture to the form data
+    
+            $.ajax({
+                url: 'services/profilepic-upload.php',
+                type: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from automatically transforming the data into a query string
+                contentType: false, // Tell jQuery not to set any content type header
+                success: function(response) {
+                    if (response.success) {
+                        console.log("Profile picture updated successfully!");
+                        $.ajax({
+                            url: 'services/logout.php',
+                            type: 'POST',
+                            data: { 
+                                authorize: "gradeplus" 
+                            },
+                            dataType: 'json',
+                            success: function(logoutResponse) {
+                                if (logoutResponse.success) {
+                                    console.log("Logged out successfully.");
+                                    window.location.href = 'login.php';
+                                } else {
+                                    console.error("Error during logout.");
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Failed to log out:", status, error);
+                            }
+                        });
+                    } else if (response.error) {
+                        console.error("Error updating profile picture:", response.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Failed to update profile picture:", status, error);
+                }
+            });
+        }
+            */
+    })       
 
     //Delete Account
     $(".delete-account-btn").click(()=>{
