@@ -198,7 +198,7 @@ if ($_POST["authorize"] == "gradeplus") {
 
     mysqli_close($conn);
     header('Content-Type: application/json');
-    echo json_encode(["success" => $success,"error" => $error,"illegal" => 0, "DB-HOST" => $DB_HOST]);
+    echo json_encode(["success" => $success,"error" => $error,"illegal" => 0]);
 } else {
     // User is not authorized
     header("Location: illegal.php");
