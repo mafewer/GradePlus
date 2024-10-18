@@ -12,6 +12,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      CI_ENV: ci
+      
     services:
       mysql:
         image: mysql:5.7
@@ -43,9 +46,6 @@ jobs:
 
       - name: Run bootstrap
         run: vendor/bin/codecept bootstrap
-
-      - name: Set environment variable for CI
-        run: echo "CI_ENV=ci" >> $GITHUB_ENV
 
       - name: Run Tests
         run: vendor/bin/codecept run --debug
