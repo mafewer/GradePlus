@@ -41,6 +41,9 @@ jobs:
       - name: Run composer install
         run: composer install
 
+      - name: Run bootstrap
+        run: vendor/bin/codecept bootstrap
+
       - name: Set environment variable for CI
         run: echo "CI_ENV=ci" >> $GITHUB_ENV
 
