@@ -22,7 +22,7 @@ class AssignmentUploadCest
             "instructor" => $instructor,
         ];
 
-        $I->haveHttpHeader("Content-Type", "application/x-www-form-urlencoded");
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost("/services/add_assignment.php", $postData);
         // Check if the response is JSON
         $I->seeResponseIsJson();
@@ -51,7 +51,7 @@ class AssignmentUploadCest
             "instructor" => $instructor,
         ];
 
-        $I->haveHttpHeader("Content-Type", "application/x-www-form-urlencoded");
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost("/services/add_assignment.php", $postData);
 
         $I->seeResponseIsJson();
@@ -79,7 +79,7 @@ class AssignmentUploadCest
             "instructor" => $instructor,
         ];
 
-        $I->haveHttpHeader("Content-Type", "application/x-www-form-urlencoded");
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost("/services/add_assignment.php", $postData);
 
         $I->seeResponseIsJson();
@@ -106,7 +106,7 @@ class AssignmentUploadCest
             "instructor" => $instructor,
         ];
 
-        $I->haveHttpHeader("Content-Type", "application/x-www-form-urlencoded");
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost("/services/add_assignment.php", $postData);
 
         // Expected to redirect due to missing authorization

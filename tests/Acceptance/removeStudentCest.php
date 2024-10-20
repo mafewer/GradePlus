@@ -6,6 +6,7 @@ class DeenrollmentCest
 
     public function successfulDeenrollment(AcceptanceTester $I)
     {
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $postData = [
             'authorize' => 'gradeplus',
             'studentname' => 'student',
@@ -22,6 +23,7 @@ class DeenrollmentCest
 
     public function deenrollNonExistingStudent(AcceptanceTester $I)
     {
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         // Prepare test data for a student who is not enrolled
         $postData = [
             'authorize' => 'gradeplus',
@@ -38,6 +40,7 @@ class DeenrollmentCest
 
     public function invalidAuthorization(AcceptanceTester $I)
     {
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         // Prepare test data with invalid authorization
         $postData = [
             'authorize' => 'hacker',
