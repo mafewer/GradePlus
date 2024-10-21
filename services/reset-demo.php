@@ -1,46 +1,48 @@
 <?php
 
+require '../config.php';
+
 // Service to initialize/reset demo database. Handles creating MySQL user "gradeplusclient", creating "gradeplus" database, creating and filling "login" table.
-//if ($_POST["authorize"] == "gradeplus") {
-try {
-    // Initialize/Reset Demo Database
-    // Connect to MySQL as admin
-    $conn = mysqli_connect('localhost', 'root', '');
-    if (!$conn) {
-        error_log("Connection to MySQL as admin failed: " . mysqli_connect_error());
-    }
-
-    // Check if gradeplusclient user exists
-    $checkUserSql = "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = 'gradeplusclient')";
-    $result = mysqli_query($conn, $checkUserSql);
-    $row = mysqli_fetch_array($result);
-    // Create user and give privileges if it does not exist
-    if ($row[0] == 0) {
-        $createUserSql = "CREATE USER 'gradeplusclient'@'localhost' IDENTIFIED BY 'gradeplussql'";
-        $result = mysqli_query($conn, $createUserSql);
-        if (!$result) {
-            error_log("Create user query failed: " . mysqli_error($conn));
+if ($_POST["authorize"] == "gradeplus") {
+    try {
+        // Initialize/Reset Demo Database
+        // Connect to MySQL as admin
+        $conn = mysqli_connect('127.0.0.1', 'root', '');
+        if (!$conn) {
+            error_log("Connection to MySQL as admin failed: " . mysqli_connect_error());
         }
 
-        $grantPrivilegesSql = "GRANT ALL PRIVILEGES ON gradeplus.* TO 'gradeplusclient'@'localhost';";
-        $result = mysqli_query($conn, $grantPrivilegesSql);
-        if (!$result) {
-            error_log("Grant privileges query failed: " . mysqli_error($conn));
+        // Check if gradeplusclient user exists
+        $checkUserSql = "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = 'gradeplusclient')";
+        $result = mysqli_query($conn, $checkUserSql);
+        $row = mysqli_fetch_array($result);
+        // Create user and give privileges if it does not exist
+        if ($row[0] == 0) {
+            $createUserSql = "CREATE USER 'gradeplusclient'@'localhost' IDENTIFIED BY 'gradeplussql'";
+            $result = mysqli_query($conn, $createUserSql);
+            if (!$result) {
+                error_log("Create user query failed: " . mysqli_error($conn));
+            }
+
+            $grantPrivilegesSql = "GRANT ALL PRIVILEGES ON gradeplus.* TO 'gradeplusclient'@'localhost';";
+            $result = mysqli_query($conn, $grantPrivilegesSql);
+            if (!$result) {
+                error_log("Grant privileges query failed: " . mysqli_error($conn));
+            }
+            $result = mysqli_query($conn, "FLUSH PRIVILEGES");
+            if (!$result) {
+                error_log("Flush privileges query failed: " . mysqli_error($conn));
+            }
         }
-        $result = mysqli_query($conn, "FLUSH PRIVILEGES");
-        if (!$result) {
-            error_log("Flush privileges query failed: " . mysqli_error($conn));
-        }
-    }
 
     //Close admin connection
     mysqli_close($conn);
 
-    // Create gradeplusclient connection
-    $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql');
-    if (!$conn) {
-        error_log("Connection to MySQL as gradeplusclient failed: " . mysqli_connect_error());
-    }
+        // Create gradeplusclient connection
+        $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql');
+        if (!$conn) {
+            error_log("Connection to MySQL as gradeplusclient failed: " . mysqli_connect_error());
+        }
 
     // Create database if it does not exist
     $createDbSql = "CREATE DATABASE IF NOT EXISTS gradeplus";
