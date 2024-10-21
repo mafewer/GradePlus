@@ -30,13 +30,19 @@ $conn = mysqli_connect($servername, $usernameDB, $passwordDB, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    echo json_encode(["success" => 0, "exists" => 0, "error" => 1, "empty" => 0]);
+    echo json_encode(["success" => 0, "exists" => 0, "error" => 1, "empty" => 0, "invalid_email" => 0]);
     exit();
 }
 
 // Check if Empty
 if (empty($username) || empty($dname) || empty($email) || empty($password) || empty($usertype)) {
-    echo json_encode(["success" => 0, "exists" => 0, "error" => 0, "empty" => 1]);
+    echo json_encode(["success" => 0, "exists" => 0, "error" => 0, "empty" => 1, "invalid_email" => 0]);
+    exit();
+}
+
+// Validate email format
+if ((strpos($email, '@') === false) or (strpos($email, '.') === false)) {
+    echo json_encode(["success" => 0, "exists" => 0, "error" => 0, "empty" => 0, "invalid_email" => 1]);
     exit();
 }
 
@@ -54,9 +60,9 @@ if ($sql->num_rows > 0) {
     $insertSql->bind_param("sssss", $username, $email, $password, $dname, $usertype); // Use plain text password here
 
     if ($insertSql->execute()) {
-        echo json_encode(["success" => 1, "exists" => 0, "error" => 0, "empty" => 0]);
+        echo json_encode(["success" => 1, "exists" => 0, "error" => 0, "empty" => 0, "invalid_email" => 0]);
     } else {
-        echo json_encode(["success" => 0, "exists" => 0, "error" => 1, "empty" => 0]);
+        echo json_encode(["success" => 0, "exists" => 0, "error" => 1, "empty" => 0, "invalid_email" => 0]);
     }
 
     $insertSql->close();
