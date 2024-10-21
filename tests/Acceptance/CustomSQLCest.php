@@ -18,7 +18,6 @@ class CustomSqlCest {
 
         $I->seeResponseContainsJson(['success' => 1]);
 
-        $I->seeInSource('success');
     }
 
     public function missingSqlCommand(AcceptanceTester $I) {
@@ -34,7 +33,6 @@ class CustomSqlCest {
 
         $I->seeResponseContainsJson(['success' => 0]);
 
-        $I->seeInSource('success');
     }
 
     public function invalidAuthorization(AcceptanceTester $I) {
