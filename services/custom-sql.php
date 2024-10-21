@@ -1,10 +1,12 @@
 <?php
 
+require '../config.php';
+
 // Service to send custom SQL commands from the admin page
 if ($_POST["authorize"] == "gradeplus") {
     if (isset($_POST['command'])) {
         try {
-            $conn = new mysqli("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+            $conn = new mysqli($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
 
             if (!$conn) {
                 throw new Exception();
