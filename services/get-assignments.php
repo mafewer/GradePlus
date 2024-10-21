@@ -1,6 +1,8 @@
 <?php
 // File: /services/get-assignments.php
 
+require '../config/php';
+
 // Enable error reporting for debugging (Disable in production)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -33,7 +35,7 @@ if (htmlspecialchars($_POST["authorize"]) !== "gradeplus") {
 }
 
 // Establish a new MySQLi connection
-$conn = new mysqli('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
+$conn = new mysqli($DB_HOST, 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
 // Check for connection errors
 if ($conn->connect_error) {
