@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 // Service to update account email
 if ($_POST["authorize"] == "gradeplus") {

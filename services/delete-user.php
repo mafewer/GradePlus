@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 // Service to delete user account
 if ($_POST["authorize"] == "gradeplus") {

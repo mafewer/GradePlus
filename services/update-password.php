@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 // Service to update account password
 if ($_POST["authorize"] == "gradeplus") {
