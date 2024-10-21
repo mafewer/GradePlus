@@ -2,6 +2,8 @@
 
 header('Content-Type: application/json');
 
+require '../config.php';
+
 // Shared secret for authorization
 $sharedSecret = "gradeplus";
 
@@ -20,7 +22,7 @@ if ($authorize != $sharedSecret) {
 }
 
 // Database connection
-$servername = "localhost";
+$servername = $DB_HOST;
 $usernameDB = "gradeplusclient";
 $passwordDB = "gradeplussql";
 $dbname = "gradeplus";
