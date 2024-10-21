@@ -1,7 +1,7 @@
 <?php
 // File: /services/get-assignments.php
 
-require '../config/php';
+require '../config.php';
 
 // Enable error reporting for debugging (Disable in production)
 ini_set('display_errors', 1);
