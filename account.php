@@ -76,7 +76,9 @@ $courses = [];
                 <h3 class="coursedash-header">
                     Assignments
                 </h3>
-                <p>Not Implemented Yet</p>
+                <div class="coursedash-content">
+                    <p>Not Implemented Yet</p>
+                </div>
             </div>
         </div>
         <div class="courseholder bwcolortext">
@@ -125,12 +127,16 @@ $courses = [];
                             <input id="coursename" name="coursename" type="text">
                             <label for="coursename">Course Name</label>
                         </div>
-                        <div class="input-field upload-banner">
+                        <div style="display: flex; align-items: center;" class="input-field file-field upload-banner">
                             <i class="material-symbols-outlined prefix">add_photo_alternate</i>
-                            <a style="position: relative; left: 3rem; top: 0.3rem;" id="file-picker-btn"
-                                class="waves-effect green white-text btn-flat">BANNER IMAGE</a>
-                            <input type="file" name="coursebanner" id="coursebanner" accept="image/*" required
-                                style="display: none;">
+                            <button style="position: relative; margin-left: 3rem; margin-top: 0.3rem;" id="file-picker-btn"
+                                class="waves-effect green white-text btn-flat">
+                                BANNER IMAGE
+                                <input type="file" name="coursebanner" id="coursebanner" accept="image/*" required>
+                            </button>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
                         </div>
                     </div>
                 </div>

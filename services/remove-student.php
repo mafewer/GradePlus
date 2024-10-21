@@ -1,4 +1,5 @@
 <?php
+
 // Start the session
 session_start();
 $success = 0; // Indicate failure
@@ -12,7 +13,7 @@ if ($_POST['authorize'] == 'gradeplus') {
             error_log("SQL connection failed: " . mysqli_connect_error());
         }
         // Prepare the SQL statement to delete the enrollment
-        $sqlDelete = $conn->prepare("DELETE FROM enrollment WHERE username = ? AND courseCode = ?");
+        $sqlDelete = $conn->prepare("DELETE FROM enrollment WHERE username = ? AND course_code = ?");
         $username = htmlspecialchars($_POST['studentname'] ?? '');
         $coursecode = htmlspecialchars($_POST['coursecode'] ?? '');
         // enter Paramters
@@ -39,4 +40,3 @@ if ($_POST['authorize'] == 'gradeplus') {
 } else {
     header("Location: illegal.php");
 }
-?>

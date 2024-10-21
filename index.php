@@ -14,6 +14,9 @@
         <img src="img/indexback.png" class="indexback">
         <img src="img/indexbackdark.png" class="indexback2">
         <div class="container">
+            <div class="index-image">
+                <img src="img/online-education.svg" class="scholar-image">
+            </div>
             <div class="holder col s12">
                 <h1 class="welcome">
                     <span class="welcome">Welcome</span>
@@ -46,7 +49,10 @@
         $("div.loader").fadeOut(200); // Hide the loader
         setTimeout(() => {
             $("div.mainapp").fadeIn(200); // Show the main app after a short delay
-        }, 200);
+            $("div.container")
+                .animate({ right: '-5rem', opacity: 1 }, 550);
+        }
+        , 200);
     });
 </script>
 
