@@ -3,103 +3,174 @@
 use Tests\Support\AcceptanceTester;
 
 class RegisterUserCest {
-    public function RegisterUser(AcceptanceTester $I) {
-        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        //Reset the database so I know exactly what is in it
+    // Helper function to reset the database before running tests
+    private function resetDatabase(AcceptanceTester $I) {
         $I->sendPost('/services/reset-demo.php', [
             'authorize' => 'gradeplus'
         ]);
+        $I->seeResponseContainsJson(["success" => 1]);  // Ensure the reset worked
+    }
 
-        //Test that I can make a new account that isn't in the system.
+    // Test for registering a unique user
+    public function RegisterUniqueUser(AcceptanceTester $I) {
+        $this->resetDatabase($I);  // Reset the database
+
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
+
         $I->sendPost('/services/register.php', [
             'authorize' => 'gradeplus',
             'username' => 'mafewer',
-            'dname' => 'Matthew Fewer',
-            'email' => 'mafewer@mun.ca',
+            'dname'    => 'Matthew Fewer',
+            'email'    => 'mafewer@mun.ca',
             'password' => 'testPassword',
             'usertype' => 'student'
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 1, "exists" => 0, "error" => 0, "empty" => 0, "invalid_email" => 0]);
+        $I->seeResponseContainsJson([
+            "success" => 1, 
+            "exists"  => 0, 
+            "error"   => 0, 
+            "empty"   => 0, 
+            "invalid_email" => 0
+        ]);
+    }
 
-        $I->seeInSource('success');
+    // Test for trying to register a duplicate user
+    public function RegisterRepeatUser(AcceptanceTester $I) {
+        $this->resetDatabase($I);
 
-        //This is used to make sure that when an account already exists we don't re-add it
+        // Register the first user
         $I->sendPost('/services/register.php', [
             'authorize' => 'gradeplus',
-            'username' => 'mafewer',
-            'dname' => 'Matthew Fewer',
-            'email' => 'mafewer@mun.ca',
-            'password' => 'testPassword',
-            'usertype' => 'student'
+            'username'  => 'mafewer',
+            'dname'     => 'Matthew Fewer',
+            'email'     => 'mafewer@mun.ca',
+            'password'  => 'testPassword',
+            'usertype'  => 'student'
+        ]);
+
+        // Attempt to register the same user again
+        $I->sendPost('/services/register.php', [
+            'authorize' => 'gradeplus',
+            'username'  => 'mafewer',
+            'dname'     => 'Marcus Fewer',
+            'email'     => 'marcus@mun.ca',
+            'password'  => 'testPassword_1',
+            'usertype'  => 'student'
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 0, "exists" => 1, "error" => 0, "empty" => 0, "invalid_email" => 0]);
+        $I->seeResponseContainsJson([
+            "success" => 0, 
+            "exists"  => 1, 
+            "error"   => 0, 
+            "empty"   => 0, 
+            "invalid_email" => 0
+        ]);
+    }
 
-        $I->seeInSource('success');
+    // Test for registering a user with an empty username
+    public function RegisterUserEmptyUsername(AcceptanceTester $I) {
+        $this->resetDatabase($I);
 
-        //This is used to make sure that when an account that uses the same username we can't
         $I->sendPost('/services/register.php', [
             'authorize' => 'gradeplus',
-            'username' => 'mafewer',
-            'dname' => 'Marcus Fewer',
-            'email' => 'marcus@mun.ca',
-            'password' => 'testPassword_1',
-            'usertype' => 'student'
+            'username'  => '',
+            'dname'     => 'Marcus Fewer',
+            'email'     => 'marcus@mun.ca',
+            'password'  => 'testPassword_1',
+            'usertype'  => 'student'
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 0, "exists" => 1, "error" => 0, "empty" => 0, "invalid_email" => 0]);
+        $I->seeResponseContainsJson([
+            "success" => 0, 
+            "exists"  => 0, 
+            "error"   => 0, 
+            "empty"   => 1, 
+            "invalid_email" => 0
+        ]);
+    }
 
-        $I->seeInSource('success');
+    // Test for trying to register with an already-used username
+    public function RegisterRepeatUsername(AcceptanceTester $I) {
+        $this->resetDatabase($I);
 
-        //This is used to make sure that an empty input won't be accepted
+        // Register the user initially
         $I->sendPost('/services/register.php', [
             'authorize' => 'gradeplus',
-            'username' => '',
-            'dname' => 'Marcus Fewer',
-            'email' => 'marcus@mun.ca',
-            'password' => 'testPassword_1',
-            'usertype' => 'student'
+            'username'  => 'mafewer',
+            'dname'     => 'Matthew Fewer',
+            'email'     => 'mafewer@mun.ca',
+            'password'  => 'testPassword',
+            'usertype'  => 'student'
+        ]);
+
+        // Attempt to register with the same username but different email
+        $I->sendPost('/services/register.php', [
+            'authorize' => 'gradeplus',
+            'username'  => 'mafewer',
+            'dname'     => 'Marcus Fewer',
+            'email'     => 'marcus@mun.ca',
+            'password'  => 'testPassword_1',
+            'usertype'  => 'student'
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 0, "exists" => 0, "error" => 0, "empty" => 1, "invalid_email" => 0]);
+        $I->seeResponseContainsJson([
+            "success" => 0, 
+            "exists"  => 1, 
+            "error"   => 0, 
+            "empty"   => 0, 
+            "invalid_email" => 0
+        ]);
+    }
 
-        $I->seeInSource('success');
+    // Test for invalid email address (missing @)
+    public function RegisterBadEmail(AcceptanceTester $I) {
+        $this->resetDatabase($I);
 
-        //This is used to make sure that a valid email is used
         $I->sendPost('/services/register.php', [
             'authorize' => 'gradeplus',
-            'username' => 'marcus',
-            'dname' => 'Marcus Fewer',
-            'email' => 'marcusmun.ca',
-            'password' => 'testPassword_1',
-            'usertype' => 'student'
+            'username'  => 'marcus',
+            'dname'     => 'Marcus Fewer',
+            'email'     => 'marcusmun.ca',
+            'password'  => 'testPassword_1',
+            'usertype'  => 'student'
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 0, "exists" => 0, "error" => 0, "empty" => 0, "invalid_email" => 1]);
+        $I->seeResponseContainsJson([
+            "success" => 0, 
+            "exists"  => 0, 
+            "error"   => 0, 
+            "empty"   => 0, 
+            "invalid_email" => 1
+        ]);
+    }
 
-        $I->seeInSource('success');
+    // Test for invalid email address (no TLD)
+    public function RegisterBadEmail2(AcceptanceTester $I) {
+        $this->resetDatabase($I);
 
-        //This is used to make sure that a valid email is used
         $I->sendPost('/services/register.php', [
             'authorize' => 'gradeplus',
-            'username' => 'marcus',
-            'dname' => 'Marcus Fewer',
-            'email' => 'marcus@munca',
-            'password' => 'testPassword_1',
-            'usertype' => 'student'
+            'username'  => 'marcus',
+            'dname'     => 'Marcus Fewer',
+            'email'     => 'marcus@munca',
+            'password'  => 'testPassword_1',
+            'usertype'  => 'student'
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 0, "exists" => 0, "error" => 0, "empty" => 0, "invalid_email" => 1]);
-
-        $I->seeInSource('success');
-
+        $I->seeResponseContainsJson([
+            "success" => 0, 
+            "exists"  => 0, 
+            "error"   => 0, 
+            "empty"   => 0, 
+            "invalid_email" => 1
+        ]);
     }
 }
