@@ -2,11 +2,10 @@
 
 use Tests\Support\AcceptanceTester;
 
-class ClassListCest
-{
-    public function classList(AcceptanceTester $I)
-    {
-        // Step 1: Reset the database
+class ClassListCest {
+
+    // Helper function to reset the database
+    private function resetDatabase(AcceptanceTester $I) {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost('/services/reset-demo.php', [
             'authorize' => 'gradeplus'
@@ -14,62 +13,60 @@ class ClassListCest
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
             'success' => 1,
-            'error' => 0
+            'error'   => 0
         ]);
+    }
 
-        // Step 2: Fetch students for course CS 3301
+    // Test for fetching students of a valid course
+    public function fetchValidCourseStudents(AcceptanceTester $I) {
+        $this->resetDatabase($I);  // Ensure a clean slate
+
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost('/services/get-students.php', [
-            'authorize' => 'gradeplus',
+            'authorize'   => 'gradeplus',
             'course_code' => 'CS 3301'
         ]);
 
-        // Check the response is valid JSON
         $I->seeResponseIsJson();
-
-        // Ensure two students are returned
         $I->seeResponseContainsJson([
             'success' => 1,
-            'error' => 0,
+            'error'   => 0,
             'illegal' => 0,
-            'data' => [
+            'data'    => [
                 [
                     'profilePicture' => "",  // Adjust if necessary
-                    'dname' => 'mafewer',
-                    'username' => 'mafewer'
+                    'dname'          => 'mafewer',
+                    'username'       => 'mafewer'
                 ],
                 [
                     'profilePicture' => "",  // Adjust if necessary
-                    'dname' => 'ddolomount',
-                    'username' => 'ddolomount'
+                    'dname'          => 'ddolomount',
+                    'username'       => 'ddolomount'
                 ]
             ],
             'message' => 'Students retrieved successfully.'
         ]);
+    }
 
-        // Confirm 'success' is in the response source
-        $I->seeInSource('success');
-
-        // This is is to ensure that we get an error when there is a non-existant class entered.
-        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPost('/services/get-students.php', [
-            'authorize' => 'gradeplus',
-            'course_code' => 'ECE 3301'
-        ]);
+    // Test for handling a non-existent course code
+    public function fetchNonExistentCourse(AcceptanceTester $I) {
+        $this->resetDatabase($I);
 
         $course_code = 'ECE 3301';
 
-        // Check the response is valid JSON
-        $I->seeResponseIsJson();
-
-        // Ensure two students are returned
-        $I->seeResponseContainsJson([
-            'success' => 0,
-            'error' => 1,
-            'illegal' => 0,
-            'data' => [],
-            'message' => "Course code '$course_code' does not exist."
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
+        $I->sendPost('/services/get-students.php', [
+            'authorize'   => 'gradeplus',
+            'course_code' => $course_code
         ]);
 
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'success' => 0,
+            'error'   => 1,
+            'illegal' => 0,
+            'data'    => [],
+            'message' => "Course code '$course_code' does not exist."
+        ]);
     }
 }
