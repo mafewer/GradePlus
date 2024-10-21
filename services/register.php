@@ -53,7 +53,7 @@ $sql->execute();
 $sql->store_result();
 
 if ($sql->num_rows > 0) {
-    echo json_encode(["success" => 0, "exists" => 1, "error" => 0, "empty" => 0]);
+    echo json_encode(["success" => 0, "exists" => 1, "error" => 0, "empty" => 0, "invalid_email" => 0]);
 } else {
     // Insert new user with plain text password
     $insertSql = $conn->prepare("INSERT INTO login (username, email, password, dname, usertype) VALUES (?, ?, ?, ?, ?)");
