@@ -78,11 +78,24 @@ if ($_POST["authorize"] == "gradeplus") {
 
         // Insert dummy data
         $insertDataSql = "
-        INSERT INTO login (username, email, password, dname, loggedin, usertype) VALUES
-        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0, 'Student'),
-        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, 'Admin'),
-        ('instructor', 'instructor@gradeplus.com', 'instructor', 'Instructor', 0, 'Instructor'),
-        ('student', 'student@gradeplus.com', 'student', 'Student', 0, 'Student');
+        INSERT INTO login (username, email, password, dname, loggedin, profilePicture, usertype) VALUES
+        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0, NULL, 'Student'),
+        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, NULL, 'Admin'),
+        ('instructor', 'instructor@gradeplus.com', 'instructor', 'Instructor', 0, NULL, 'Instructor'),
+        ('student', 'student@gradeplus.com', 'student', 'Student', 0, NULL, 'Student'),
+        ('mafewer', 'mafewer@mun.ca', 'password0','mafewer','0',NULL,'Student'),
+        ('aaabdulghani', 'aaabdulghani@mun.ca', 'password1','aaabdulghani','0',NULL,'Student'),
+        ('jfbrown', 'jfbrown@mun.ca', 'password2','jfbrown','0',NULL,'Student'),
+        ('ddolomount', 'ddolomount@mun.ca', 'password3','ddolomount','0',NULL,'Student'),
+        ('mmmybelshaba', 'mmmybelshaba@mun.ca', 'password4','mmmybelshaba','0',NULL,'Student'),
+        ('sthillier', 'sthillier@mun.ca', 'password5','sthillier','0',NULL,'Student'),
+        ('asamanta', 'asamanta@mun.ca', 'password6','asamanta','0',NULL,'Student'),
+        ('brjthomas', 'brjthomas@mun.ca', 'password7','brjthomas','0',NULL,'Student'),
+        ('karami', 'karami@mun.ca', 'password8','karami','0',NULL,'Instructor'),
+        ('huang', 'huang@mun.ca', 'password9','huang','0',NULL,'Instructor'),
+        ('abbas', 'abbas@mun.ca', 'password10','abbas','0',NULL,'Instructor'),
+        ('nasiri', 'nasiri@mun.ca', 'password11','nasiri','0',NULL,'Instructor'),
+        ('meruviaPastor', 'meruviapastor@mun.ca', 'password12','meruviapastor','0',NULL,'Instructor');  
         ";
         $result = mysqli_query($conn, $insertDataSql);
         if (!$result) {
@@ -113,8 +126,44 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlEnrollment = "
         INSERT INTO enrollment VALUES
-        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'student'),
-        ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor');
+        ('mafewer', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
+        ('aaabdulghani', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
+        ('jfbrown', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
+        ('ddolomount', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
+        ('mmmybelshaba', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
+        ('sthillier', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
+        ('asamanta', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
+        ('brjthomas', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
+
+        ('mafewer', 'ECE 6600', 'Communication Principles', 0, 'GHIJKQ', 'Weimin Huang'),
+        ('aaabdulghani', 'ECE 6600', 'Communication Principles', 0, 'GHIJKQ', 'Weimin Huang'),
+        ('jfbrown', 'ECE 6600', 'Communication Principles', 0, 'GHIJKQ', 'Weimin Huang'),
+        ('ddolomount', 'ECE 6600', 'Communication Principles', 0, 'GHIJKQ', 'Weimin Huang'),
+        ('mmmybelshaba', 'ECE 6600', 'Communication Principles', 0, 'GHIJKQ', 'Weimin Huang'),
+        ('sthillier', 'ECE 6600', 'Communication Principles', 0, 'GHIJKQ', 'Weimin Huang'),
+        ('asamanta', 'ECE 6600', 'Communication Principles', 0, 'GHIJKQ', 'Weimin Huang'),
+        ('brjthomas', 'ECE 6600', 'Communication Principles', 0, 'GHIJKQ', 'Weimin Huang'),
+
+        ('mafewer', 'ECE 6400', 'Software Devl Practice', 0, 'GHIJKW', 'Raja Abbas'),
+        ('aaabdulghani', 'ECE 6400', 'Software Devl Practice', 0, 'GHIJKW', 'Raja Abbas'),
+        ('jfbrown', 'ECE 6400', 'Software Devl Practice', 0, 'GHIJKW', 'Raja Abbas'),
+        ('ddolomount', 'ECE 6400', 'Software Devl Practice', 0, 'GHIJKW', 'Raja Abbas'),
+        ('mmmybelshaba', 'ECE 6400', 'Software Devl Practice', 0, 'GHIJKW', 'Raja Abbas'),
+        ('sthillier', 'ECE 6400', 'Software Devl Practice', 0, 'GHIJKW', 'Raja Abbas'),
+        ('asamanta', 'ECE 6400', 'Software Devl Practice', 0, 'GHIJKW', 'Raja Abbas'),
+        ('brjthomas', 'ECE 6400', 'Software Devl Practice', 0, 'GHIJKW', 'Raja Abbas'),
+
+        ('mafewer', 'ECE 6500', 'Computer Architecture', 0, 'ABCDEF', 'Hamed Nasiri'),
+        ('aaabdulghani', 'ECE 6500', 'Computer Architecture', 0, 'ABCDEF', 'Hamed Nasiri'),
+        ('jfbrown', 'ECE 6500', 'Computer Architecture', 0, 'ABCDEF', 'Hamed Nasiri'),
+        ('ddolomount', 'ECE 6500', 'Computer Architecture', 0, 'ABCDEF', 'Hamed Nasiri'),
+        ('mmmybelshaba', 'ECE 6500', 'Computer Architecture', 0, 'ABCDEF', 'Hamed Nasiri'),
+        ('sthillier', 'ECE 6500', 'Computer Architecture', 0, 'ABCDEF', 'Hamed Nasiri'),
+        ('asamanta', 'ECE 6500', 'Computer Architecture', 0, 'ABCDEF', 'Hamed Nasiri'),
+        ('brjthomas', 'ECE 6500', 'Computer Architecture', 0, 'ABCDEF', 'Hamed Nasiri'),
+
+        ('mafewer', 'CS 3301', 'Visual Computing and Applications', 0, 'GHIJKE', 'Oscar Meruvia-Pastor'),
+        ('ddolomount', 'CS 3301', 'Visual Computing and Applications', 0, 'GHIJKE', 'Oscar Meruvia-Pastor');
         ";
         $result = mysqli_query($conn, $insertDataSqlEnrollment);
         if (!$result) {
@@ -146,9 +195,19 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlAssignment = "
         INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
-        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'Raja', 0),
-        ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed', 1),
-        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'Raja', 2);
+        ('ECE 6610','A1',NULL,'Review of the notes from Chapter 1','2024-09-24', 'karami', 123456),
+        ('ECE 6610','A2',NULL,'Questions from Chapter 2','2024-10-16', 'karami', 678910),
+        ('ECE 6610','A3',NULL,'Question from Chapter 3','2024-10-25','karami', 111213),
+
+        ('ECE 6500','A1',NULL,'Questions based on first section','2024-09-30', 'nasiri', 141516),
+        ('ECE 6500','Abstract',NULL,'Abstract for Report','2024-10-18', 'nasiri', 171819),
+
+        ('ECE 6600','A1',NULL,'Questions based on first section','2024-09-30', 'huang', 202122),
+
+        ('ECE 6400','A1',NULL,'Questions based on first section','2024-09-26', 'abbas', 232425),
+
+        ('CS 3301','A1',NULL,'Question based on Histogram Operations','2024-09-27', 'meruviapastor', 262728),
+        ('CS 3301','A2',NULL,'Questions based on smoothing filters','2024-10-13', 'meruviapastor', 293031);
         ";
         $result = mysqli_query($conn, $insertDataSqlAssignment);
         if (!$result) {
@@ -181,7 +240,11 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlCourses = "
                 INSERT INTO courses VALUES
-                ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'Instructor', 'ABCDEF');
+                ('ECE 6610', 'Communication Networks', '../img/card.jpg', 'Ebrahim Karami', 'karami', 'GHIJKL'),
+                ('ECE 6600', 'Communication Principles', '../img/card.jpg', 'Weimin Huang', 'huang', 'GHIJKQ'),
+                ('ECE 6400', 'Software Devl Practice', '../img/card.jpg', 'Raja Abbas', 'abbas', 'GHIJKW'),
+                ('CS 3301', 'Visual Computing and Applications', '../img/card.jpg', 'Oscar Meruvia-Pastor', 'meruviapastor', 'GHIJKE'),
+                ('ECE 6500', 'Computer Architecture', '../img/card.jpg', 'Hamed Nasiri', 'nasiri', 'ABCDEG');
                 ";
         $result = mysqli_query($conn, $insertDataSqlCourses);
         if (!$result) {

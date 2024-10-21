@@ -55,7 +55,7 @@ FROM
 JOIN 
     enrollment ON login.username = enrollment.username
 WHERE 
-    enrollment.courseCode = ?
+    enrollment.course_code = ?
 ";
 
 $stmt = $conn->prepare($sql);
