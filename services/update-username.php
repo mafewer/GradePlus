@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 // Service to update account username
 if ($_POST["authorize"] == "gradeplus") {
@@ -25,14 +27,12 @@ if ($_POST["authorize"] == "gradeplus") {
             }
 
             if ($row[0] != 0) {
-                echo("Username is already taken!");
                 $taken = 1;
             } else {
                 // Update username
                 $updateNameSql = sprintf("UPDATE login SET username = '%s' WHERE username = '%s'", $newName, $currentName);
                 $result = mysqli_query($conn, $updateNameSql);
                 if ($result) {
-                    echo("Username update successful!");
                     $success = 1;
                 } else {
                     error_log("Update username failed: " . mysqli_error($conn));

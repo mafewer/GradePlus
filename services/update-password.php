@@ -19,7 +19,6 @@ if ($_POST["authorize"] == "gradeplus") {
             $updatePassSql = sprintf("UPDATE login SET password = '%s' WHERE username = '%s'", $newPassword, $currentName);
             $result = mysqli_query($conn, $updatePassSql);
             if ($result) {
-                echo("Password update successful!");
                 $success = 1;
             } else {
                 error_log("Update password failed: " . mysqli_error($conn));

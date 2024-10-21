@@ -27,7 +27,6 @@ if ($_POST["authorize"] == "gradeplus") {
             $deleteUserSql = sprintf("DELETE FROM login WHERE username = '%s'", $currentName);
             $result = mysqli_query($conn, $deleteUserSql);
             if ($result) {
-                echo("User deleted successfully!");
                 $success = 1;
                 session_unset();
             } else {

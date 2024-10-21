@@ -19,7 +19,6 @@ if ($_POST["authorize"] == "gradeplus") {
             $updateNameSql = sprintf("UPDATE login SET dname = '%s' WHERE username = '%s'", $newDname, $currentName);
             $result = mysqli_query($conn, $updateNameSql);
             if ($result) {
-                echo("Dname update successful!");
                 $success = 1;
             } else {
                 error_log("Update Dname failed: " . mysqli_error($conn));

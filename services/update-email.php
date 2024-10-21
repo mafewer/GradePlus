@@ -25,14 +25,12 @@ if ($_POST["authorize"] == "gradeplus") {
             }
 
             if ($row[0] != 0) {
-                echo("Email is already linked to an account!");
                 $taken = 1;
             } else {
                 // Update email
                 $updateEmailSql = sprintf("UPDATE login SET email = '%s' WHERE username = '%s'", $newEmail, $currentName);
                 $result = mysqli_query($conn, $updateEmailSql);
                 if ($result) {
-                    echo("Email update successful!");
                     $success = 1;
                 } else {
                     error_log("Update email failed: " . mysqli_error($conn));
@@ -48,7 +46,7 @@ if ($_POST["authorize"] == "gradeplus") {
     }
     mysqli_close($conn);
     header('Content-Type: application/json');
-    echo json_encode(["success" => $success,"error" => $error]);
+    echo json_encode(["success" => $success,"error" => $error,"taken" => $taken]);
 } else {
     // User is not authorized
     header("Location: illegal.php");
