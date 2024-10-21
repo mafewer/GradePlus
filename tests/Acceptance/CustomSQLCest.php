@@ -11,7 +11,7 @@ class CustomSqlCest {
         $I->sendPost('/services/custom-sql.php', [
             'authorize' => 'gradeplus',
             'command' => "INSERT INTO courses(course_name, course_banner, instructor_name, course_code, instructor_dname) 
-                            VALUES ('Communication Networks', 'banner.png', 'Daniel Dolomount', 'ECE 6610', 'Daniel Dolomount')"
+                            VALUES ('Computer Architecture', 'banner.jpeg', 'Jordan Brown', 'ECE 6500', 'Jordan Brown')"
         ]);
 
         $I->seeResponseIsJson();
