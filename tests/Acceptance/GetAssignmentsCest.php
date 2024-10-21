@@ -33,5 +33,16 @@ class GetAssignmentsCest
                 'due_date' => null,
             ]
         ], 'message' => "Assignments retrieved successfully."]);
+
+        $course_code = 'ECE 3301';
+
+        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
+        $I->sendPost('/services/get-assignments.php', [
+            'authorize' => 'gradeplus',
+            'course_code' => 'ECE 3301'
+        ]);
+
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['success' => 0, 'error' => 1, "illegal"=>0, 'data'=>[], 'message' => "Course code '$course_code' does not exist."]);
     }
 }
