@@ -146,9 +146,9 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlAssignment = "
         INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
-        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'Raja', 0),
+        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'instructor', 0),
         ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed', 1),
-        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'Raja', 2);
+        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'instructor', 2);
         ";
         $result = mysqli_query($conn, $insertDataSqlAssignment);
         if (!$result) {
