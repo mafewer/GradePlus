@@ -22,7 +22,7 @@ class UpdateUsernameCest
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 1,"error" => null,"taken" => null]);
+        $I->seeResponseContainsJson(["success" => 1,"error" => 0,"taken" => 0]);
     }
 
     public function cannotUpdateWhenNotSignedIn(AcceptanceTester $I)
@@ -59,6 +59,6 @@ class UpdateUsernameCest
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => null,"error" => null,"taken" => 1]);
+        $I->seeResponseContainsJson(["success" => 0,"error" => 0,"taken" => 1]);
     }
 }
