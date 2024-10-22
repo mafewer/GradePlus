@@ -22,18 +22,26 @@ if ($_POST["authorize"] == "gradeplus") {
             $result = mysqli_query($conn, $checkEmailTakenSql);
             $row = mysqli_fetch_array($result);
 
+            if ($row == null) {
+                $row = [0];
+            }
+
             if (!$result) {
                 error_log("Email taken check failed: " . mysqli_error($conn));
             }
 
             if ($row[0] != 0) {
+                $success = 0;
                 $taken = 1;
+                $error = 0;
             } else {
                 // Update email
                 $updateEmailSql = sprintf("UPDATE login SET email = '%s' WHERE username = '%s'", $newEmail, $currentName);
                 $result = mysqli_query($conn, $updateEmailSql);
                 if ($result) {
                     $success = 1;
+                    $error = 0;
+                    $taken = 0;
                 } else {
                     error_log("Update email failed: " . mysqli_error($conn));
                     $error = 1;
