@@ -208,6 +208,9 @@ if ($_POST["authorize"] == "gradeplus") {
 
         ('CS 3301','A1',NULL,'Question based on Histogram Operations','2024-09-27', 'meruviapastor', 262728),
         ('CS 3301','A2',NULL,'Questions based on smoothing filters','2024-10-13', 'meruviapastor', 293031);
+        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'instructor', 0),
+        ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed', 1),
+        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'instructor', 2);
         ";
         $result = mysqli_query($conn, $insertDataSqlAssignment);
         if (!$result) {
