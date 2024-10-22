@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 // Service to delete user account
 if ($_POST["authorize"] == "gradeplus") {
@@ -8,7 +10,7 @@ if ($_POST["authorize"] == "gradeplus") {
     }
     try {
         $currentName = $_SESSION['username'];
-        $conn = mysqli_connect("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+        $conn = mysqli_connect($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
         if (!$conn) {
             error_log("SQL connection failed: " . mysqli_connect_error());
         }
@@ -27,7 +29,6 @@ if ($_POST["authorize"] == "gradeplus") {
             $deleteUserSql = sprintf("DELETE FROM login WHERE username = '%s'", $currentName);
             $result = mysqli_query($conn, $deleteUserSql);
             if ($result) {
-                echo("User deleted successfully!");
                 $success = 1;
                 session_unset();
             } else {
