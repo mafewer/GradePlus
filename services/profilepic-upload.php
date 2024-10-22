@@ -70,26 +70,8 @@ try {
 } catch (exception $e) {
     $error = 1;
 }
+    header('Content-Type: application/json');
+    echo json_encode(["success" => $success,"missingFeild" => $missingFeild,"error" => $error]);
 ?>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Profile Picture</title>
-</head>
-<body>
-    <h2>Upload Your Profile Picture</h2>
-    <form action="profilePicUpload.php" method="post" enctype="multipart/form-data">
-        <label for="username">Username:</label>
-        <input type="text" name="username" required><br><br>
-        <label for="profilePicture">Select Profile Picture:</label>
-        <input type="file" name="profilePicture" accept="image/*" required><br><br>
-        <button type="submit">Upload</button>
-    </form>
-</body>
-</html>
 

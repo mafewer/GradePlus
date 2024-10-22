@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 // Service to update account dname
 if ($_POST["authorize"] == "gradeplus") {
@@ -10,7 +12,7 @@ if ($_POST["authorize"] == "gradeplus") {
         try {
             $newDname = $_POST['newdname'];
             $currentName = $_SESSION['username'];
-            $conn = mysqli_connect("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+            $conn = mysqli_connect($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
             if (!$conn) {
                 error_log("SQL connection failed: " . mysqli_connect_error());
             }
@@ -19,7 +21,6 @@ if ($_POST["authorize"] == "gradeplus") {
             $updateNameSql = sprintf("UPDATE login SET dname = '%s' WHERE username = '%s'", $newDname, $currentName);
             $result = mysqli_query($conn, $updateNameSql);
             if ($result) {
-                echo("Dname update successful!");
                 $success = 1;
             } else {
                 error_log("Update Dname failed: " . mysqli_error($conn));
