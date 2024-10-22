@@ -10,6 +10,7 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
             try {
                 $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
+                //Password is not natively stored in the session for security reasons. Need to fetch it from database to display in account settings.
                 $sql = $conn->prepare("SELECT password, profilePicture FROM login WHERE username = ?");
                 $sql->bind_param("s", $username);
                 $sql->execute();
@@ -37,7 +38,7 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
     session_unset();
 }
 
-//User Type
+//Update account setting variables from session on window load. Important for the account settings functionality.
 $usertype = $_SESSION['usertype'];
 $username = $_SESSION['username'];
 $email = $_SESSION['email'];
@@ -118,6 +119,7 @@ $courses = [];
             <div class="account-settings">
                 <div class="account-item">
                     <div class="account-item-text">
+                        <!-- Account Settings Display -->
                         <h4>Account Settings</h4>
                         <p> Username:
                             <span
@@ -127,6 +129,7 @@ $courses = [];
                             <span
                                 class="display-name"><?php echo $dname;?></span>
                         </p>
+                        <!-- Check to see if a profile picture is uploaded, if not, display a default icon -->
                         <p>Profile Picture: </p>
                         <?php if ($profilePicture): ?>
                         <img src="<?php echo $profilePicture; ?>"
@@ -144,6 +147,7 @@ $courses = [];
                             Account Settings</button>
                     </div>
                 </div>
+                <!-- Account Settings Update Form -->
                 <div class="update-form" id="account-settings" style="display: none;">
                     <p>New Username:</p>
                     <input type="text" id="new-user-name"
@@ -164,11 +168,13 @@ $courses = [];
                         <a class="waves-effect red std-hover waves-light btn return-btn">Return</a>
                     </div>
                 </div>
+                <!-- Delete Account Section under Account Settings-->
                 <div class="delete-account-item">
                     <button class="delete-account-btn waves-effect red std-hover waves-light btn delete-account-btn"><i
                             class="material-icons left">warning</i>Delete
                         Account</button>
                 </div>
+                <!-- Delete Account Safety Modal -->
                 <div class="delete-account-safety" id="account-settings" style="display: none;">
                     <p>Are you sure you want to delete your account?</p>
                     <div class="delete-account-form-actions">

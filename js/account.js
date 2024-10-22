@@ -32,13 +32,16 @@ function main() {
 
     // Update Account Settings
     $(".save-btn").click(() => {
-        let newusername = $("#new-user-name").val()
+
+        // Get the new values from the input fields
+        let newname = $("#new-user-name").val()
         let newdname = $("#new-display-name").val();
         let newemail = $("#new-account-email").val();
         let newpassword = $("#new-account-password").val();
-        let profilepic = $("#new-profile-pic")[0].files[0];
+        let profilePicture = $("#new-profile-pic")[0].files[0];
 
-        if (!newusername && !newdname && !newemail && !newpassword && !profilepic) {
+        // Check if any of the fields are empty
+        if (!newname && !newdname && !newemail && !newpassword && !profilePicture) {
             $("p.status-text").text("Fields cannot be left blank");
             $("p.status-text").slideDown();
             setTimeout(() => {
@@ -47,18 +50,19 @@ function main() {
             return;
         }
 
-        if (newusername) {
+        // Update the username backend integration
+        if (newname) {
             $.ajax({
-                url: 'services/update-username.php',
-                type: 'POST',
+                url: 'services/update-username.php', 
+                type: 'POST', // Send the data using POST
                 data: {
-                    authorize: "gradeplus",
-                    newusername: newusername },
-                dataType: 'json',  // Expecting a JSON response
+                    authorize: "gradeplus", // Send the authorization token
+                    newname: newname }, // Send the new username
+                dataType: 'json',  
                 success: function(response) {
                     if (response.success) {
                         console.log("Username updated successfully!");
-                        window.location.reload();
+                        window.location.reload(true); //Adding true here clears the browser cache, ensuring the account.php file updates the session variables.
                     } else if (response.error) {
                         console.error("Error updating username.");
                     }
@@ -69,6 +73,7 @@ function main() {
             });
         }
 
+        //See username update ajax for comments
         if (newdname) {
             $.ajax({
                 url: 'services/update-dname.php',
@@ -76,11 +81,11 @@ function main() {
                 data: { 
                     authorize: "gradeplus",
                     newdname: newdname },
-                dataType: 'json',  // Expecting a JSON response
+                dataType: 'json',
                 success: function(response) {
                     if (response.success) {
                        console.log("Display name updated successfully!");
-                       window.location.reload();
+                       window.location.reload(true); 
                     } else if (response.error) {
                         console.error("Error updating display name.");
                     }
@@ -91,6 +96,7 @@ function main() {
             });
         }
 
+        //See username update ajax for comments
         if (newemail) {
             $.ajax({
                 url: 'services/update-email.php',
@@ -98,7 +104,7 @@ function main() {
                 data: {
                     authorize: "gradeplus",  
                     newemail: newemail },
-                dataType: 'json',  // Expecting a JSON response
+                dataType: 'json', 
                 success: function(response) {
                     if (response.success) {
                         console.log("Email updated successfully!");
@@ -113,6 +119,7 @@ function main() {
             });
         }
 
+        // See username update ajax for comments. However, success handling logs out the user instead of simply window refreshing.
         if (newpassword) {
             $.ajax({
                 url: 'services/update-password.php',
@@ -120,22 +127,23 @@ function main() {
                 data: { 
                     authorize: "gradeplus",
                     newpassword: newpassword },
-                dataType: 'json',  // Expecting a JSON response
+                dataType: 'json',  
                 success: function(response) {
                     if (response.success) {
                         console.log("Password updated successfully!");
+                        // Log out the user after updating the password
                         $.ajax({
                             url: 'services/logout.php',
                             type: 'POST',
                             data: { 
-                                authorize: "gradeplus" // Send the authorization token
+                                authorize: "gradeplus"
                             },
                             dataType: 'json',
                             success: function(logoutResponse) {
                                 if (logoutResponse.success) {
                                     console.log("Logged out successfully.");
                                     // Redirect to the login page or home page after logout
-                                    window.location.href = 'login.php'; // Change to the appropriate page
+                                    window.location.href = 'login.php';
                                 } else {
                                     console.error("Error during logout.");
                                 }
@@ -153,15 +161,13 @@ function main() {
                 }
             });
         }
-        /*
-        let formData = new FormData(); // Create a FormData object to handle file uploads
         
-        if (profilepic) {
-            console.log(profilepic);
+        /* Update the profile picture 
 
-            formData.append("authorize", "gradeplus");
-            formData.append("profilepic", profilepic); // Add the profile picture to the form data
-    
+        var formData = new FormData();
+        formData.append('profilePicture', profilePicture);
+        
+        if (profilePicture) {
             $.ajax({
                 url: 'services/profilepic-upload.php',
                 type: 'POST',
@@ -171,25 +177,7 @@ function main() {
                 success: function(response) {
                     if (response.success) {
                         console.log("Profile picture updated successfully!");
-                        $.ajax({
-                            url: 'services/logout.php',
-                            type: 'POST',
-                            data: { 
-                                authorize: "gradeplus" 
-                            },
-                            dataType: 'json',
-                            success: function(logoutResponse) {
-                                if (logoutResponse.success) {
-                                    console.log("Logged out successfully.");
-                                    window.location.href = 'login.php';
-                                } else {
-                                    console.error("Error during logout.");
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.error("Failed to log out:", status, error);
-                            }
-                        });
+                        window.location.reload(true);
                     } else if (response.error) {
                         console.error("Error updating profile picture:", response.error);
                     }
@@ -198,9 +186,9 @@ function main() {
                     console.error("Failed to update profile picture:", status, error);
                 }
             });
-        }
-            */
-    })       
+        } */
+    })     
+        
 
     //Delete Account
     $(".delete-account-btn").click(()=>{
@@ -210,7 +198,25 @@ function main() {
 
     //Delete Confirmation
     $(".delete-account-confirm-btn").click(()=>{
-        //TODO: IMPLEMENT DELETE ACCOUNT
+        $.ajax({
+            url: 'services/delete-user.php',
+            type: 'POST',
+            data: {
+                authorize: "gradeplus"
+            },
+            dataType: 'json', 
+            success: function(response) {
+                if (response.success) {
+                    console.log("User deleted successfully!");
+                    window.location.href = 'login.php';
+                } else if (response.error) {
+                    console.error("Error deleting user.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Failed to delete user: ", status, error);
+            }
+        });
     })
 
     //Cancel Delete

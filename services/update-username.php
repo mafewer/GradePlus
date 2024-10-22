@@ -1,7 +1,9 @@
 <?php
 
+//Ben Thomas: Need to start the session to get the username and update username in session.
 session_start();
-ini_set('display_errors', 0);
+ini_set('display_errors', 0);   //Ben Thomas: This is to prevent the error messages from being displayed on the webpage.
+
 // Service to update account username
 if ($_POST["authorize"] == "gradeplus") {
     if (!isset($_SESSION['username']) || $_SESSION['username'] == 'admin') {
