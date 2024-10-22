@@ -10,8 +10,8 @@ class CustomSqlCest {
         // Send a valid custom SQL command with proper authorization
         $I->sendPost('/services/custom-sql.php', [
             'authorize' => 'gradeplus',
-            'command' => "INSERT INTO courses(course_name, course_banner, instructor_name, course_code, instructor_dname) 
-                            VALUES ('Computer Architecture', 'banner.jpeg', 'Jordan Brown', 'ECE 6500', 'Jordan Brown')"
+            'command' => "INSERT INTO courses(course_code, course_name, course_banner, instructor_name, instructor_dname, invite_code) 
+                        VALUES ('ECE 6500', 'Computer Architecture', 'banner.jpeg', 'Jordan Brown', 'Jordan Brown', '123456')"
         ]);
 
         $I->seeResponseIsJson();
