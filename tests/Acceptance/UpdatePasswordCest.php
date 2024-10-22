@@ -21,7 +21,7 @@ class UpdatePasswordCest
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 1,"error" => null]);
+        $I->seeResponseContainsJson(["success" => 1,"error" => 0]);
     }
 
     public function cannotUpdateWhenNotSignedIn(AcceptanceTester $I)

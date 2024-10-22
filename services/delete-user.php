@@ -30,6 +30,7 @@ if ($_POST["authorize"] == "gradeplus") {
             $result = mysqli_query($conn, $deleteUserSql);
             if ($result) {
                 $success = 1;
+                $error = 0;
                 session_unset();
             } else {
                 error_log("Delete user failed: " . mysqli_error($conn));

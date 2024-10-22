@@ -10,7 +10,7 @@ class UpdateEmailCest
         //Set session variable using helper service
         $I->sendPost('/services/set-session.php', [
             'key' => 'username',
-            'value' => 'name'
+            'value' => 'user'
         ]);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(["success" => 1]);
@@ -21,7 +21,7 @@ class UpdateEmailCest
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 1,"error" => null]);
+        $I->seeResponseContainsJson(["success" => 1,"error" => 0]);
     }
 
     public function cannotUpdateWhenNotSignedIn(AcceptanceTester $I)
@@ -57,6 +57,6 @@ class UpdateEmailCest
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => null,"error" => null,"taken" => 1]);
+        $I->seeResponseContainsJson(["success" => 0,"error" => 0,"taken" => 1]);
     }
 }

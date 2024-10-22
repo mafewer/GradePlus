@@ -22,6 +22,7 @@ if ($_POST["authorize"] == "gradeplus") {
             $result = mysqli_query($conn, $updateNameSql);
             if ($result) {
                 $success = 1;
+                $error = 0;
             } else {
                 error_log("Update Dname failed: " . mysqli_error($conn));
                 $error = 1;
