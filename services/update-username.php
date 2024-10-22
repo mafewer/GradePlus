@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 // Service to update account username
 if ($_POST["authorize"] == "gradeplus") {
@@ -10,7 +12,7 @@ if ($_POST["authorize"] == "gradeplus") {
         try {
             $newName = $_POST['newname'];
             $currentName = $_SESSION['username'];
-            $conn = mysqli_connect("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+            $conn = mysqli_connect($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
             if (!$conn) {
                 error_log("SQL connection failed: " . mysqli_connect_error());
             }
@@ -20,20 +22,26 @@ if ($_POST["authorize"] == "gradeplus") {
             $result = mysqli_query($conn, $checkNameTakenSql);
             $row = mysqli_fetch_array($result);
 
+            if ($row == null) {
+                $row = [0];
+            }
+
             if (!$result) {
                 error_log("Username taken check failed: " . mysqli_error($conn));
             }
 
             if ($row[0] != 0) {
-                echo("Username is already taken!");
                 $taken = 1;
+                $success = 0;
+                $error = 0;
             } else {
                 // Update username
                 $updateNameSql = sprintf("UPDATE login SET username = '%s' WHERE username = '%s'", $newName, $currentName);
                 $result = mysqli_query($conn, $updateNameSql);
                 if ($result) {
-                    echo("Username update successful!");
                     $success = 1;
+                    $error = 0;
+                    $taken = 0;
                 } else {
                     error_log("Update username failed: " . mysqli_error($conn));
                     $error = 1;

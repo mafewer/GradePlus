@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 // Service to update account password
 if ($_POST["authorize"] == "gradeplus") {
@@ -10,7 +12,7 @@ if ($_POST["authorize"] == "gradeplus") {
         try {
             $newPassword = $_POST['newpassword'];
             $currentName = $_SESSION['username'];
-            $conn = mysqli_connect("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+            $conn = mysqli_connect($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
             if (!$conn) {
                 error_log("SQL connection failed: " . mysqli_connect_error());
             }
@@ -19,8 +21,9 @@ if ($_POST["authorize"] == "gradeplus") {
             $updatePassSql = sprintf("UPDATE login SET password = '%s' WHERE username = '%s'", $newPassword, $currentName);
             $result = mysqli_query($conn, $updatePassSql);
             if ($result) {
-                echo("Password update successful!");
                 $success = 1;
+                $error = 0;
+                $taken = 0;
             } else {
                 error_log("Update password failed: " . mysqli_error($conn));
                 $error = 1;

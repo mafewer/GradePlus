@@ -1,12 +1,14 @@
 <?php
 
+require '../config.php';
+
 $success = 0;
 $invalid_course = 0;
 $error = 0;
 
 if ($_POST["authorize"] == "gradeplus") {
     try {
-        $conn = new mysqli("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+        $conn = new mysqli($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);

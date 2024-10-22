@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 // Service to update account email
 if ($_POST["authorize"] == "gradeplus") {
@@ -10,7 +12,7 @@ if ($_POST["authorize"] == "gradeplus") {
         try {
             $newEmail = $_POST['newemail'];
             $currentName = $_SESSION['username'];
-            $conn = mysqli_connect("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+            $conn = mysqli_connect($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
             if (!$conn) {
                 error_log("SQL connection failed: " . mysqli_connect_error());
             }
@@ -20,20 +22,26 @@ if ($_POST["authorize"] == "gradeplus") {
             $result = mysqli_query($conn, $checkEmailTakenSql);
             $row = mysqli_fetch_array($result);
 
+            if ($row == null) {
+                $row = [0];
+            }
+
             if (!$result) {
                 error_log("Email taken check failed: " . mysqli_error($conn));
             }
 
             if ($row[0] != 0) {
-                echo("Email is already linked to an account!");
+                $success = 0;
                 $taken = 1;
+                $error = 0;
             } else {
                 // Update email
                 $updateEmailSql = sprintf("UPDATE login SET email = '%s' WHERE username = '%s'", $newEmail, $currentName);
                 $result = mysqli_query($conn, $updateEmailSql);
                 if ($result) {
-                    echo("Email update successful!");
                     $success = 1;
+                    $error = 0;
+                    $taken = 0;
                 } else {
                     error_log("Update email failed: " . mysqli_error($conn));
                     $error = 1;
@@ -48,7 +56,7 @@ if ($_POST["authorize"] == "gradeplus") {
     }
     mysqli_close($conn);
     header('Content-Type: application/json');
-    echo json_encode(["success" => $success,"error" => $error]);
+    echo json_encode(["success" => $success,"error" => $error,"taken" => $taken]);
 } else {
     // User is not authorized
     header("Location: illegal.php");

@@ -1,6 +1,7 @@
 <?php
 
 header('Content-Type: application/json');
+require '../config.php';
 
 // Start the session
 session_start();
@@ -10,7 +11,7 @@ if ($_POST['authorize'] === 'gradeplus') {
     $conn = null;
     try {
         // Connect to the MySQL database using prepared statements
-        $conn = new mysqli('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
+        $conn = new mysqli($DB_HOST, 'gradeplusclient', 'gradeplussql', 'gradeplus');
         if ($conn->connect_error) {
             throw new Exception("Connection failed: " . $conn->connect_error);
         }
