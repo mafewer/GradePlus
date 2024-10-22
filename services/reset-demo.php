@@ -126,6 +126,9 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlEnrollment = "
         INSERT INTO enrollment VALUES
+        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'student'),
+        ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
+
         ('mafewer', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
         ('aaabdulghani', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
         ('jfbrown', 'ECE 6610', 'Communication Networks', 0, 'GHIJKL', 'Ebrahim Karami'),
@@ -195,6 +198,10 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlAssignment = "
         INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
+        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'instructor', 0),
+        ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed', 1),
+        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'instructor', 2),
+
         ('ECE 6610','A1',NULL,'Review of the notes from Chapter 1','2024-09-24', 'karami', 123456),
         ('ECE 6610','A2',NULL,'Questions from Chapter 2','2024-10-16', 'karami', 678910),
         ('ECE 6610','A3',NULL,'Question from Chapter 3','2024-10-25','karami', 111213),
@@ -240,6 +247,7 @@ if ($_POST["authorize"] == "gradeplus") {
         // Insert dummy data
         $insertDataSqlCourses = "
                 INSERT INTO courses VALUES
+                ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'Instructor', 'ABCDEF'),
                 ('ECE 6610', 'Communication Networks', '../img/card.jpg', 'Ebrahim Karami', 'karami', 'GHIJKL'),
                 ('ECE 6600', 'Communication Principles', '../img/card.jpg', 'Weimin Huang', 'huang', 'GHIJKQ'),
                 ('ECE 6400', 'Software Devl Practice', '../img/card.jpg', 'Raja Abbas', 'abbas', 'GHIJKW'),
