@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 
 ini_set('display_errors', 0);
@@ -12,7 +14,7 @@ if ($_POST["authorize"] == "gradeplus") {
         try {
             $newDname = $_POST['newdname'];
             $currentName = $_SESSION['username'];
-            $conn = mysqli_connect("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+            $conn = mysqli_connect($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
             if (!$conn) {
                 error_log("SQL connection failed: " . mysqli_connect_error());
             }

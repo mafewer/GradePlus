@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 //Ben Thomas: Need to start the session to get the username and update username in session.
 session_start();
 ini_set('display_errors', 0);   //Ben Thomas: This is to prevent the error messages from being displayed on the webpage.
@@ -13,7 +15,7 @@ if ($_POST["authorize"] == "gradeplus") {
         try {
             $newName = $_POST['newname'];
             $currentName = $_SESSION['username'];
-            $conn = mysqli_connect("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+            $conn = mysqli_connect($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
             if (!$conn) {
                 error_log("SQL connection failed: " . mysqli_connect_error());
             }

@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 session_start();
 
 ini_set('display_errors', 0);
@@ -12,7 +14,7 @@ if ($_POST["authorize"] == "gradeplus") {
         try {
             $newEmail = $_POST['newemail'];
             $currentName = $_SESSION['username'];
-            $conn = mysqli_connect("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+            $conn = mysqli_connect($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
             if (!$conn) {
                 error_log("SQL connection failed: " . mysqli_connect_error());
             }
@@ -27,7 +29,6 @@ if ($_POST["authorize"] == "gradeplus") {
             }
 
             if ($row[0] != 0) {
-                echo("Email is already linked to an account!");
                 $taken = 1;
             } else {
                 // Update email
@@ -51,7 +52,7 @@ if ($_POST["authorize"] == "gradeplus") {
     }
     mysqli_close($conn);
     header('Content-Type: application/json');
-    echo json_encode(["success" => $success,"error" => $error]);
+    echo json_encode(["success" => $success,"error" => $error,"taken" => $taken]);
 } else {
     // User is not authorized
     header("Location: illegal.php");
