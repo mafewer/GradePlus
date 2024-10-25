@@ -25,6 +25,7 @@ if ($_POST["authorize"] == "gradeplus") {
             if ($result) {
                 //echo("Dname update successful!");
                 $success = 1;
+                $error = 0;
                 $_SESSION['dname'] = $newDname;
             } else {
                 error_log("Update Dname failed: " . mysqli_error($conn));

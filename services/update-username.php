@@ -25,6 +25,10 @@ if ($_POST["authorize"] == "gradeplus") {
             $result = mysqli_query($conn, $checkNameTakenSql);
             $row = mysqli_fetch_array($result);
 
+            if ($row == null) {
+                $row = [0];
+            }
+
             if (!$result) {
                 error_log("Username taken check failed: " . mysqli_error($conn));
             }
@@ -32,6 +36,8 @@ if ($_POST["authorize"] == "gradeplus") {
             if ($row[0] != 0) {
                 //echo("Username is already taken!");
                 $taken = 1;
+                $success = 0;
+                $error = 0;
             } else {
                 // Update username
                 $updateNameSql = sprintf("UPDATE login SET username = '%s' WHERE username = '%s'", $newName, $currentName);
@@ -39,6 +45,8 @@ if ($_POST["authorize"] == "gradeplus") {
                 if ($result) {
                     //echo("Username update successful!");
                     $success = 1;
+                    $error = 0;
+                    $taken = 0;
                     $_SESSION['username'] = $newName;
                 } else {
                     error_log("Update username failed: " . mysqli_error($conn));

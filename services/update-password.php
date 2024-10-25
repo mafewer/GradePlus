@@ -24,6 +24,8 @@ if ($_POST["authorize"] == "gradeplus") {
             if ($result) {
                 //echo("Password update successful!");
                 $success = 1;
+                $error = 0;
+                $taken = 0;
             } else {
                 error_log("Update password failed: " . mysqli_error($conn));
                 $error = 1;

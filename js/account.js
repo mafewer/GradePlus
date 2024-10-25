@@ -1,6 +1,6 @@
 function main() {
-    var topinfo = $("h2.top-info-header").text();
     var isCourseOpen = false;
+    var dname = $("span.display-name").text();
     //Switch to Account Settings
     $("a.accountservice").click(()=>{
         $("div.course-list").fadeOut(200);
@@ -15,7 +15,7 @@ function main() {
     $("a.account-settings-back").click(()=>{
         $("div.course-list").fadeIn(200);
         $("div.account-settings").fadeOut(200);
-        $("h2.top-info-header").text(topinfo);
+        $("h2.top-info-header").text("Welcome "+dname+"!");
     })
 
     //Edit Accounts Settings
