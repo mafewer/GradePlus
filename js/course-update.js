@@ -6,7 +6,7 @@ if ($("a.addenrolcourse").attr("id")==="enroltrue"){ //Student
 } else {
     $("div.withdraw").hide();
     $("input#updatedcode").attr("placeholder", $("p.side-nav-course-code").text());
-    $("input#updatedname").val($("p.side-nav-course-name").text());
+    $("input#updatedname").attr("placeholder", $("p.side-nav-course-name").text());
 }
 
 $("a.save-course-info").click(() => {
