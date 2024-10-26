@@ -9,6 +9,7 @@ div.course-details {
     flex-direction: column;
     gap: 0.5rem;
     width: 20rem;
+    transition: all 0.5s;
 }
 
 div.left-footer {

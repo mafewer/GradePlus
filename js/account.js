@@ -2,6 +2,7 @@ function main() {
     var isCourseOpen = false;
     var dname = $("span.display-name").text();
     var isAccountEditing = false;
+    var isCourseOpenFirst = false;
     //Switch to Account Settings
     $("a.accountservice").click(()=>{
         if (isAccountEditing) {
@@ -20,6 +21,7 @@ function main() {
         $("div.course-list").fadeIn(200);
         $("div.account-settings").fadeOut(200);
         $("h2.top-info-header").text("Welcome "+dname+"!");
+        $("a.assignments").click();
         $("div.modal").fadeOut(200);
     })
 
@@ -433,7 +435,10 @@ function main() {
                     $("p.side-nav-course-code").text(coursecode);
                     $("div.courseholder").fadeOut(200,()=>{
                         $("div.coursedash").fadeIn(200).css("display", "flex");
-                        $("a.assignments").click();
+                        if (isCourseOpenFirst == false){
+                            isCourseOpenFirst = true;
+                            $("a.assignments").click();
+                        }
                     });
                 });
 

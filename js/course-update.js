@@ -1,7 +1,7 @@
 if ($("a.addenrolcourse").attr("id")==="enroltrue"){ //if is student
     $("div.course-details").hide();
     $("div.save").hide();
-    $("div.right-footer").hide();
+    $("div.delete").hide();
     $("div.settings-footer").css("margin-top", "1rem");
 } else {
     $("div.withdraw").hide();

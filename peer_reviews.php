@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
 <body>
-    <p>This feature is not yet implemented.</p>
+    <p style="margin: 2rem 0;">This feature is not yet implemented.</p>
 </body>
-</html>

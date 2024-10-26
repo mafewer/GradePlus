@@ -42,13 +42,13 @@
             <div class="save">
                 <a class="save-course-info green waves-effect white-text btn-flat">
                     UPDATE DETAILS
-                    <i class="material-symbols-outlined left">save</i>
+                    <i class="material-icons left">save</i>
                 </a>
             </div>
             <div class="withdraw">
                 <p>Withdraw from Course</p>
                 <a class="course-withdraw-btn red waves-effect white-text btn-flat">
-                    <i class="material-symbols-outlined left">block</i>
+                    <i class="material-icons left">block</i>
                     WITHDRAW
                 </a>
             </div>
@@ -56,7 +56,7 @@
             <p>Delete Course</p>
                 <a class="delete-course-btn waves-effect red white-text btn-flat">
                     DELETE COURSE
-                    <i class="material-symbols-outlined left">delete</i>
+                    <i class="material-icons left">delete</i>
                 </a>
             </div>
         </div>

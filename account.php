@@ -65,7 +65,8 @@ $courses = [];
         <img src="img/loginbackdark.png" class="indexback2">
         <!-- Side Nav -->
         <ul id="slide-out" class="side-nav bwcolor sidenav-fixed">
-            <img class="side-nav-img" style="height: 10rem; object-fit: cover; filter: brightness(0.5);">
+            <img class="side-nav-img"
+                style="height: 10rem; object-fit: cover; filter: brightness(0.5); user-select: none;" />
             <p class="side-nav-course-code">Loading</p>
             <p class="side-nav-course-invite">Loading</p>
             <li><a class="side-nav-item bwcolor assignments"><i class="material-icons">assignment</i>Assignments</a>
@@ -89,7 +90,6 @@ $courses = [];
                     Assignments
                 </h3>
                 <div class="coursedash-content">
-                    <p>Not Implemented Yet</p>
                 </div>
             </div>
         </div>

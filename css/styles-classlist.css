@@ -1,80 +1,34 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/*Page Title*/
-div.title {
-    min-height: 5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0 0 0 0;
-    padding: 0;
-}
-
-/*Professor Listing*/
-div.table_professor {
-    width: 80%;
-    max-width: 800px;
-    height: auto;
-    margin: 2rem auto;
-    border-radius: 1rem;
-    background-color: rgba(255, 255, 255, 0.9);
-    overflow: hidden;
-}
-
-div.table_professor table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-div.table_professor td:first-child {
-    width: 30%;
-}
-
-div.table_professor td .profname,
-div.table_professor td .profinfo {
-    margin: 0;
-    padding: 0;
-}
-
-img.prof-img {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 1rem;
-    object-fit: cover;
-    margin-left: 1rem;
-}
-
 /*Student Listing*/
-div.table_students {
-    width: 80%;
+table.table_students {
     height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
     margin: 2rem auto;
-    border-radius: 1rem;
-    background-color: #fffb;
-    overflow: hidden;
-    table-layout: fixed;
-
+    border-radius: 0.5rem;
+    background-color: var(--bwcolor);
+    color: var(--font-color);
+    transition: all 0.5s;
 }
 
 img.student-img {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
     vertical-align: middle;
     align-items: center;
 }
 
-div.table_students th {
-    position: sticky;
-    background-color: rgba(255, 255, 255, 0.8);
+td.classlist-profile i {
+    font-size: 2rem;
+}
+
+td.classlist-profile {
+    padding-left: 2rem;
+    width: 20%;
+}
+
+td.classlist-remove {
+    width: 10%;
+}
+
+table.table_students th {
+    background-color: var(--hover-color);
 }
