@@ -113,7 +113,7 @@ try {
     // Insert dummy data
     $insertDataSqlEnrollment = "
         INSERT INTO enrollment VALUES
-        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'student'),
+        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
         ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor');
         ";
     $result = mysqli_query($conn, $insertDataSqlEnrollment);

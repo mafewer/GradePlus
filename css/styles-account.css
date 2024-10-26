@@ -66,8 +66,7 @@ div.top-icon-holder {
     padding: 0;
 }
 
-div.course-list,
-div.account-settings {
+div.course-list {
     margin: 1rem;
     margin-top: 3rem;
 }

@@ -1,8 +1,12 @@
 function main() {
     var isCourseOpen = false;
     var dname = $("span.display-name").text();
+    var isAccountEditing = false;
     //Switch to Account Settings
     $("a.accountservice").click(()=>{
+        if (isAccountEditing) {
+            $(".acc-return-btn").click();
+        }
         $("div.course-list").fadeOut(200);
         $("div.account-settings").fadeIn(200);
         $("h2.top-info-header").text("Account Settings");
@@ -20,35 +24,29 @@ function main() {
 
     //Edit Accounts Settings
     $(".edit-account-settings-btn").click(()=>{
-        $("div.update-form").fadeIn(200);
-        $("div.account-item").fadeOut(200);
+        isAccountEditing = true;
+        $("p.acc-item").hide();
+        $("input.acc-input").show();
+        $(".edit-account-settings-btn").hide();
+        $("div.acc-update-form").css("display", "flex");
     })
 
     // Return to Account Settings
-    $(".return-btn").click(() => {
-        $("div.update-form").fadeOut(200);
-        $("div.account-item").fadeIn(200);
+    $(".acc-return-btn").click(() => {
+        isAccountEditing = false;
+        $("input.acc-input").hide();
+        $("p.acc-item").show();
+        $("div.acc-update-form").hide();
+        $(".edit-account-settings-btn").show();
     });
 
     // Update Account Settings
-    $(".save-btn").click(() => {
-
+    $(".acc-save-btn").click(() => {
         // Get the new values from the input fields
         let newname = $("#new-user-name").val()
         let newdname = $("#new-display-name").val();
         let newemail = $("#new-account-email").val();
         let newpassword = $("#new-account-password").val();
-        let profilePicture = $("#new-profile-pic")[0].files[0];
-
-        // Check if any of the fields are empty
-        if (!newname && !newdname && !newemail && !newpassword && !profilePicture) {
-            $("p.status-text").text("Fields cannot be left blank");
-            $("p.status-text").slideDown();
-            setTimeout(() => {
-                $("p.status-text").slideUp();
-            }, 3000);
-            return;
-        }
 
         // Update the username backend integration
         if (newname) {
@@ -60,11 +58,12 @@ function main() {
                     newname: newname }, // Send the new username
                 dataType: 'json',  
                 success: function(response) {
-                    if (response.success) {
-                        console.log("Username updated successfully!");
+                    if (response['success']==1) {
                         window.location.reload(true); //Adding true here clears the browser cache, ensuring the account.php file updates the session variables.
-                    } else if (response.error) {
-                        console.error("Error updating username.");
+                    } else if (response['taken']==1) {
+                        window.alert("Username already exists.");
+                    } else {
+                        window.alert("500 - Server Error");
                     }
                 },
                 error: function(xhr, status, error) {
@@ -83,11 +82,10 @@ function main() {
                     newdname: newdname },
                 dataType: 'json',
                 success: function(response) {
-                    if (response.success) {
-                       console.log("Display name updated successfully!");
-                       window.location.reload(true); 
-                    } else if (response.error) {
-                        console.error("Error updating display name.");
+                    if (response['success']==1) {
+                        window.location.reload(true);
+                    } else {
+                        window.alert("500 - Server Error");
                     }
                 },
                 error: function(xhr, status, error) {
@@ -106,11 +104,12 @@ function main() {
                     newemail: newemail },
                 dataType: 'json', 
                 success: function(response) {
-                    if (response.success) {
-                        console.log("Email updated successfully!");
-                        window.location.reload();
-                    } else if (response.error) {
-                        console.error("Error updating Email.");
+                    if (response['success']==1) {
+                        window.location.reload(true);
+                    } else if (response['taken']==1) {
+                        window.alert("Email already exists.");
+                    } else {
+                        window.alert("500 - Server Error");
                     }
                 },
                 error: function(xhr, status, error) {
@@ -141,8 +140,6 @@ function main() {
                             dataType: 'json',
                             success: function(logoutResponse) {
                                 if (logoutResponse.success) {
-                                    console.log("Logged out successfully.");
-                                    // Redirect to the login page or home page after logout
                                     window.location.href = 'login.php';
                                 } else {
                                     console.error("Error during logout.");
@@ -152,48 +149,20 @@ function main() {
                                 console.error("Failed to log out:", status, error);
                             }
                         });
-                    } else if (response.error) {
-                        console.error("Error updating profile pic.");
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error("Failed to update profile pic:", status, error);
+                    console.error("Failed to update password:", status, error);
                 }
             });
         }
-        
-        /* Update the profile picture 
-
-        var formData = new FormData();
-        formData.append('profilePicture', profilePicture);
-        
-        if (profilePicture) {
-            $.ajax({
-                url: 'services/profilepic-upload.php',
-                type: 'POST',
-                data: formData,
-                processData: false, // Prevent jQuery from automatically transforming the data into a query string
-                contentType: false, // Tell jQuery not to set any content type header
-                success: function(response) {
-                    if (response.success) {
-                        console.log("Profile picture updated successfully!");
-                        window.location.reload(true);
-                    } else if (response.error) {
-                        console.error("Error updating profile picture:", response.error);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Failed to update profile picture:", status, error);
-                }
-            });
-        } */
     })     
         
 
     //Delete Account
-    $(".delete-account-btn").click(()=>{
-        $("div.delete-account-item").fadeOut(200);
-        $("div.delete-account-safety").fadeIn(200);
+    $("button.delete-account-btn").click(()=>{
+        $("button.delete-account-btn").hide();
+        $("div.delete-account-safety").show();
     })
 
     //Delete Confirmation
@@ -206,11 +175,10 @@ function main() {
             },
             dataType: 'json', 
             success: function(response) {
-                if (response.success) {
-                    console.log("User deleted successfully!");
+                if (response['success']==1) {
                     window.location.href = 'login.php';
                 } else if (response.error) {
-                    console.error("Error deleting user.");
+                    window.alert("500 - Server Error");
                 }
             },
             error: function(xhr, status, error) {
@@ -221,14 +189,14 @@ function main() {
 
     //Cancel Delete
     $(".delete-account-cancel-btn").click(()=>{
-        $("div.delete-account-safety").fadeOut(200);
-        $("div.delete-account-item").fadeIn(200);
+        $("div.delete-account-safety").hide();
+        $("button.delete-account-btn").show();
     })
 
 
     //Add or Enroll Course Modal
     $("a.addenrolcourse").click(()=>{
-        if ($("a.addenrolcourse").attr("id")==="enroltrue"){
+        if ($("a.addenrolcourse").attr("id")=="enroltrue"){
             $("div.modal-content h4").text("Enter Invite Code");
             $("div.course-name").hide();
             $("div.upload-banner").hide();
@@ -430,7 +398,7 @@ function main() {
                             <p>${course["course_name"]}</p>
                             <p class='secondary'>${course["instructor_name"]}</p>
                         </div>
-                         <a id="${course["invite_code"]}" style="position: absolute; top: 1rem; right: 1rem;" class='pin btn-floating halfway-fab waves-effect waves-light green addenrolcourse'><i
+                         <a id="${course["invite_code"]}" style="position: absolute; top: 1rem; right: 1rem;" class='pin btn-floating halfway-fab waves-effect waves-light green coursecode'><i
                                 class='material-symbols-outlined'>${pinnedlogo}</i></a></span>
                     </div>`;
                     courseHolder.append(courseCard);
@@ -458,7 +426,7 @@ function main() {
                         easing: 'swing'
                     });
                     var coursecode = $(event.currentTarget).find("span.card-title-code").text();
-                    var invitecode = $(event.currentTarget).find("a.addenrolcourse").attr("id");
+                    var invitecode = $(event.currentTarget).find("a.coursecode").attr("id");
                     $("p.side-nav-course-invite").text(invitecode);
                     $("p.side-nav-course-code").text(coursecode);
                     $("div.courseholder").fadeOut(200,()=>{

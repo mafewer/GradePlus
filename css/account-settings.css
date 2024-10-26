@@ -1,43 +1,46 @@
-.account-settings {
-    padding: 20px;
+.account-item {
+    display: flex;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 50rem;
+    flex-direction: column;
+    transition: color 0.5s, background-color 0.5s;
+    gap: 0rem;
+    font-size: 1.2rem;
 }
 
-.account-item {
+div.account-item-holder {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    margin: 0.5rem;
+
+    p {
+        margin: 0;
+    }
+
 }
 
-.account-item-text {
-    flex: 1;
-    text-align: left;
+p.acc-item {
     font-size: 1.2rem;
-    /* Larger text */
-    letter-spacing: 0.05rem;
-    /* More spaced out text */
+    padding: 0.6rem 0.5rem;
+    margin: 0.52rem 0 !important;
+    text-align: right;
+    width: 16rem;
+    border-radius: 0.5rem;
+    background-color: var(--hover-color-2);
+    transition: background-color 0.5s;
 }
 
-.account-item-action {
-    flex: 0;
-}
-
-.account-item h4 {
-    margin: 0 0 10px 0;
-    font-size: 1.5rem;
-    /* Larger text */
-}
-
-.account-item p,
-.delete-account-safety p {
-    margin: 0;
-    font-size: 1.2rem;
-    /* Larger text */
+input.acc-input {
+    display: none;
+    font-size: 1.2rem !important;
+    padding: 0 0.5rem !important;
+    width: 15rem !important;
+    text-align: right;
+    margin: 0.5rem 0 !important;
+    border-radius: 0.5rem !important;
+    transition: background-color 0.5s, color 0.5s !important;
 }
 
 .delete-account-item {
@@ -53,7 +56,7 @@
     text-align: center;
 }
 
-.delete-account-safety {
+div.delete-account-safety {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,34 +64,49 @@
     text-align: center;
 }
 
+i.delete-account-close {
+    font-size: 3rem;
+    color: red;
+}
+
 .delete-account-btn {
     background-color: red;
     color: white;
 }
 
-.profile-pic {
-    display: block;
-    margin: 10px 0;
-    /* Add margin for spacing */
-    max-width: 100px;
-    border-radius: 50%;
+div.acc-update-form {
+    display: none;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
 }
 
-.edit-account-settings-btn {
-    display: block;
-    margin: 10px auto 0 auto;
-    /* Add margin-top for spacing */
+button.acc-return-btn,
+button.acc-save-btn {
+    width: 8rem;
 }
 
-.update-form,
-.delete-account-safety {
-    padding: 20px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+button.edit-account-settings-btn {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    width: 15rem;
+}
+
+.delete-account-btn {
+    margin-bottom: 0.5rem;
+    width: 15rem;
+}
+
+.delete-account-confirm-btn {
+    margin-right: 0.5rem;
+}
+
+div.delete-account-safety {
+    display: none;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.5s;
 }
 
 .update-form p {
@@ -102,12 +120,4 @@
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-.save-btn,
-.return-btn,
-.delete-account-cancel-btn,
-.delete-account-confirm-btn {
-    display: block;
-    margin: 20px auto 0 auto;
 }

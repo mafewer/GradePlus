@@ -117,75 +117,72 @@ $courses = [];
             </div>
             <!-- Account Settings -->
             <div class="account-settings">
-                <div class="account-item">
-                    <div class="account-item-text">
-                        <!-- Account Settings Display -->
-                        <h4>Account Settings</h4>
-                        <p> Username:
-                            <span
-                                class="user-name"><?php echo $username;?></span>
+                <div class="account-item bwcolortext">
+                    <!-- Account Settings Display -->
+                    <p>Account Details</p>
+                    <div class="account-item-holder">
+                        <p>Username:</p>
+                        <p class="acc-item acc-user-name">
+                            <?php echo $username;?>
                         </p>
-                        <p>Display Name:
-                            <span
-                                class="display-name"><?php echo $dname;?></span>
+                        <input class="acc-input bwcolor" type="text" id="new-user-name"
+                            placeholder="<?php echo $username; ?>">
+                    </div>
+                    <div class="account-item-holder">
+                        <p>Display Name:</p>
+                        <p class="acc-item acc-display-name">
+                            <?php echo $dname;?>
                         </p>
-                        <!-- Check to see if a profile picture is uploaded, if not, display a default icon -->
-                        <p>Profile Picture: </p>
-                        <?php if ($profilePicture): ?>
-                        <img src="<?php echo $profilePicture; ?>"
-                            alt="Profile Picture" class="profile-pic">
-                        <?php else: ?>
-                        <i class="material-symbols-outlined accounticon">account_circle</i>
-                        <?php endif; ?>
-                        <p>Account Email:
+                        <input class="acc-input bwcolor" type="text" id="new-display-name"
+                            placeholder="<?php echo $dname; ?>">
+                    </div>
+                    <div class="account-item-holder">
+                        <p>Email:</p>
+                        <p class="acc-item acc-email">
                             <?php echo $email; ?>
                         </p>
-                        <p>Account Password:
+                        <input class="acc-input bwcolor" type="email" id="new-account-email"
+                            placeholder="<?php echo $email; ?>">
+                    </div>
+                    <div class="account-item-holder">
+                        <p>Password:</p>
+                        <p class="acc-item acc-email">
                             <?php echo isset($password) ? str_repeat('*', strlen($password)) : 'Password Not Found'; ?>
                         </p>
-                        <button class="waves-effect green std-hover waves-light btn edit-account-settings-btn">Edit
-                            Account Settings</button>
+                        <input class="acc-input bwcolor" type="password" id="new-account-password"
+                            placeholder="<?php echo isset($password) ? str_repeat('*', strlen($password)) : 'Password Not Found'; ?>">
                     </div>
-                </div>
-                <!-- Account Settings Update Form -->
-                <div class="update-form" id="account-settings" style="display: none;">
-                    <p>New Username:</p>
-                    <input type="text" id="new-user-name"
-                        placeholder="<?php echo $username; ?>">
-                    <p>New Display Name:</p>
-                    <input type="text" id="new-display-name"
-                        placeholder="<?php echo $dname; ?>">
-                    <p>New Profile Picture:</p>
-                    <input type="file" id="new-profile-pic" accept="image/*">
-                    <p>New Account Email:</p>
-                    <input type="email" id="new-account-email"
-                        placeholder="<?php echo $email; ?>">
-                    <p>New Account Password:</p>
-                    <input type="password" id="new-account-password"
-                        placeholder="<?php echo isset($password) ? str_repeat('*', strlen($password)) : 'Password Not Found'; ?>">
-                    <div class="update-form-actions">
-                        <a class="waves-effect green std-hover waves-light btn save-btn">Save</a>
-                        <a class="waves-effect red std-hover waves-light btn return-btn">Return</a>
+                    <button class="waves-effect green std-hover waves-light btn edit-account-settings-btn"><i
+                            class="material-icons left">edit</i>Edit
+                        Details</button>
+                    <!-- Account Settings Update Form -->
+                    <div class="acc-update-form">
+                        <button class="waves-effect red std-hover waves-light btn acc-return-btn"><i
+                                class="material-icons left">arrow_back</i>Cancel</a></button>
+                        <button class="waves-effect green std-hover waves-light btn acc-save-btn"><i
+                                class="material-icons left">save</i>Save</a></button>
                     </div>
-                </div>
-                <!-- Delete Account Section under Account Settings-->
-                <div class="delete-account-item">
+                    <p>Delete Account</p>
                     <button class="delete-account-btn waves-effect red std-hover waves-light btn delete-account-btn"><i
-                            class="material-icons left">warning</i>Delete
-                        Account</button>
-                </div>
-                <!-- Delete Account Safety Modal -->
-                <div class="delete-account-safety" id="account-settings" style="display: none;">
-                    <p>Are you sure you want to delete your account?</p>
-                    <div class="delete-account-form-actions">
-                        <a class="waves-effect red std-hover waves-light btn delete-account-confirm-btn">Yes, delete my
-                            account </a>
-                        <a class="waves-effect green std-hover waves-light btn delete-account-cancel-btn">No</a>
+                            class="material-icons left">delete</i>Delete My Account</button>
+                    <!-- Delete Account Safety Modal -->
+                    <div class="delete-account-safety bwcolor">
+                        <i class="material-icons delete-account-close">warning</i>
+                        <p>Are you sure you want to delete your account permanently?</p>
+                        <div class="delete-account-form-actions">
+                            <a class="waves-effect red std-hover waves-light btn delete-account-confirm-btn"><i
+                                    class="material-icons left">delete</i>Yes, delete
+                                my
+                                account </a>
+                            <a class="waves-effect green std-hover waves-light btn delete-account-cancel-btn"><i
+                                    class="material-icons left">arrow_back</i>No</a>
+                        </div>
                     </div>
+                    <p>Go back to Dashboard</p>
+                    <a class="waves-effect green std-hover waves-light btn account-settings-back"><i
+                            class="material-icons left">arrow_back</i>DASHBOARD</a>
                 </div>
-                <br>
-                <a class="waves-effect green std-hover waves-light btn account-settings-back"><i
-                        class="material-icons left">arrow_back</i>BACK TO DASHBOARD</a>
+
             </div>
             <!-- Add or Enrol Modals -->
             <div class="modal bwcolor">
