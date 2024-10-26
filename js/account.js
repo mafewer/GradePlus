@@ -448,7 +448,7 @@ function main() {
                             <span class="card-title"><span class="card-title-code">${course["course_code"]}</span>
                         </div>
                         <div class="card-content">
-                            <p>${course["course_name"]}</p>
+                            <p><span class="card-course-name">${course["course_name"]}</span></p>
                             <p class='secondary'>${course["instructor_name"]}</p>
                         </div>
                          <a id="${course["invite_code"]}" style="position: absolute; top: 1rem; right: 1rem;" class='pin btn-floating halfway-fab waves-effect waves-light green coursecode'><i
@@ -480,8 +480,22 @@ function main() {
                     });
                     var coursecode = $(event.currentTarget).find("span.card-title-code").text();
                     var invitecode = $(event.currentTarget).find("a.coursecode").attr("id");
+                    var coursename = $(event.currentTarget).find("span.card-course-name").text();
                     $("p.side-nav-course-invite").text(invitecode);
                     $("p.side-nav-course-code").text(coursecode);
+                    $("p.side-nav-course-name").text(coursename);
+                    $("i.course-invite-copy").click(()=>{
+                        var copyText = document.createElement("textarea");
+                        copyText.value = $("p.side-nav-course-invite").text();
+                        document.body.appendChild(copyText);
+                        copyText.select();
+                        document.execCommand("copy");
+                        document.body.removeChild(copyText);
+                        $("i.course-invite-copy").text("check").css("color", "green");
+                        setTimeout(() => {
+                            $("i.course-invite-copy").text("content_copy").css("color", "rgb(194, 194, 194)");
+                        }, 1000);
+                    });
                     $("div.courseholder").fadeOut(200,()=>{
                         $("div.coursedash").fadeIn(200).css("display", "flex");
                         if (isCourseOpenFirst == false){

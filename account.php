@@ -69,6 +69,8 @@ $courses = [];
                 style="height: 10rem; object-fit: cover; filter: brightness(0.5); user-select: none;" />
             <p class="side-nav-course-code">Loading</p>
             <p class="side-nav-course-invite">Loading</p>
+            <p style="display: none;" class="side-nav-course-name">Loading</p>
+            <i class="material-icons course-invite-copy">content_copy</i>
             <li><a class="side-nav-item bwcolor assignments"><i class="material-icons">assignment</i>Assignments</a>
             </li>
             <li><a class="side-nav-item bwcolor grades"><i class="material-icons">bar_chart</i>Grades</a></li>

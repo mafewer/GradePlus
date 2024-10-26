@@ -1,10 +1,12 @@
-if ($("a.addenrolcourse").attr("id")==="enroltrue"){ //if is student
+if ($("a.addenrolcourse").attr("id")==="enroltrue"){ //Student
     $("div.course-details").hide();
     $("div.save").hide();
     $("div.delete").hide();
     $("div.settings-footer").css("margin-top", "1rem");
 } else {
     $("div.withdraw").hide();
+    $("input#updatedcode").attr("placeholder", $("p.side-nav-course-code").text());
+    $("input#updatedname").val($("p.side-nav-course-name").text());
 }
 
 $("a.save-course-info").click(() => {
