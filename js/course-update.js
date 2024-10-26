@@ -8,7 +8,6 @@ if ($("a.addenrolcourse").attr("id")==="enroltrue"){ //if is student
 }
 
 $("a.save-course-info").click(() => {
-
     let formData = new FormData();
     let courseCode = $("input[name='updatedcode']").val();
     let courseName = $("input[name='updatedname']").val();
@@ -45,6 +44,7 @@ $("a.save-course-info").click(() => {
 $("a.course-withdraw-btn").click(() => {
     $("a.agree-btn").text("WITHDRAW");
     $("div.modal").fadeIn(200);
+    $("span.confirm-modal-text").text("withdraw from this course");
     
     $("a.agree-btn").click(() => {
         $.ajax({
@@ -76,6 +76,7 @@ $("a.course-withdraw-btn").click(() => {
 $("a.delete-course-btn").click(() => {
     $("a.agree-btn").text("DELETE");
     $("div.modal").fadeIn(200);
+    $("span.confirm-modal-text").text("delete this course");
     
     $("a.agree-btn").click(() => {
         $.ajax({

@@ -20,6 +20,7 @@ function main() {
         $("div.course-list").fadeIn(200);
         $("div.account-settings").fadeOut(200);
         $("h2.top-info-header").text("Welcome "+dname+"!");
+        $("div.modal").fadeOut(200);
     })
 
     //Edit Accounts Settings
@@ -31,7 +32,7 @@ function main() {
         $("div.acc-update-form").css("display", "flex");
     })
 
-    // Return to Account Settings
+    //Return to Account Settings
     $(".acc-return-btn").click(() => {
         isAccountEditing = false;
         $("input.acc-input").hide();
@@ -40,7 +41,7 @@ function main() {
         $(".edit-account-settings-btn").show();
     });
 
-    // Update Account Settings
+    //Update Account Settings
     $(".acc-save-btn").click(() => {
         // Get the new values from the input fields
         let newname = $("#new-user-name").val()
@@ -303,6 +304,7 @@ function main() {
 
     //Closing a Course
     $("a.backuserdashboard").click(()=>{
+        $("div.modal").fadeOut(200);
         isCourseOpen = false;
         $("ul.side-nav").animate({left: '-20rem'}, {
             duration: 100,
@@ -431,7 +433,7 @@ function main() {
                     $("p.side-nav-course-code").text(coursecode);
                     $("div.courseholder").fadeOut(200,()=>{
                         $("div.coursedash").fadeIn(200).css("display", "flex");
-                        $("h3.coursedash-header").text("Assignments");
+                        $("a.assignments").click();
                     });
                 });
 

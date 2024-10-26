@@ -3,24 +3,28 @@ div.update-banner {
     align-items: center;
 }
 
-div.settings-footer {
-    margin-top: 5rem;
+div.course-details {
+    margin-top: 1rem;
     display: flex;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-div.right-footer {
-    display: flex;
-    justify-content: flex-end;
-    width: 50%;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 20rem;
 }
 
 div.left-footer {
     display: flex;
     justify-content: flex-start;
+    flex-direction: column;
+    margin: 1rem 0;
+    gap: 1rem;
     padding-left: 0.5rem;
+}
+
+div.save,
+div.delete {
+    a {
+        width: 12rem;
+    }
 }
 
 a.course-withdraw-btn {
