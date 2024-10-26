@@ -1,16 +1,16 @@
 <?php
+
 use Tests\Support\AcceptanceTester;
 
 class DeenrollmentCest
 {
-
     public function successfulDeenrollment(AcceptanceTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $postData = [
             'authorize' => 'gradeplus',
-            'studentname' => 'student',
-            'coursecode' => 'ECE 6400'
+            'username' => 'student',
+            'invite_code' => 'ABCDEF'
         ];
 
         $I->sendPost('/services/remove-student.php', $postData);
@@ -27,8 +27,8 @@ class DeenrollmentCest
         // Prepare test data for a student who is not enrolled
         $postData = [
             'authorize' => 'gradeplus',
-            'studentname' => 'James Bond',
-            'coursecode' => 'ECE 6400'
+            'username' => 'James Bond',
+            'invite_code' => 'ABCDEF'
         ];
 
         $I->sendPost('/services/remove-student.php', $postData);
@@ -44,8 +44,8 @@ class DeenrollmentCest
         // Prepare test data with invalid authorization
         $postData = [
             'authorize' => 'hacker',
-            'studentname' => 'student',
-            'coursecode' => 'ECE 6400'
+            'username' => 'student',
+            'invite_code' => 'ABCDEF'
         ];
 
         // Send the POST request

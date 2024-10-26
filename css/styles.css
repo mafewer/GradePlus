@@ -2,25 +2,23 @@ div.mainapp {
     display: none;
 }
 
-div.container {
+div.containermain {
     display: flex;
-    opacity: 0;
+    margin: 10rem 0rem;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     width: 100%;
+    gap: 0rem;
     position: relative;
-    transform: translateX(-5rem);
+    animation: slideright 1s cubic-bezier(.17, .67, .41, 1) forwards;
 }
 
 div.holder {
     display: flex;
+    width: 40rem;
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
-    width: 50%;
-    margin-left: 10rem;
-    position: relative;
 }
 
 div.index-image {
@@ -45,7 +43,7 @@ img.indexback2 {
 }
 
 img.scholar-image {
-    width: 200%;
+    width: 25rem;
 }
 
 h1.welcome {
@@ -102,5 +100,17 @@ div.icon-holder {
 
     100% {
         background-position: 0% 50%;
+    }
+}
+
+@keyframes slideright {
+    0% {
+        transform: translateX(-20%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
     }
 }
