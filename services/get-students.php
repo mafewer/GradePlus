@@ -48,7 +48,7 @@ if ($courseExists == 0) {
 // Prepare SQL query to fetch student information
 $sql = "
 SELECT 
-    login.profilePicture,
+    login.profile_picture,
     login.dname,
     login.username,
     login.email
@@ -78,7 +78,7 @@ if (!$result) {
 $students = [];
 while ($row = $result->fetch_assoc()) {
     $students[] = [
-        "profilePicture" => base64_encode($row['profilePicture']),
+        "profile_picture" => $row['profile_picture'],
         "dname" => $row['dname'],
         "username" => $row['username'],
         "email" => $row['email']

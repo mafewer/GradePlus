@@ -8,16 +8,14 @@ table.table_students {
     transition: all 0.5s;
 }
 
-img.student-img {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 1rem;
-    vertical-align: middle;
-    align-items: center;
+img.classlist-profile-pic {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 2.5rem;
 }
 
 td.classlist-profile i {
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 
 td.classlist-profile {

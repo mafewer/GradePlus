@@ -42,6 +42,31 @@ div.top-info-holder {
     }
 }
 
+div.acc-upload-pic {
+    height: 6.8rem;
+    width: 6.8rem;
+    border-radius: 5rem;
+    position: absolute;
+    left: 0.65rem;
+    opacity: 0;
+    display: none;
+    color: var(--font-color);
+    background-color: grey;
+}
+
+div.acc-upload-pic:hover {
+    opacity: 0.5;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+img.profile-pic {
+    width: 6.8rem;
+    height: 6.8rem;
+    border-radius: 5rem;
+    margin-left: 0.65rem;
+}
+
 p.accountemail,
 p.course-list-head {
     font-size: 1.5rem;
@@ -60,6 +85,7 @@ p.secondary {
 
 div.top-icon-holder {
     display: flex;
+    position: relative;
     align-items: center;
     gap: 1rem;
     margin: 0;

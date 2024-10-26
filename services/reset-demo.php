@@ -68,7 +68,7 @@ try {
             password VARCHAR(50),
             dname VARCHAR(50),
             loggedin INT,
-            profilePicture LONGBLOB,
+            profile_picture VARCHAR(255),
             usertype VARCHAR(20) NOT NULL DEFAULT 'Student'
         );";
     $result = mysqli_query($conn, $createTableSql);

@@ -11,10 +11,10 @@ if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
                 $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
                 //Password is not natively stored in the session for security reasons. Need to fetch it from database to display in account settings.
-                $sql = $conn->prepare("SELECT password, profilePicture FROM login WHERE username = ?");
+                $sql = $conn->prepare("SELECT password, profile_picture FROM login WHERE username = ?");
                 $sql->bind_param("s", $username);
                 $sql->execute();
-                $sql->bind_result($password, $profilePicture);
+                $sql->bind_result($password, $profile_picture);
                 $sql->fetch();
                 $sql->close();
 
@@ -96,15 +96,29 @@ $courses = [];
         <div class="courseholder bwcolortext">
             <!-- Top Info -->
             <div class="top-icon-holder">
-                <?php if ($profilePicture): ?>
-                <img src="<?php echo $profilePicture; ?>"
+                <div class="acc-upload-pic" style="justify-content: center;"><i class="material-icons"
+                        style="align-self: center; font-size:2.5rem; transition: all 0.5s;">photo_camera</i>
+                </div>
+                <input type="file" style="display: none;" name="upload-profile-pic" id="upload-profile-pic"
+                    accept="image/*" required>
+                <?php if ($profile_picture): ?>
+                <img src="<?php echo $profile_picture; ?>"
                     alt="Profile Picture" class="profile-pic">
                 <?php else: ?>
                 <i class="material-symbols-outlined accounticon">account_circle</i>
                 <?php endif; ?>
                 <div class="top-info-holder">
                     <h2 class="top-info-header">
-                        Welcome
+                        <?php
+                        $hour = date('H');
+if ($hour >= 5 && $hour < 12) {
+    echo 'Good Morning';
+} elseif ($hour >= 12 && $hour < 17) {
+    echo 'Good Afternoon';
+} else {
+    echo 'Good Evening';
+}
+?>
                         <span
                             class="display-name"><?php echo $dname;?></span>!
                         <span class="user-name"

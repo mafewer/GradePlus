@@ -29,12 +29,11 @@
         success: function(response) {
             if (response['success'] == 1) {
                 response.data.forEach(function(student) {
-                    var profilePicSrc = 'data:image/jpeg;base64,' + student
-                        .profilePicture;
+                    var profilePicSrc = student.profile_picture;
                     var row = `
                             <tr>
                                 <td class='classlist-profile'>
-                                    ${student.profilePicture ? `<img src="${profilePicSrc}" class="profile-pic">` : '<i class="material-symbols-outlined">account_circle</i>'}
+                                    ${student.profile_picture ? `<img src="${profilePicSrc}" class="classlist-profile-pic">` : '<i class="material-symbols-outlined">account_circle</i>'}
                                 </td>
                                 <td class='classlist-dname'>${student.dname}</td>
                                 <td class='classlist-username'>${student.username}</td>

@@ -1,10 +1,13 @@
 function main() {
     var isCourseOpen = false;
     var dname = $("span.display-name").text();
+    var username = $("span.user-name").text();
     var isAccountEditing = false;
     var isCourseOpenFirst = false;
+    $("div.acc-upload-pic").hide();
     //Switch to Account Settings
     $("a.accountservice").click(()=>{
+        $("div.acc-upload-pic").css("display", "flex");
         if (isAccountEditing) {
             $(".acc-return-btn").click();
         }
@@ -18,9 +21,19 @@ function main() {
 
     //Switch to Course List
     $("a.account-settings-back").click(()=>{
+        $("div.acc-upload-pic").hide();
         $("div.course-list").fadeIn(200);
         $("div.account-settings").fadeOut(200);
-        $("h2.top-info-header").text("Welcome "+dname+"!");
+        let currentHour = new Date().getHours();
+        let greeting;
+        if (currentHour < 12) {
+            greeting = "Good Morning";
+        } else if (currentHour < 18) {
+            greeting = "Good Afternoon";
+        } else {
+            greeting = "Good Evening";
+        }
+        $("h2.top-info-header").text(greeting + " " + dname + "!");
         $("a.assignments").click();
         $("div.modal").fadeOut(200);
     })
@@ -195,6 +208,42 @@ function main() {
         $("div.delete-account-safety").hide();
         $("button.delete-account-btn").show();
     })
+
+    //Profile Photo Upload
+    $("div.acc-upload-pic").click(()=>{
+        $("input#upload-profile-pic").click();
+    });
+
+    $("input#upload-profile-pic").change(function() {
+        let formData = new FormData();
+        let bannerFile = $("input[name='upload-profile-pic']")[0].files[0];
+        
+        if (!bannerFile) {
+            window.alert("No file selected.");
+            return;
+        }
+
+        formData.append("banner", bannerFile);
+        formData.append("username", username);
+        formData.append("authorize", "gradeplus");
+
+        $.ajax({
+            url: "services/profilepic-upload.php",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType : "json",
+            success: (response) => {
+                if (response["success"] != 1) {
+                    window.alert("500 - Server Error");
+                    return;
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    });
 
 
     //Add or Enroll Course Modal
