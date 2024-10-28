@@ -3,7 +3,7 @@
 require '../config.php';
 
 session_start();
-ini_set('display_errors', 0);   //Ben Thomas: This is to prevent the error messages from being displayed on the webpage.
+ini_set('display_errors', 0);
 
 // Service to delete user account
 if ($_POST["authorize"] == "gradeplus") {
@@ -27,11 +27,33 @@ if ($_POST["authorize"] == "gradeplus") {
         }
 
         if ($row[0] != 0) {
-            // Delete user
+            // Check if user is an instructor
+            $checkInstructorSql = sprintf("SELECT 1 FROM login WHERE username = '%s' AND usertype = 'Instructor'", $currentName);
+            $result = mysqli_query($conn, $checkInstructorSql);
+            $row = mysqli_fetch_array($result);
+
+            if ($row == null) {
+                $row = [0];
+            }
+
+            if ($row[0] != 0) {
+                // Delete courses that have this instructor
+                $deleteCoursesSql = sprintf("DELETE FROM courses WHERE instructor_name = '%s'", $currentName);
+                $result = mysqli_query($conn, $deleteCoursesSql);
+
+                // Delete all enrollments from this instructor's courses
+                $deleteEnrollmentSql = sprintf("DELETE FROM enrollment WHERE instructor = '%s'", $currentName);
+                $result = mysqli_query($conn, $deleteEnrollmentSql);
+            }
+
+            // Delete user from login
             $deleteUserSql = sprintf("DELETE FROM login WHERE username = '%s'", $currentName);
             $result = mysqli_query($conn, $deleteUserSql);
+            // Delete user from enrollment
+            $deleteUserSql = sprintf("DELETE FROM enrollment WHERE username = '%s'", $currentName);
+            $result = mysqli_query($conn, $deleteUserSql);
+
             if ($result) {
-                //echo("User deleted successfully!");
                 $success = 1;
                 $error = 0;
                 session_unset();
@@ -39,8 +61,6 @@ if ($_POST["authorize"] == "gradeplus") {
                 error_log("Delete user failed: " . mysqli_error($conn));
                 $error = 1;
             }
-        } else {
-            //echo("User is not found!");
         }
     } catch (Exception $e) {
         // SQL error

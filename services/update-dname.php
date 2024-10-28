@@ -3,8 +3,8 @@
 require '../config.php';
 
 session_start();
-
 ini_set('display_errors', 0);
+
 // Service to update account dname
 if ($_POST["authorize"] == "gradeplus") {
     if (!isset($_SESSION['username']) || $_SESSION['username'] == 'admin') {
@@ -19,14 +19,28 @@ if ($_POST["authorize"] == "gradeplus") {
                 error_log("SQL connection failed: " . mysqli_connect_error());
             }
 
-            // Update dname
+            // Update dname in login
             $updateNameSql = sprintf("UPDATE login SET dname = '%s' WHERE username = '%s'", $newDname, $currentName);
             $result = mysqli_query($conn, $updateNameSql);
+            // Check if user is an instructor
+            $checkInstructorSql = sprintf("SELECT 1 FROM login WHERE username = '%s' AND usertype = 'Instructor'", $currentName);
+            $result = mysqli_query($conn, $checkNameTakenSql);
+            $row = mysqli_fetch_array($result);
+
+            if ($row == null) {
+                $row = [0];
+            }
+
+            if ($row[0] != 0) {
+                // Update instructor_dname in courses
+                $updateCoursesDnameSql = sprintf("UPDATE courses SET instructor_dname = '%s' WHERE instructor_name = '%s'", $newDname, $currentName);
+                $result = mysqli_query($conn, $updateCoursesDnameSql);
+            }
+
             if ($result) {
-                //echo("Dname update successful!");
+                $_SESSION['dname'] = $newDname;
                 $success = 1;
                 $error = 0;
-                $_SESSION['dname'] = $newDname;
             } else {
                 error_log("Update Dname failed: " . mysqli_error($conn));
                 $error = 1;
