@@ -1,5 +1,7 @@
 <?php
 
+require '../config.php';
+
 if ($_POST["authorize"] == "gradeplus") {
     try {
         // Create a new MySQLi connection
