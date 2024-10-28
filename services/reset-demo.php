@@ -82,6 +82,8 @@ try {
         ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0, 'Student'),
         ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, 'Admin'),
         ('instructor', 'instructor@gradeplus.com', 'instructor', 'Instructor', 0, 'Instructor'),
+        ('ddolomount', 'ddolomount@mun.ca', 'password0', 'daniel', 0, 'Student'),
+        ('elahey', 'elahey@mun.ca', 'password1', 'emma', 0, 'Student'),
         ('student', 'student@gradeplus.com', 'student', 'Student', 0, 'Student');
         ";
     $result = mysqli_query($conn, $insertDataSql);
@@ -148,10 +150,42 @@ try {
         INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
         ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'instructor', 0),
         ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed', 1),
-        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'instructor', 2);
+        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'instructor', 2),
+        ('CS 3301', 'A1', NULL, 'I am a description 4', NULL, 'instructor', 3);
         ";
     $result = mysqli_query($conn, $insertDataSqlAssignment);
     if (!$result) {
+        error_log("Insert dummy data query failed: " . mysqli_error($conn));
+    }
+
+    // Drop reviews table if it exists
+    $resetTableSqlAssignment = "DROP TABLE IF EXISTS reviews;";
+    $result = mysqli_query($conn, $resetTableSqlAssignment);
+    if (!$result) {
+        error_log("Drop table query failed: " . mysqli_error($conn));
+    }
+
+    $createTableSqlReviews = "
+        CREATE TABLE reviews (
+            reviewer VARCHAR(50),
+            reviewee VARCHAR(50),
+            assignment_id INT,
+            assignment_name VARCHAR(50),
+            review LONGBLOB,
+            review_id INT PRIMARY KEY
+        );";
+    $result = mysqli_query($conn, $createTableSqlReviews);
+    if (!$result) {
+        error_log("Create table query failed: " . mysqli_error($conn));
+    }
+
+    // Insert dummy data
+    $insertDataSqlReviews = "
+        INSERT INTO reviews (reviewer, reviewee, assignment_id, assignment_name, review, review_id) VALUES
+        ('daniel','emma',4,'A1',NULL,1);
+    ";
+    $result = mysqli_query($conn, $insertDataSqlReviews);
+    if (!$result){
         error_log("Insert dummy data query failed: " . mysqli_error($conn));
     }
 
@@ -181,7 +215,8 @@ try {
     // Insert dummy data
     $insertDataSqlCourses = "
                 INSERT INTO courses VALUES
-                ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'Instructor', 'ABCDEF');
+                ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'Instructor', 'ABCDEF'),
+                ('CS 3301', 'Computer Vision', '../img/card/jpg', 'instructor','Instructor','GHIJKL');
                 ";
     $result = mysqli_query($conn, $insertDataSqlCourses);
     if (!$result) {
