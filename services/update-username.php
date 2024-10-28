@@ -56,6 +56,10 @@ if ($_POST["authorize"] == "gradeplus") {
                     // Update instructor_name in courses
                     $updateCoursesNameSql = sprintf("UPDATE courses SET instructor_name = '%s' WHERE instructor_name = '%s'", $newName, $currentName);
                     $result = mysqli_query($conn, $updateCoursesNameSql);
+
+                    // Update instructor in enrollment
+                    $updateEnrollmentNameSql = sprintf("UPDATE enrollment SET instructor = '%s' WHERE instructor = '%s'", $newName, $currentName);
+                    $result = mysqli_query($conn, $updateEnrollmentNameSql);
                 }
 
                 if ($result) {
