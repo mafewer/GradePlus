@@ -162,6 +162,22 @@ if ($_POST["authorize"] == "gradeplus") {
             error_log("Drop courses table query failed: " . mysqli_error($conn));
         }
 
+        // Create reviews table
+        $createTableSql = "
+        CREATE TABLE reviews (
+            reviewer VARCHAR(255),
+            reviewee VARCHAR(255),
+            assignment_id INT,
+            assignment_name VARCHAR(255),
+            review LONGBLOB,
+            review_id VARCHAR(10) PRIMARY KEY
+        );";
+
+        $result = mysqli_query($conn, $createTableSql);
+        if (!$result){
+            error_log("Failed to create reviews table: " . mysqli_error($conn));
+        }
+
         // Create courses table
         $createTableSql = "
         CREATE TABLE courses (
