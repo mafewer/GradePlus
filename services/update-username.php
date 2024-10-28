@@ -45,7 +45,7 @@ if ($_POST["authorize"] == "gradeplus") {
                 $result = mysqli_query($conn, $updateEnrollmentNameSql);
                 // Check if user is an instructor
                 $checkInstructorSql = sprintf("SELECT 1 FROM login WHERE username = '%s' AND usertype = 'Instructor'", $newName);
-                $result = mysqli_query($conn, $checkNameTakenSql);
+                $result = mysqli_query($conn, $checkInstructorSql);
                 $row = mysqli_fetch_array($result);
 
                 if ($row == null) {
