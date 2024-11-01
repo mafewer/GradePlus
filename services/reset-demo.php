@@ -188,6 +188,43 @@ try {
         error_log("Insert dummy data query failed: " . mysqli_error($conn));
     }
 
+    $resetTableSql = "DROP TABLE IF EXISTS grades;";
+    $result = mysqli_query($conn, $resetTableSql);
+    if (!$result) {
+        error_log("Drop table query failed: " . mysqli_error($conn));
+    }
+
+    // Moaaz was here
+    // Create table
+    $createTableSql = "
+        CREATE TABLE grades (
+            assignment_id INT,
+            course_code VARCHAR(50),
+            assignment_name VARCHAR(50),
+            username VARCHAR(50),
+            grade INT,
+            max_grade INT,
+            feedback VARCHAR(50),
+            submitted_pdf LONGBLOB,
+            submitted_flag INT,
+            submitted_date Date
+        );";
+    $result = mysqli_query($conn, $createTableSql);
+    if (!$result) {
+        error_log("Create table query failed: " . mysqli_error($conn));
+    }
+
+    // Insert dummy data
+    $insertDataSql = "
+        INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUES
+        (0, 'ECE 6400', 'A1', 'demo', 0,5, '', NULL, 0, NULL),
+        (2, 'ECE 6400', 'A2', 'student', 0,5,'', NULL, 0, NULL);
+        ";
+    $result = mysqli_query($conn, $insertDataSql);
+    if (!$result) {
+        error_log("Insert dummy data query failed: " . mysqli_error($conn));
+    }
+
     $success = 1;
     $error = 0;
 } catch (Exception $e) {
