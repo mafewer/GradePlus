@@ -155,6 +155,41 @@ try {
         error_log("Insert dummy data query failed: " . mysqli_error($conn));
     }
 
+    // Drop table if exists
+    $resetTableSql = "DROP TABLE IF EXISTS reviews;";
+    $result = mysqli_query($conn, $resetTableSql);
+    if (!$result) {
+        error_log("Drop table query failed: " . mysqli_error($conn));
+        exit;  // Exit if table drop fails
+    }
+
+    $createTableSql = "
+        CREATE TABLE reviews (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            assignment_id INT,
+            assignment_name VARCHAR(50),
+            reviewer VARCHAR(50),
+            reviewee VARCHAR(50),
+            review VARCHAR(50) DEFAULT NULL
+        );
+    ";
+    $result = mysqli_query($conn, $createTableSql);
+    if (!$result) {
+        error_log("Create table query failed: " . mysqli_error($conn));
+        exit;  // Exit if table creation fails
+    }
+
+    // Insert dummy data with NULL for the review field
+    $insertDataSql = "
+        INSERT INTO reviews (assignment_id, assignment_name, reviewer, reviewee, review) VALUES
+        (0, 'A1', 'student1', 'student2', NULL),
+        (1, 'A1', 'student2', 'student1', NULL);
+    ";
+    $result = mysqli_query($conn, $insertDataSql);
+    if (!$result) {
+        error_log("Insert dummy data query failed: " . mysqli_error($conn));
+    }
+
     // Drop courses table if it exists
     $resetTableSql = "DROP TABLE IF EXISTS courses;";
     $result = mysqli_query($conn, $resetTableSql);
