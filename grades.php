@@ -33,5 +33,21 @@
             <!-- Data Will populate here -->
         </tbody>
     </table>
+    <div class="grading">
+        <div class="grade-pdf"></div>
+        <div class="grading-input">
+            <h6 style="margin-bottom: 2rem;">Modify Grade</h6>
+            <div class="input-field">
+                <input type="text" id="score-input">
+                <label for="grade">Grade</label>
+            </div>
+            <div class="input-field">
+                <h6>Feedback</h6>
+                <textarea id="feedback-input"></textarea>
+            </div>
+            <button class="btn-flat waves-effect waves-light grade-review-close bwcolortext">Cancel</button>
+            <button class="btn waves-effect waves-light grade-review-save">Save</button>
+        </div>
+    </div>
 </div>
 <script src="js/grades.js"></script>
