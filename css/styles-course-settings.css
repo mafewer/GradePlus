@@ -9,7 +9,6 @@ div.course-details {
     flex-direction: column;
     gap: 0.5rem;
     width: 20rem;
-    transition: all 0.5s;
 }
 
 div.left-footer {
@@ -36,5 +35,14 @@ a.course-withdraw-btn {
 div.modal,
 div.modal-footer {
     background-color: var(--bwcolor) !important;
-    transition: all 0.5s;
+}
+
+input[type="text"],
+input[type="file"] {
+    color: var(--font-color) !important;
+}
+
+input[type="text"]::placeholder,
+input[type="file"]::placeholder {
+    color: gray;
 }

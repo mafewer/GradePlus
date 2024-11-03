@@ -159,6 +159,7 @@ a.side-nav-item {
     width: 20rem;
     transition: background-color 0.5s, color 0.5s;
     padding: 1rem 2rem;
+    user-select: none;
 }
 
 a.side-nav-item:hover {
