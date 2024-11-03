@@ -3,8 +3,8 @@
 require '../config.php';
 
 session_start();
-
 ini_set('display_errors', 0);
+
 // Service to update account email
 if ($_POST["authorize"] == "gradeplus") {
     if (!isset($_SESSION['username']) || $_SESSION['username'] == 'admin') {
@@ -41,7 +41,6 @@ if ($_POST["authorize"] == "gradeplus") {
                 $updateEmailSql = sprintf("UPDATE login SET email = '%s' WHERE username = '%s'", $newEmail, $currentName);
                 $result = mysqli_query($conn, $updateEmailSql);
                 if ($result) {
-                    //echo("Email update successful!");
                     $_SESSION['email'] = $newEmail;
                     $success = 1;
                     $error = 0;

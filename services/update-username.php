@@ -2,9 +2,8 @@
 
 require '../config.php';
 
-//Ben Thomas: Need to start the session to get the username and update username in session.
 session_start();
-ini_set('display_errors', 0);   //Ben Thomas: This is to prevent the error messages from being displayed on the webpage.
+ini_set('display_errors', 0);
 
 // Service to update account username
 if ($_POST["authorize"] == "gradeplus") {
@@ -34,20 +33,40 @@ if ($_POST["authorize"] == "gradeplus") {
             }
 
             if ($row[0] != 0) {
-                //echo("Username is already taken!");
                 $taken = 1;
                 $success = 0;
                 $error = 0;
             } else {
-                // Update username
-                $updateNameSql = sprintf("UPDATE login SET username = '%s' WHERE username = '%s'", $newName, $currentName);
-                $result = mysqli_query($conn, $updateNameSql);
+                // Update username in login
+                $updateLoginNameSql = sprintf("UPDATE login SET username = '%s' WHERE username = '%s'", $newName, $currentName);
+                $result = mysqli_query($conn, $updateLoginNameSql);
+                // Update username in enrollment
+                $updateEnrollmentNameSql = sprintf("UPDATE enrollment SET username = '%s' WHERE username = '%s'", $newName, $currentName);
+                $result = mysqli_query($conn, $updateEnrollmentNameSql);
+                // Check if user is an instructor
+                $checkInstructorSql = sprintf("SELECT 1 FROM login WHERE username = '%s' AND usertype = 'Instructor'", $newName);
+                $result = mysqli_query($conn, $checkInstructorSql);
+                $row = mysqli_fetch_array($result);
+
+                if ($row == null) {
+                    $row = [0];
+                }
+
+                if ($row[0] != 0) {
+                    // Update instructor_name in courses
+                    $updateCoursesNameSql = sprintf("UPDATE courses SET instructor_name = '%s' WHERE instructor_name = '%s'", $newName, $currentName);
+                    $result = mysqli_query($conn, $updateCoursesNameSql);
+
+                    // Update instructor in enrollment
+                    $updateEnrollmentNameSql = sprintf("UPDATE enrollment SET instructor = '%s' WHERE instructor = '%s'", $newName, $currentName);
+                    $result = mysqli_query($conn, $updateEnrollmentNameSql);
+                }
+
                 if ($result) {
-                    //echo("Username update successful!");
+                    $_SESSION['username'] = $newName;
                     $success = 1;
                     $error = 0;
                     $taken = 0;
-                    $_SESSION['username'] = $newName;
                 } else {
                     error_log("Update username failed: " . mysqli_error($conn));
                     $error = 1;
