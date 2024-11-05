@@ -1,0 +1,81 @@
+div.grades,
+div.sub-assignments {
+    margin-top: 2rem;
+}
+
+/*Grades*/
+table.table-sub-assignments,
+table.table-grades {
+    height: auto;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    background-color: var(--bwcolor);
+    color: var(--font-color);
+}
+
+table.table-sub-assignments th,
+table.table-grades th {
+    background-color: var(--hover-color);
+    transition: all 0.25s;
+}
+
+div.grades {
+    position: relative;
+}
+
+div.reveal-holder {
+    position: absolute;
+    top: -4rem;
+    right: 0rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+label.reveal-text {
+    font-size: 1rem;
+    color: grey;
+}
+
+div.swipe-reveal {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 9rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-stop: always;
+}
+
+p.swipe-reveal-text,
+p.grade-score {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* Grading */
+div.grade-pdf {
+    width: 50rem;
+    height: 50rem;
+    background-color: var(--hover-color);
+    transition: all 0.25s;
+}
+
+div.grading {
+    display: none;
+    gap: 1.5rem;
+    margin: 0.25rem;
+    transition: all 0.25s;
+}
+
+div.grading-input {
+    flex-grow: 1;
+}
+
+textarea#feedback-input {
+    height: 15rem;
+    border: 1px solid grey;
+}
