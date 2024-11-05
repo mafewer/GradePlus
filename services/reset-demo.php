@@ -155,6 +155,41 @@ try {
         error_log("Insert dummy data query failed: " . mysqli_error($conn));
     }
 
+    // Drop table if exists
+    $resetTableSql = "DROP TABLE IF EXISTS reviews;";
+    $result = mysqli_query($conn, $resetTableSql);
+    if (!$result) {
+        error_log("Drop table query failed: " . mysqli_error($conn));
+        exit;  // Exit if table drop fails
+    }
+
+    $createTableSql = "
+        CREATE TABLE reviews (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            assignment_id INT,
+            assignment_name VARCHAR(50),
+            reviewer VARCHAR(50),
+            reviewee VARCHAR(50),
+            review VARCHAR(50) DEFAULT NULL
+        );
+    ";
+    $result = mysqli_query($conn, $createTableSql);
+    if (!$result) {
+        error_log("Create table query failed: " . mysqli_error($conn));
+        exit;  // Exit if table creation fails
+    }
+
+    // Insert dummy data with NULL for the review field
+    $insertDataSql = "
+        INSERT INTO reviews (assignment_id, assignment_name, reviewer, reviewee, review) VALUES
+        (0, 'A1', 'student1', 'student2', NULL),
+        (1, 'A1', 'student2', 'student1', NULL);
+    ";
+    $result = mysqli_query($conn, $insertDataSql);
+    if (!$result) {
+        error_log("Insert dummy data query failed: " . mysqli_error($conn));
+    }
+
     // Drop courses table if it exists
     $resetTableSql = "DROP TABLE IF EXISTS courses;";
     $result = mysqli_query($conn, $resetTableSql);
@@ -184,6 +219,43 @@ try {
                 ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'Instructor', 'ABCDEF');
                 ";
     $result = mysqli_query($conn, $insertDataSqlCourses);
+    if (!$result) {
+        error_log("Insert dummy data query failed: " . mysqli_error($conn));
+    }
+
+    $resetTableSql = "DROP TABLE IF EXISTS grades;";
+    $result = mysqli_query($conn, $resetTableSql);
+    if (!$result) {
+        error_log("Drop table query failed: " . mysqli_error($conn));
+    }
+
+    // Moaaz was here
+    // Create table
+    $createTableSql = "
+        CREATE TABLE grades (
+            assignment_id INT,
+            course_code VARCHAR(50),
+            assignment_name VARCHAR(50),
+            username VARCHAR(50),
+            grade INT,
+            max_grade INT,
+            feedback VARCHAR(50),
+            submitted_pdf LONGBLOB,
+            submitted_flag INT,
+            submitted_date Date
+        );";
+    $result = mysqli_query($conn, $createTableSql);
+    if (!$result) {
+        error_log("Create table query failed: " . mysqli_error($conn));
+    }
+
+    // Insert dummy data
+    $insertDataSql = "
+        INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUES
+        (0, 'ECE 6400', 'A1', 'demo', 0,5, '', NULL, 0, NULL),
+        (2, 'ECE 6400', 'A2', 'student', 0,5,'', NULL, 0, NULL);
+        ";
+    $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
         error_log("Insert dummy data query failed: " . mysqli_error($conn));
     }
