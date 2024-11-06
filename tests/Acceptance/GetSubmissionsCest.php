@@ -13,7 +13,7 @@ class GetSubmissionsCest
         ]);
 
         //Call to return all submissions
-        $I->sendPost('/services/get_all_submissions.php', [
+        $I->sendPost('/services/get-all-submissions.php', [
             'authorize' => 'gradeplus',
             'course_code' => 'ECE 6400'
         ]);
@@ -27,7 +27,7 @@ class GetSubmissionsCest
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         //Call to return one submission
-        $I->sendPost('/services/get_individual_submission.php', [
+        $I->sendPost('/services/get-individual-submission.php', [
             'authorize' => 'gradeplus',
             'course_code' => 'ECE 6400',
             'student_name' => 'student',

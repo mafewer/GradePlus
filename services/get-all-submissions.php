@@ -24,7 +24,6 @@ if (!$conn) {
 }
 
 $course_code = $_POST["course_code"];
-$instructor = $_POST["instructor"];
 
 // Retrieve submissions
 $get_submissions_sql = sprintf("
