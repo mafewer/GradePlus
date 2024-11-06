@@ -1,7 +1,7 @@
 function main() {
     var isCourseOpen = false;
-    var dname = $("span.display-name").text();
-    var username = $("span.user-name").text();
+    var dname = $("span.display-name").html();
+    var username = $("span.user-name").html();
     var isAccountEditing = false;
     var isCourseOpenFirst = false;
     $("div.acc-upload-pic").hide();
@@ -22,6 +22,7 @@ function main() {
     //Switch to Course List
     $("a.account-settings-back").click(()=>{
         $("div.acc-upload-pic").hide();
+        retrieve_courses();
         $("div.course-list").fadeIn(200);
         $("div.account-settings").fadeOut(200);
         let currentHour = new Date().getHours();
@@ -64,18 +65,21 @@ function main() {
         let newemail = $("#new-account-email").val();
         let newpassword = $("#new-account-password").val();
 
-        // Update the username backend integration
+        // Username Change
         if (newname) {
             $.ajax({
                 url: 'services/update-username.php', 
-                type: 'POST', // Send the data using POST
+                type: 'POST', 
                 data: {
-                    authorize: "gradeplus", // Send the authorization token
-                    newname: newname }, // Send the new username
+                    authorize: "gradeplus", 
+                    newname: newname }, 
                 dataType: 'json',  
                 success: function(response) {
                     if (response['success']==1) {
-                        window.location.reload(true); //Adding true here clears the browser cache, ensuring the account.php file updates the session variables.
+                        username = newname;
+                        $("p.acc-user-name").html(newname);
+                        $("#new-user-name").attr("placeholder", newname);
+                        $("button.acc-return-btn").click();
                     } else if (response['taken']==1) {
                         window.alert("Username already exists.");
                     } else {
@@ -88,7 +92,7 @@ function main() {
             });
         }
 
-        //See username update ajax for comments
+        //Display Name Change
         if (newdname) {
             $.ajax({
                 url: 'services/update-dname.php',
@@ -99,7 +103,11 @@ function main() {
                 dataType: 'json',
                 success: function(response) {
                     if (response['success']==1) {
-                        window.location.reload(true);
+                        dname = newdname;
+                        $("span.display-name").html(dname);
+                        $("#new-display-name").attr("placeholder", dname);
+                        $("p.acc-display-name").html(dname);
+                        $("button.acc-return-btn").click();
                     } else {
                         window.alert("500 - Server Error");
                     }
@@ -110,7 +118,7 @@ function main() {
             });
         }
 
-        //See username update ajax for comments
+        //Email Change
         if (newemail) {
             $.ajax({
                 url: 'services/update-email.php',
@@ -121,7 +129,10 @@ function main() {
                 dataType: 'json', 
                 success: function(response) {
                     if (response['success']==1) {
-                        window.location.reload(true);
+                        $("p.acc-email").html(newemail);
+                        $("#new-account-email").attr("placeholder", newemail);
+                        $("p.accountemail").html(newemail);
+                        $("button.acc-return-btn").click();
                     } else if (response['taken']==1) {
                         window.alert("Email already exists.");
                     } else {
@@ -134,7 +145,7 @@ function main() {
             });
         }
 
-        // See username update ajax for comments. However, success handling logs out the user instead of simply window refreshing.
+        // Password Change
         if (newpassword) {
             $.ajax({
                 url: 'services/update-password.php',
@@ -364,6 +375,7 @@ function main() {
         $("div.coursedash").fadeOut(200,()=>{
             $("div.courseholder").fadeIn(200);
         });
+        retrieve_courses();
     })
     
     function loadContent(url, headerText) {
@@ -419,13 +431,13 @@ function main() {
         $(this).val($(this).val().toUpperCase());
     });
 
-    function retrieve_courses() {
     //Retrieving Courses
+    function retrieve_courses() {
     $.ajax({
         url: "services/retrieve-course.php",
         type: "POST",
         data: {
-            "username": $("span.user-name").text(),
+            "username": username,
             "authorize": "gradeplus"
         },
         dataType : "json",

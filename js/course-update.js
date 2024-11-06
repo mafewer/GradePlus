@@ -30,14 +30,18 @@ $("a.save-course-info").click(() => {
         dataType : "json",
         success: (response) => {
             if (response["success"] != 1) {
-                $("p.status-text").text("500 - Server Error");
-                $("p.status-text").slideDown();
-                setTimeout(() => {
-                    $("p.status-text").slideUp();
-                }, 3000);
-                return;
+                window.alert("500 - Server Error");
             } else {
-                window.location.reload();
+                if (bannerFile) {
+                    $("img.side-nav-img").attr("src", "img/"+$("input[name='updatedbanner']")[0].files[0].name);
+                }
+                if (courseCode) {
+                    $("p.side-nav-course-code").html(courseCode);
+                    $("input[name='updatedcode']").attr("placeholder", courseCode);
+                }
+                if (courseName) {
+                    $("input[name='updatedname']").attr("placeholder", courseName);
+                }
             }
         }
     });
@@ -56,12 +60,7 @@ $("a.course-withdraw-btn").click(() => {
             dataType : "json",
             success: (response) => {
                 if (response["success"] != 1) {
-                    $("p.status-text").text("500 - Server Error");
-                    $("p.status-text").slideDown();
-                    setTimeout(() => {
-                        $("p.status-text").slideUp();
-                    }, 3000);
-                    return;
+                    window.alert("500 - Server Error");
                 } else {
                     window.location.reload();
                 }
@@ -88,12 +87,7 @@ $("a.delete-course-btn").click(() => {
             dataType : "json",
             success: (response) => {
                 if (response["success"] != 1) {
-                    $("p.status-text").text("500 - Server Error");
-                    $("p.status-text").slideDown();
-                    setTimeout(() => {
-                        $("p.status-text").slideUp();
-                    }, 3000);
-                    return;
+                    window.alert("500 - Server Error");
                 } else {
                     window.location.reload();
                 }

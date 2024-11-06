@@ -1,6 +1,7 @@
 div.grades,
 div.sub-assignments {
     margin-top: 2rem;
+    transition: all 0.25s;
 }
 
 /*Grades*/
@@ -16,7 +17,6 @@ table.table-grades {
 table.table-sub-assignments th,
 table.table-grades th {
     background-color: var(--hover-color);
-    transition: all 0.25s;
 }
 
 div.grades {

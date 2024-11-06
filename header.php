@@ -23,8 +23,8 @@
         <li><a class="theme"><i class="material-icons left theme"></i><span class="theme"></span></a></li>
         <li><a href="index.php"><i class="material-icons left">home</i>Home</a></li>
         <?php if(isset($_SESSION['dname'])): ?>
-        <li><a class="dropdown-trigger" data-target="dropdown1"><i
-              class="material-icons left">person</i><?php echo $_SESSION['dname']?><i
+        <li><a class="dropdown-trigger" data-target="dropdown1"><i class="material-icons left">person</i><span
+              class="display-name"><?php echo $_SESSION['dname']?></span><i
               class="material-icons right">arrow_drop_down</i></a>
         </li>
         <?php else: ?>
