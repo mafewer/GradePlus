@@ -19,7 +19,7 @@ class GetSubmissionsCest
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 1, "error" => 0, "data" => [['assignment_id' => '0', 'assignment_name' => 'A1', 'username' => 'demo', 'submitted_flag' => '0'], ['assignment_id' => '2', 'assignment_name' => 'A2', 'username' => 'student', 'submitted_flag' => '0']]]);
+        $I->seeResponseContainsJson(["success" => 1, "error" => 0, "data" => [['assignment_id' => '0', 'assignment_name' => 'A1', 'username' => 'demo', 'submitted_flag' => '1'], ['assignment_id' => '2', 'assignment_name' => 'A2', 'submitted_pdf' => null, 'username' => 'student', 'submitted_flag' => '1']]]);
     }
 
     public function getIndividualSubmission(AcceptanceTester $I)
@@ -35,6 +35,6 @@ class GetSubmissionsCest
         ]);
 
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(["success" => 1, "error" => 0, "data" => [['assignment_id' => '2', 'course_code' => 'ECE 6400', 'assignment_name' => 'A2', 'username' => 'student', 'grade' => '0', 'max_grade' => '5', 'feedback' => '', 'submitted_pdf' => null, 'submitted_flag' => '0', 'submitted_date' => null]]]);
+        $I->seeResponseContainsJson(["success" => 1, "error" => 0, "data" => [['assignment_id' => '2', 'course_code' => 'ECE 6400', 'assignment_name' => 'A2', 'username' => 'student', 'grade' => '0', 'max_grade' => '5', 'feedback' => '', 'submitted_pdf' => null, 'submitted_flag' => '1', 'submitted_date' => null]]]);
     }
 }

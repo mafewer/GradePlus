@@ -27,9 +27,9 @@ $course_code = $_POST["course_code"];
 
 // Retrieve submissions
 $get_submissions_sql = sprintf("
-SELECT assignment_id, assignment_name, username, submitted_flag
+SELECT assignment_id, assignment_name, submitted_pdf, username, submitted_flag
 FROM grades
-WHERE course_code = '%s'
+WHERE course_code = '%s' and submitted_flag = '1'
 ORDER BY assignment_id ASC", $course_code);
 
 $result = mysqli_query($conn, $get_submissions_sql);
@@ -47,6 +47,7 @@ while ($row = $result->fetch_assoc()) {
     $submissions[] = [
     "assignment_id" => $row['assignment_id'],
     "assignment_name" => $row['assignment_name'],
+    "submitted_pdf" => $row['submitted_pdf'],
     "username" => $row['username'],
     "submitted_flag" => $row['submitted_flag']
     ];

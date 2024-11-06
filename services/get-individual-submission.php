@@ -31,7 +31,7 @@ $assignment_id = $_POST["assignment_id"];
 $get_submissions_sql = sprintf("
 SELECT *
 FROM grades
-WHERE course_code = '%s' and assignment_id = '%s' and username = '%s'
+WHERE course_code = '%s' and assignment_id = '%s' and username = '%s' and submitted_flag = '1'
 ORDER BY assignment_id ASC", $course_code, $assignment_id, $student_name);
 
 $result = mysqli_query($conn, $get_submissions_sql);
