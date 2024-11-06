@@ -8,7 +8,7 @@
         </div>
         <div class="modal-footer bwcolor">
             <a class="agree-btn modal-close red white-text waves-effect waves-red btn-flat">Withdraw</a>
-            <a class="cancel-btn modal-close white-text waves-effect waves-green btn-flat">Cancel</a>
+            <a class="cancel-btn modal-close bwcolortext waves-effect waves-green btn-flat">Cancel</a>
         </div>
     </div>
 

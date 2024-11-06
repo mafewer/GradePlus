@@ -162,7 +162,7 @@ if ($hour >= 5 && $hour < 12) {
                     </div>
                     <div class="account-item-holder">
                         <p>Password:</p>
-                        <p class="acc-item acc-email">
+                        <p class="acc-item acc-password">
                             <?php echo isset($password) ? str_repeat('*', strlen($password)) : 'Password Not Found'; ?>
                         </p>
                         <input class="acc-input bwcolor" type="password" id="new-account-password"
