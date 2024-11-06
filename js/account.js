@@ -79,6 +79,7 @@ function main() {
                         username = newname;
                         $("p.acc-user-name").html(newname);
                         $("#new-user-name").attr("placeholder", newname);
+                        $("#new-user-name").attr("placeholder", dname);
                         $("button.acc-return-btn").click();
                     } else if (response['taken']==1) {
                         window.alert("Username already exists.");
@@ -106,6 +107,7 @@ function main() {
                         dname = newdname;
                         $("span.display-name").html(dname);
                         $("#new-display-name").attr("placeholder", dname);
+                        $("#new-display-name").val("");
                         $("p.acc-display-name").html(dname);
                         $("button.acc-return-btn").click();
                     } else {
@@ -131,6 +133,7 @@ function main() {
                     if (response['success']==1) {
                         $("p.acc-email").html(newemail);
                         $("#new-account-email").attr("placeholder", newemail);
+                        $("#new-account-email").val("");
                         $("p.accountemail").html(newemail);
                         $("button.acc-return-btn").click();
                     } else if (response['taken']==1) {
