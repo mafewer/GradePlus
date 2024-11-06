@@ -38,9 +38,11 @@ $("a.save-course-info").click(() => {
                 if (courseCode) {
                     $("p.side-nav-course-code").html(courseCode);
                     $("input[name='updatedcode']").attr("placeholder", courseCode);
+                    $("input[name='updatedcode']").val("");
                 }
                 if (courseName) {
                     $("input[name='updatedname']").attr("placeholder", courseName);
+                    $("input[name='updatedcode']").val("");
                 }
             }
         }
