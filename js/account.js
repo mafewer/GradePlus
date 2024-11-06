@@ -309,7 +309,8 @@ function main() {
                     }, 3000);
                     return;
                 } else {
-                    window.location.reload();
+                    retrieve_courses();
+                    $("a.addenrol-modal-cancel").click();
                 }
             }
         });
@@ -333,8 +334,8 @@ function main() {
         formData.append("coursecode", courseCode);
         formData.append("coursename", courseName);
         formData.append("banner", bannerFile);
-        formData.append("instructor_name", $("span.user-name").text());
-        formData.append("instructor_dname", $("span.display-name").text());
+        formData.append("instructor_name", username);
+        formData.append("instructor_dname", dname);
         formData.append("authorize", "gradeplus");
 
         $.ajax({
@@ -353,7 +354,8 @@ function main() {
                     }, 3000);
                     return;
                 } else {
-                    window.location.reload();
+                    retrieve_courses();
+                    $("a.addenrol-modal-cancel").click();
                 }
             }
         });

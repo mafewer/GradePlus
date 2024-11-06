@@ -62,7 +62,7 @@ $("a.course-withdraw-btn").click(() => {
                 if (response["success"] != 1) {
                     window.alert("500 - Server Error");
                 } else {
-                    window.location.reload();
+                    $("a.backuserdashboard").click();
                 }
             }
         });
@@ -89,7 +89,7 @@ $("a.delete-course-btn").click(() => {
                 if (response["success"] != 1) {
                     window.alert("500 - Server Error");
                 } else {
-                    window.location.reload();
+                    $("a.backuserdashboard").click();
                 }
             }
         });
