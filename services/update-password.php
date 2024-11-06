@@ -3,6 +3,8 @@
 require '../config.php';
 
 session_start();
+ini_set('display_errors', 0);
+
 // Service to update account password
 if ($_POST["authorize"] == "gradeplus") {
     if (!isset($_SESSION['username']) || $_SESSION['username'] == 'admin') {
@@ -21,6 +23,7 @@ if ($_POST["authorize"] == "gradeplus") {
             $updatePassSql = sprintf("UPDATE login SET password = '%s' WHERE username = '%s'", $newPassword, $currentName);
             $result = mysqli_query($conn, $updatePassSql);
             if ($result) {
+
                 $success = 1;
                 $error = 0;
                 $taken = 0;

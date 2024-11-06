@@ -15,11 +15,11 @@ if ($_POST['authorize'] == 'gradeplus') {
             error_log("SQL connection failed: " . mysqli_connect_error());
         }
         // Prepare the SQL statement to delete the enrollment
-        $sqlDelete = $conn->prepare("DELETE FROM enrollment WHERE username = ? AND course_code = ?");
-        $username = htmlspecialchars($_POST['studentname'] ?? '');
-        $coursecode = htmlspecialchars($_POST['coursecode'] ?? '');
+        $sqlDelete = $conn->prepare("DELETE FROM enrollment WHERE username = ? AND invite_code = ?");
+        $username = htmlspecialchars($_POST['username'] ?? '');
+        $invite_code = htmlspecialchars($_POST['invite_code'] ?? '');
         // enter Paramters
-        $sqlDelete->bind_param("ss", $username, $coursecode);
+        $sqlDelete->bind_param("ss", $username, $invite_code);
 
         // Execute the SQL command
         $sqlDelete->execute();

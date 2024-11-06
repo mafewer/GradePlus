@@ -1,14 +1,15 @@
-if ($("a.addenrolcourse").attr("id")==="enroltrue"){ //if is student
+if ($("a.addenrolcourse").attr("id")==="enroltrue"){ //Student
     $("div.course-details").hide();
     $("div.save").hide();
-    $("div.right-footer").hide();
+    $("div.delete").hide();
     $("div.settings-footer").css("margin-top", "1rem");
 } else {
     $("div.withdraw").hide();
+    $("input#updatedcode").attr("placeholder", $("p.side-nav-course-code").text());
+    $("input#updatedname").attr("placeholder", $("p.side-nav-course-name").text());
 }
 
 $("a.save-course-info").click(() => {
-
     let formData = new FormData();
     let courseCode = $("input[name='updatedcode']").val();
     let courseName = $("input[name='updatedname']").val();
@@ -45,6 +46,7 @@ $("a.save-course-info").click(() => {
 $("a.course-withdraw-btn").click(() => {
     $("a.agree-btn").text("WITHDRAW");
     $("div.modal").fadeIn(200);
+    $("span.confirm-modal-text").text("withdraw from this course");
     
     $("a.agree-btn").click(() => {
         $.ajax({
@@ -76,6 +78,7 @@ $("a.course-withdraw-btn").click(() => {
 $("a.delete-course-btn").click(() => {
     $("a.agree-btn").text("DELETE");
     $("div.modal").fadeIn(200);
+    $("span.confirm-modal-text").text("delete this course");
     
     $("a.agree-btn").click(() => {
         $.ajax({
