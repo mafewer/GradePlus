@@ -165,11 +165,9 @@ try {
 
     $createTableSql = "
         CREATE TABLE reviews (
-            id INT AUTO_INCREMENT PRIMARY KEY,
             assignment_id INT,
             assignment_name VARCHAR(50),
-            reviewer VARCHAR(50),
-            reviewee VARCHAR(50),
+            student VARCHAR(50),
             review VARCHAR(50) DEFAULT NULL
         );
     ";
@@ -181,9 +179,9 @@ try {
 
     // Insert dummy data with NULL for the review field
     $insertDataSql = "
-        INSERT INTO reviews (assignment_id, assignment_name, reviewer, reviewee, review) VALUES
-        (0, 'A1', 'student1', 'student2', NULL),
-        (1, 'A1', 'student2', 'student1', NULL);
+        INSERT INTO reviews (assignment_id, assignment_name, student, review) VALUES
+        (0, 'A1', 'student', NULL),
+        (1, 'A1', 'student', NULL);
     ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
