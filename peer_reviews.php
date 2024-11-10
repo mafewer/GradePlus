@@ -12,29 +12,7 @@
         </h3>
         <table class="table-sub-assignments">
             <tbody id="table-sub-assignments-body">
-                <!--
-                <tr>
-                    Data Will populate here
-                    <td>
-                        <div class="card bwcolor">
-                            <div class="card-image">
-                            <i class="large material-icons">assignment</i>
-                            </div>
-                        <div class="assignmentName">
-                            Assignment Name
-                        </div>
-                        <div class="studentName">
-                            Student Name
-                        </div>
-                        <div class="card-action">
-                            <button class="waves-effect green std-hover waves-light btn give-feedback">
-                                Give Feedback
-                                <i class="material-icons right center">chat</i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                -->
+                <!-- Data Will populate here -->
             </tbody>
         </table>
     </div>
@@ -46,26 +24,7 @@
         </h3>
         <table class="table-rev-assignments">
             <tbody id="table-rev-assignments-body">
-                <!--
-                <tr>
-                     Data Will populate here
-                    <td>
-                        <div class="card bwcolor">
-                            <div class="card-image">
-                            <i class="large material-icons">assignment</i>
-                            </div>
-                        <div class="assignmentName">
-                            Assignment Name
-                        </div>
-                        <div class="card-action">
-                            <button class="waves-effect green std-hover waves-light btn view-feedback">
-                                View Feedback
-                                <i class="material-icons right center">visibility</i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                -->
+                <!--Data Will populate here-->
             </tbody>
         </table>
     </div>
@@ -78,7 +37,7 @@
         <div class="review-input">
             <div class="input-field">
                 <h6>Feedback</h6>
-                <textarea id="feedback-input"></textarea>
+                <textarea id="feedback-input" class="bwcolor"></textarea>
             </div>
             <button class="btn-flat waves-effect waves-light give-feedback-close bwcolortext">Cancel</button>
             <button class="btn waves-effect waves-light give-feedback-save">Save</button>
@@ -100,4 +59,5 @@
         </div>
 </div>
 
+<script src="js/account.js"></script>
 <script src="js/peer-reviews.js"></script>

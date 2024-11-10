@@ -2,6 +2,7 @@ function main() {
     var isCourseOpen = false;
     var dname = $("span.display-name").html();
     var username = $("span.user-name").html();
+    window.username = username;
     var isAccountEditing = false;
     var isCourseOpenFirst = false;
     $("div.acc-upload-pic").hide();
