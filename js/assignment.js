@@ -132,7 +132,7 @@ function retrieveAssignments() {
             });
 
             //Adding an assignment modal (instructors only)
-            $("div.add-assign-card").click(function() {
+            $("div.assignments-list").on("click", "div.add-assign-card", function() {
                 $("div.addassign-modal").fadeIn(100);
             });
             
