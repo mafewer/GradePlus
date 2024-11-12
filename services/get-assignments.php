@@ -68,7 +68,8 @@ SELECT
     assignment_name,
     assignment_file,
     description,
-    due_date
+    due_date,
+    assignment_id
 FROM 
     assignment
 WHERE 
@@ -96,7 +97,8 @@ while ($row = $result->fetch_assoc()) {
         "assignment_name" => $row['assignment_name'],
         "assignment_file" => $row['assignment_file'] ? base64_encode($row['assignment_file']) : null,
         "description" => $row['description'],
-        "due_date" => $row['due_date']
+        "due_date" => $row['due_date'],
+        "assignment_id" => $row['assignment_id']
     ];
 }
 
