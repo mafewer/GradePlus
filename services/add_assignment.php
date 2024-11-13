@@ -60,6 +60,34 @@ if ($_POST["authorize"] == "gradeplus") {
 
                 if ($stmt->execute()) {
                     $success = 1;
+
+                    $enrolledStudentSql = $conn->prepare("
+                    SELECT login.username, dname FROM login
+                    INNER JOIN enrollment ON login.username = enrollment.username
+                    WHERE enrollment.course_code = ?
+                    ");
+                    $enrolledStudentSql->bind_param("s", $course_code);
+                    $enrolledStudentSql->execute();
+                    $studentsResult = $enrolledStudentSql->get_result();
+
+                    // Insert each student's grade entry for the new assignment
+                    while ($student = $studentsResult->fetch_assoc()) {
+                        $username = $student['username'];
+                        $display_name = $student['dname'];
+                        $initial_grade = 0;  
+                        $max_grade = 10; 
+                        $feedback = "";  
+                        $insertGradeSql = $conn->prepare("
+                            INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade, feedback)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                        ");
+                        $insertGradeSql->bind_param("isssiis", $next_id, $course_code, $assignment_name, $username, $initial_grade, $max_grade, $feedback);
+                        $insertGradeSql->execute();
+                        $insertGradeSql->close();
+                    }
+
+                    $enrolledStudentSql->close();
+                    
                 } else {
                     $error = 1;
                 }
@@ -72,7 +100,7 @@ if ($_POST["authorize"] == "gradeplus") {
 
     } catch (Exception $e) {
         $success = 0;
-        $error = 1;
+        $error = $e->getMessage();
     }
 } else {
     header("Location: illegal.php");

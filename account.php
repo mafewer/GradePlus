@@ -2,13 +2,16 @@
 session_start();
 $success = 0;
 $error = 0;
+
+require "config.php";
+
 if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
     if ($_SESSION['logtime'] > time()) {
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
             $_SESSION['logtime'] = time() + (60 * 6);
             try {
-                $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
+                $conn = mysqli_connect($DB_HOST, 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
                 //Password is not natively stored in the session for security reasons. Need to fetch it from database to display in account settings.
                 $sql = $conn->prepare("SELECT password, profile_picture FROM login WHERE username = ?");

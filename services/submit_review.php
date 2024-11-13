@@ -9,7 +9,7 @@ $error = 0;
 if ($_POST["authorize"] == "gradeplus") {
     try {
         // Connect to the database
-        $conn = new mysqli("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+        $conn = new mysqli($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
 
         if ($conn->connect_error) {
             throw new Exception("Database connection failed: " . $conn->connect_error);
