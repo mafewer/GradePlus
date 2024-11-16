@@ -24,7 +24,7 @@ class ClassListCest {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost('/services/get-students.php', [
             'authorize'   => 'gradeplus',
-            'course_code' => 'CS 3301'
+            'invite_code' => 'GHIJK'
         ]);
 
         $I->seeResponseIsJson();
@@ -34,14 +34,16 @@ class ClassListCest {
             'illegal' => 0,
             'data'    => [
                 [
-                    'profilePicture' => "",  // Adjust if necessary
-                    'dname'          => 'mafewer',
-                    'username'       => 'mafewer'
+                    'profile_picture' => null,
+                    'dname'          => 'Daniel',
+                    'username'       => 'ddolomount',
+                    'email'         => 'ddolomount@mun.ca'
                 ],
                 [
-                    'profilePicture' => "",  // Adjust if necessary
-                    'dname'          => 'ddolomount',
-                    'username'       => 'ddolomount'
+                    'profile_picture' => null,
+                    'dname'          => 'Matthew',
+                    'username'       => 'mafewer',
+                    'email' => 'mafewer@mun.ca'
                 ]
             ],
             'message' => 'Students retrieved successfully.'
@@ -52,12 +54,12 @@ class ClassListCest {
     public function fetchNonExistentCourse(AcceptanceTester $I) {
         $this->resetDatabase($I);
 
-        $course_code = 'ECE 3301';
+        $course_code = 'CS 3301';
 
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost('/services/get-students.php', [
             'authorize'   => 'gradeplus',
-            'course_code' => $course_code
+            'invite_code' => $course_code
         ]);
 
         $I->seeResponseIsJson();

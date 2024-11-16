@@ -83,9 +83,9 @@ try {
         ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, 'Admin'),
         ('instructor', 'instructor@gradeplus.com', 'instructor', 'Instructor', 0, 'Instructor'),
         ('student', 'student@gradeplus.com', 'student', 'Student', 0, 'Student'),
-        ('mafewer', 'mafewer@mun.ca', 'password0','mafewer','0','Student'),
-        ('ddolomount', 'ddolomount@mun.ca', 'password3','ddolomount','0','Student'),
-        ('meruviaPastor', 'meruviapastor@mun.ca', 'password12','meruviapastor','0','Instructor');
+        ('oscar','oscar@mun.ca','instructor','Oscar',0,'Instructor'),
+        ('mafewer','mafewer@mun.ca','password0','Matthew',0,'Student'),
+        ('ddolomount','ddolomount@mun.ca','password1','Daniel',0,'Student');
         ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
@@ -116,10 +116,10 @@ try {
     // Insert dummy data
     $insertDataSqlEnrollment = "
         INSERT INTO enrollment VALUES
-        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'student'),
+        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
         ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
-        ('mafewer', 'CS 3301', 'Visual Computing and Applications', 0, 'GHIJKE', 'Oscar Meruvia-Pastor'),
-        ('ddolomount', 'CS 3301', 'Visual Computing and Applications', 0, 'GHIJKE', 'Oscar Meruvia-Pastor');
+        ('ddolomount','CS 3301','Computer Vision',0,'GHIJK','oscar'),
+        ('mafewer','CS 3301','Computer Vision',0,'GHIJK','oscar');
         ";
     $result = mysqli_query($conn, $insertDataSqlEnrollment);
     if (!$result) {
@@ -153,9 +153,7 @@ try {
         INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
         ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'instructor', 0),
         ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed', 1),
-        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'instructor', 2),
-        ('CS 3301','A1',NULL,'Question based on Histogram Operations','2024-09-27', 'meruviapastor', 3),
-        ('CS 3301','A2',NULL,'Questions based on smoothing filters','2024-10-13', 'meruviapastor', 4);
+        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'instructor', 2);
         ";
     $result = mysqli_query($conn, $insertDataSqlAssignment);
     if (!$result) {
@@ -172,11 +170,9 @@ try {
 
     $createTableSql = "
         CREATE TABLE reviews (
-            id INT AUTO_INCREMENT PRIMARY KEY,
             assignment_id INT,
             assignment_name VARCHAR(50),
-            reviewer VARCHAR(50),
-            reviewee VARCHAR(50),
+            student VARCHAR(50),
             review VARCHAR(50) DEFAULT NULL
         );
     ";
@@ -188,9 +184,9 @@ try {
 
     // Insert dummy data with NULL for the review field
     $insertDataSql = "
-        INSERT INTO reviews (assignment_id, assignment_name, reviewer, reviewee, review) VALUES
-        (0, 'A1', 'student1', 'student2', NULL),
-        (1, 'A1', 'student2', 'student1', NULL);
+        INSERT INTO reviews (assignment_id, assignment_name, student, review) VALUES
+        (0, 'A1', 'student', NULL),
+        (1, 'A1', 'student', NULL);
     ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
@@ -224,7 +220,7 @@ try {
     $insertDataSqlCourses = "
                 INSERT INTO courses VALUES
                 ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'Instructor', 'ABCDEF'),
-                ('CS 3301', 'Visual Computing and Applications', '../img/card.jpg', 'Oscar Meruvia-Pastor', 'meruviapastor', 'GHIJKE');
+                ('CS 3301', 'Computer Vision','../img/card.jpg','oscar','Oscar','GHIJK');
                 ";
     $result = mysqli_query($conn, $insertDataSqlCourses);
     if (!$result) {
@@ -260,8 +256,8 @@ try {
     // Insert dummy data
     $insertDataSql = "
         INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUES
-        (0, 'ECE 6400', 'A1', 'demo', 0,5, '', NULL, 0, NULL),
-        (2, 'ECE 6400', 'A2', 'student', 0,5,'', NULL, 0, NULL);
+        (0, 'ECE 6400', 'A1', 'demo', 0,5, '', NULL, 1, NULL),
+        (2, 'ECE 6400', 'A2', 'student', 0,5,'', NULL, 1, NULL);
         ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
@@ -282,4 +278,4 @@ echo json_encode(["success" => $success,"error" => $error,"illegal" => 0]);
 /*} else {
     // User is not authorized
     header("Location: illegal.php");
-}
+}*/

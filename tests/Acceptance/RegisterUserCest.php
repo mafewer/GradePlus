@@ -44,7 +44,7 @@ class RegisterUserCest {
         //This is used to make sure that when an account that uses the same username we can't
         $I->sendPost('/services/register.php', [
             'authorize' => 'gradeplus',
-            'username' => 'mafewer',
+            'username' => 'elahey',
             'dname' => 'Marcus Fewer',
             'email' => 'marcus@mun.ca',
             'password' => 'testPassword_1',
