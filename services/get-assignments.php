@@ -94,7 +94,7 @@ $assignments = [];
 while ($row = $result->fetch_assoc()) {
     $assignments[] = [
         "assignment_name" => $row['assignment_name'],
-        "assignment_file" => $row['assignment_file'] ? base64_encode($row['assignment_file']) : null,
+        "assignment_file" => $row['assignment_file'],
         "description" => $row['description'],
         "due_date" => $row['due_date']
     ];

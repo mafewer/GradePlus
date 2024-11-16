@@ -132,7 +132,7 @@ if ($_POST["authorize"] == "gradeplus") {
         CREATE TABLE assignment (
             course_code VARCHAR(50),
             assignment_name VARCHAR(50),
-            assignment_file LONGBLOB,
+            assignment_file VARCHAR(50),
             description VARCHAR(50),
             due_date Date,
             instructor VARCHAR(50),
