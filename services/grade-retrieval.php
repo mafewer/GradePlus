@@ -11,6 +11,7 @@ if ($_POST["authorize"] == "gradeplus") {
         }
     
         $dname = $_POST['dname'];
+        $course_code = $_POST['course_code']; // Get the course_code from the request
 
         // First, retrieve the username based on the provided dname
         $usernameQuery = $conn->prepare("
@@ -25,17 +26,18 @@ if ($_POST["authorize"] == "gradeplus") {
             $usernameRow = $usernameResult->fetch_assoc();
             $username = $usernameRow['username'];
 
-            // Fetch all grades associated with the student
+            // Fetch grades for the specific course associated with the student
             $gradesQuery = $conn->prepare("
                 SELECT course_code, assignment_name, grade, max_grade, feedback
                 FROM grades
-                WHERE username = ?
+                WHERE username = ? AND course_code = ?
             ");
-            $gradesQuery->bind_param("s", $username);
+            $gradesQuery->bind_param("ss", $username, $course_code);
             $gradesQuery->execute();
             $gradesResult = $gradesQuery->get_result();
 
             // Collect all grades into an array
+            $grades = []; // Initialize grades array
             while ($row = $gradesResult->fetch_assoc()) {
                 $grades[] = $row;
             }
@@ -45,15 +47,19 @@ if ($_POST["authorize"] == "gradeplus") {
             $error = 0;
         } else {
             $success = 0;
-            $error = 1;
+            $error = "No user found with the provided display name (dname).";
         }
+
+        $usernameQuery->close();
+        $conn->close();
+
     } catch (Exception $e) {
         $success = 0;
-        $error = 1;
+        $error = $e->getMessage();
     }
 
     header('Content-Type: application/json');
-    echo json_encode(["success" => $success, "error" => $error, "grade" => $grades]);
+    echo json_encode(["success" => $success, "error" => $error, "grades" => $grades]);
 } else {
     header("Location: illegal.php");
 }
