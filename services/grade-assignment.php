@@ -36,8 +36,14 @@ if ($_POST["authorize"] == "gradeplus") {
             $updateGradeQuery->bind_param("isss", $grade, $course_code, $assignment_name, $username);
 
             if ($updateGradeQuery->execute()) {
-                $success = 1;
-                $error = 0;
+                if ($conn->affected_rows > 0) {
+                    $success = 1;
+                    $error = 0;
+                } else {
+                    // No rows were updated
+                    $success = 0;
+                    $error = 1;
+                }
             } else {
                 $success = 0;
                 $error = 1;
@@ -54,7 +60,7 @@ if ($_POST["authorize"] == "gradeplus") {
 
     } catch (Exception $e) {
         $success = 0;
-        $error = 1;
+        $error = $e->getMessage();
     }
 
     header('Content-Type: application/json');
@@ -62,4 +68,3 @@ if ($_POST["authorize"] == "gradeplus") {
 } else {
     header("Location: illegal.php");
 }
-?>
