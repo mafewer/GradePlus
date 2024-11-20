@@ -14,14 +14,12 @@ retrieveAssignments();
 function retrieveAssignments() {
     // Get the Student's assignments
     var assignmentsBody = $("div.assignments-list");
-    var SubmittedBody = $("div.submitted-list");
     $.ajax({
         url: "services/get-assignments.php",
         type: "POST",
         data: {
             "course_code": $("p.side-nav-course-code").text(),
-            "authorize": "gradeplus",
-            "username": $("span.user-name").html()
+            "authorize": "gradeplus"
         },
         dataType : "json",
         success: (response) => {
@@ -33,7 +31,7 @@ function retrieveAssignments() {
                 assignments.forEach((assign) => {
                         let assignCard = `
                             <div class="card assign-card std-hover bwcolor" data-file="${assign.assignment_file}" data-id="${assign.assignment_id}" data-assignment-name="${assign.assignment_name}" 
-                            data-instructor="${assign.instructor}" data-submitted-flag="${assign.submitted_flag}">
+                            data-instructor="${assign.instructor}">
                                 <div class="card-content bwcolortext">
                                     <span style="font-weight: bold;" class="card-title">${assign.assignment_name}</span>
                                     <p>${assign.description}</p>
@@ -42,12 +40,8 @@ function retrieveAssignments() {
                                 <a id="remove-btn" style="position: absolute; top: 1rem; right: 1rem;" class='delete-assign btn-floating halfway-fab waves-effect waves-light red'><i
                                 class='material-symbols-outlined'>delete</i></a></span>
                             </div>`;
-                        if (assign.submitted_flag === 1) {
-                            SubmittedBody.append(assignCard);
-                        }
-                        else {
-                            assignmentsBody.append(assignCard);
-                        }
+
+                        assignmentsBody.append(assignCard);
                          
                 });
                 if ($("a.addenrolcourse").attr("id")!=="enroltrue") { // Instructor
