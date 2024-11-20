@@ -132,7 +132,7 @@ try {
         CREATE TABLE assignment (
             course_code VARCHAR(50),
             assignment_name VARCHAR(50),
-            assignment_file LONGBLOB,
+            assignment_file VARCHAR(255),
             description VARCHAR(50),
             due_date Date,
             instructor VARCHAR(50),
@@ -238,7 +238,7 @@ try {
             grade INT,
             max_grade INT,
             feedback VARCHAR(50),
-            submitted_pdf LONGBLOB,
+            submitted_pdf VARCHAR(255),
             submitted_flag INT,
             submitted_date Date
         );";
