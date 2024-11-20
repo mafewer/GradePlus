@@ -1,0 +1,64 @@
+div.assignments-list,
+div.submitted-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    width: 100rem;
+}
+
+div.assign-card,
+div.add-assign-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0rem;
+    margin-right: 3rem;
+    margin-top: 3rem;
+    transition: all 0.5s;
+}
+
+span.add-assign{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    margin-top: 0rem;
+    cursor: pointer;
+}
+
+div.submitted-list{
+    margin-top: 3rem;
+}
+
+/* Grading */
+div.grade-pdf {
+    width: 50rem;
+    height: 50rem;
+    background-color: var(--hover-color);
+    transition: all 0.25s;
+}
+
+div.grading {
+    display: none;
+    gap: 1.5rem;
+    margin: 0.25rem;
+    transition: all 0.25s;
+}
+
+div.grading-input {
+    flex-grow: 1;
+}
+
+div.modal {
+    position: fixed;
+    top: 10rem;
+}
+
+textarea#description-input {
+    height: 10rem;
+    border: 1px solid grey;
+}
+
+

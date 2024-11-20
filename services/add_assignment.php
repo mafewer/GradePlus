@@ -26,9 +26,16 @@ if ($_POST["authorize"] == "gradeplus") {
             // File upload handling
             if (isset($_FILES['assignment_file']) && $_FILES['assignment_file']['error'] == UPLOAD_ERR_OK) {
                 // Read the file content
+                $file_dir = "../assignments/";
                 $file_temp_path = $_FILES['assignment_file']['tmp_name'];
-                $file_content = file_get_contents($file_temp_path);
-                $file_content = mysqli_real_escape_string($conn, $file_content);
+                $file_name = basename($_FILES['assignment_file']['name']);
+                $upload_dir = $file_dir . $file_name;
+                // Upload image to /img directory
+                if (!move_uploaded_file($file_temp_path, $upload_dir)) {
+                    throw new Exception("Failed to upload file to assignments directory");
+                }
+                //$file_content = file_get_contents($file_temp_path);
+                //$file_content = mysqli_real_escape_string($conn, $file_content);
             } else {
                 $file_content = NULL;
             }
@@ -56,7 +63,7 @@ if ($_POST["authorize"] == "gradeplus") {
                 $next_id = ($row['max_id'] !== null) ? $row['max_id'] + 1 : 1;
 
                 // Bind parameters including assignment_id
-                $stmt->bind_param("ssssssi", $course_code, $assignment_name, $file_content, $description, $due_date, $instructor, $next_id);
+                $stmt->bind_param("ssssssi", $course_code, $assignment_name, $upload_dir, $description, $due_date, $instructor, $next_id);
 
                 if ($stmt->execute()) {
                     $success = 1;
