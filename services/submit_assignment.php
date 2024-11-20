@@ -29,7 +29,15 @@ if ($_POST["authorize"] == "gradeplus") {
 
         // Check if a PDF file was uploaded
         if (isset($_FILES['submitted_pdf']) && $_FILES['submitted_pdf']['error'] === UPLOAD_ERR_OK) {
-            $submitted_pdf = file_get_contents($_FILES['submitted_pdf']['tmp_name']);
+            //$submitted_pdf = file_get_contents($_FILES['submitted_pdf']['tmp_name']);
+            $submitted_dir = "../submissions/";
+            $submitted_temp_path = $_FILES['submitted_pdf']['tmp_name'];
+            $submitted_name = basename($_FILES['submitted_pdf']['name']);
+            $submitted_pdf = $submitted_dir . $submitted_name;
+            // Upload image to /img directory
+            if (!move_uploaded_file($submitted_temp_path, $submitted_pdf)) {
+                throw new Exception("Failed to upload file to submissions directory");
+            }
             $submitted_flag = 1;
             $submitted_date = date('Y-m-d');
         }

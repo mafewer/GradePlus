@@ -4,13 +4,11 @@
         <div class="assignments-list">
             <!-- assignments will go here -->
         </div>
+        <div class="sub-heading">
+            <h4>Submitted</h4>
+        </div>
         <div class="submitted-list">
-            <div class="sub-heading">
-                <h4>Submitted</h4>
-            </div>
-            <div class="submitted-list">
-                <!-- submitted assignments will go here -->
-            </div>
+            <!-- submitted assignments will go here -->
         </div>
     </div>
     <!--assignment view-->
@@ -69,6 +67,17 @@
         <div class="modal-footer bwcolor">
             <a class="addassign-modal-cancel waves-effect bwcolortext btn-flat">CANCEL</a>
             <a class="addassign-modal-add waves-effect white-text green btn-flat">ADD</a>
+        </div>
+    </div>
+    <!-- Delete Assignment Safety Modal -->
+    <div id="delete-modal" class="delete-modal modal bwcolor">
+        <div class="delete-modal-content">
+            <h4>Delete Assignment</h4>
+            <p>Are you sure you want to <span class="confirm-modal-text">delete this assignment</span>?</p>
+        </div>
+        <div class="delete-modal-footer bwcolor">
+            <a class="delete-btn modal-close red white-text waves-effect waves-red btn-flat">Delete</a>
+            <a class="cancel-btn modal-close bwcolortext waves-effect waves-green btn-flat">Cancel</a>
         </div>
     </div>
 </body>

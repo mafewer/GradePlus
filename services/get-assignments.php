@@ -44,6 +44,7 @@ if ($conn->connect_error) {
 
 // Sanitize the course code
 $course_code = htmlspecialchars($_POST["course_code"]);
+$username = $_POST["username"];
 
 // Check if the course exists
 $checkCourseSql = "SELECT COUNT(*) FROM courses WHERE course_code = ?";
@@ -64,17 +65,22 @@ if ($courseExists == 0) {
 
 // Prepare SQL query to retrieve assignments for the given course code
 $sql = "
-SELECT 
-    assignment_name,
-    assignment_file,
-    description,
-    due_date,
-    assignment_id
-FROM 
-    assignment
-WHERE 
-    course_code = ?
+    SELECT a.assignment_id, 
+           a.assignment_name, 
+           a.due_date, 
+           a.description, 
+           COALESCE(g.submitted_flag, 0) AS submitted_flag,
+           a.assignment_file,    -- Ensure assignment_file is selected
+           a.instructor          -- Ensure instructor is selected
+    FROM assignment a
+    LEFT JOIN grades g ON a.assignment_id = g.assignment_id AND g.username = ?
+    WHERE a.course_code = ?
+    ORDER BY a.assignment_id ASC   -- Order by assignment_id (ascending)
 ";
+
+
+
+
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
@@ -82,7 +88,7 @@ if (!$stmt) {
 }
 
 // Bind course code parameter and execute the query
-$stmt->bind_param("s", $course_code);
+$stmt->bind_param("ss", $username, $course_code);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -95,10 +101,12 @@ $assignments = [];
 while ($row = $result->fetch_assoc()) {
     $assignments[] = [
         "assignment_name" => $row['assignment_name'],
-        "assignment_file" => $row['assignment_file'] ? base64_encode($row['assignment_file']) : null,
+        "assignment_file" => $row['assignment_file'],
         "description" => $row['description'],
         "due_date" => $row['due_date'],
-        "assignment_id" => $row['assignment_id']
+        "instructor" => $row['instructor'],
+        "assignment_id" => $row['assignment_id'],
+        "submitted_flag" => $row['submitted_flag']
     ];
 }
 
