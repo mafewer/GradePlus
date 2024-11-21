@@ -1,12 +1,14 @@
 <?php
 
+require "../config.php";
+
 // Start the session
 session_start();
 // Check if the authorization token is correct
 if ($_POST['authorize'] == 'gradeplus') {
     try {
         // Connect to the MySQL database
-        $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
+        $conn = mysqli_connect($DB_HOST, 'gradeplusclient', 'gradeplussql', 'gradeplus');
         if (!$conn) {
             // Log an error if the connection fails
             error_log("Connection to MySQL as gradeplusclient failed: " . mysqli_connect_error());

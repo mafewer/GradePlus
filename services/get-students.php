@@ -1,5 +1,7 @@
 <?php
 
+require "../config.php";
+
 // File: /services/get_students.php
 
 // Set the content type to JSON
@@ -17,7 +19,7 @@ if (htmlspecialchars($_POST["authorize"]) !== "gradeplus") {
 }
 
 // Create a new MySQLi connection
-$conn = new mysqli('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
+$conn = new mysqli($DB_HOST, 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
 // Check for connection errors
 if ($conn->connect_error) {

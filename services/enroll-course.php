@@ -1,9 +1,10 @@
 <?php
+require "../config.php";
 
 if ($_POST["authorize"] == "gradeplus") {
     try {
         // Create a new MySQLi connection
-        $conn = new mysqli("localhost", "gradeplusclient", "gradeplussql", "gradeplus");
+        $conn = new mysqli($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
 
         // If the connection fails, throw an exception
         if (!$conn) {

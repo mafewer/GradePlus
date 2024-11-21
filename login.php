@@ -5,6 +5,8 @@ $incorrect = 0;
 $error = 0;
 $empty = 0;
 
+require "config.php";
+
 //Redirect to account page if already logged in
 if (isset($_SESSION['logtime']) && isset($_SESSION['username'])) {
 
@@ -29,7 +31,7 @@ if (isset($_POST['username'])) {
     } else {
         //SQL Connection
         try {
-            $conn = mysqli_connect('localhost', 'gradeplusclient', 'gradeplussql', 'gradeplus');
+            $conn = mysqli_connect($DB_HOST, 'gradeplusclient', 'gradeplussql', 'gradeplus');
 
 
             $sqlCommand = $conn->prepare("SELECT username, dname, email, usertype FROM login WHERE (username = ? OR email = ?) AND password = ?");
@@ -67,6 +69,9 @@ if (isset($_POST['username'])) {
             //Error handling
         } catch (exception $e) {
             $error = 1;
+            error_log("Error during login process: " . $e->getMessage());
+            // Display error in the browser console
+            echo "<script>console.error('Error during login process: " . addslashes($e->getMessage()) . "');</script>";
         }
     }
 }
