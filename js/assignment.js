@@ -30,9 +30,9 @@ function retrieveAssignments() {
                 let assignments = response["data"];
                 assignments.forEach((assign) => {
                         let assignCard = `
-                            <div class="card assign-card std-hover bwcolor" data-file="${assign.assignment_file}" data-id="${assign.assignment_id}" data-assignment-name="${assign.assignment_name}" 
+                            <div class="card assign-card std-hover" data-file="${assign.assignment_file}" data-id="${assign.assignment_id}" data-assignment-name="${assign.assignment_name}" 
                             data-instructor="${assign.instructor}">
-                                <div class="card-content bwcolortext">
+                                <div class="card-content">
                                     <span style="font-weight: bold;" class="card-title">${assign.assignment_name}</span>
                                     <p>${assign.description}</p>
                                     <p>Due Date: ${assign.due_date}</p>
@@ -40,14 +40,13 @@ function retrieveAssignments() {
                                 <a id="remove-btn" style="position: absolute; top: 1rem; right: 1rem;" class='delete-assign btn-floating halfway-fab waves-effect waves-light red'><i
                                 class='material-symbols-outlined'>delete</i></a></span>
                             </div>`;
-
                         assignmentsBody.append(assignCard);
                          
                 });
                 if ($("a.addenrolcourse").attr("id")!=="enroltrue") { // Instructor
                     //add assignment button
                     assignmentsBody.append(
-                    `<div class="card add-assign-card std-hover bwcolor">
+                    `<div class="card add-assign-card std-hover">
                         <div class="card-content">
                         <span style="font-weight: bold;" class="add-assign material-symbols-outlined green-text">
                         add
@@ -102,6 +101,7 @@ formData.append('submitted_pdf', submitted_pdf);  // Submitted PDF
         dataType : "json",
         success: function(response) {
             if (response['success']==1) {
+                window.alert("Assignment Submitted Successfully!");
                 $("div.grading").css("display", "none");
                 $("div.assign-container").show();
                 retrieveAssignments();
@@ -111,6 +111,7 @@ formData.append('submitted_pdf', submitted_pdf);  // Submitted PDF
         },
         error: function(xhr, status, error) {
             console.error("Failed to Submit Assignment:", status, error);
+            console.log("Response Text:", xhr.responseText); // Log the response text for debugging
         }
     });
 });
@@ -210,41 +211,3 @@ $("a.addassign-modal-add").click(function() {
         });
     });
     
-    
-
-            
-/*function submitAssignment() {
-    // Submit an assignment
-    $.ajax({
-        url: "services/submit_assignment.php",
-        type: "POST",
-        data: {
-            "username": username,
-            "assignment_id": assignment_id,
-            "assignment_name": assignment_name,
-            "course_code": $("p.side-nav-course-code").text(),
-            "authorize": "gradeplus"
-        },
-        dataType : "json",
-        success: (response) => {
-            if (response["success"] != 1) {
-                return;
-            } else {
-            
-            }
-        }});
-}*/
-
-
-/*function addAssignment() {
-    // Add an assignment to the course
-    var course = $("select#course").val();
-    var assignment = $("input#assignment").val();
-    var assignmentsBody = $("div.assignments-list");
-}
-
-function removeAssignment() {
-    // Remove an assignment from the course
-    var assignment = $("select#assignment").val();
-    var assignmentsBody = $("div.assignments-list");
-}*/

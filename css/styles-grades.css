@@ -78,4 +78,5 @@ div.grading-input {
 textarea#feedback-input {
     height: 15rem;
     border: 1px solid grey;
+    color: var(--font-color);
 }

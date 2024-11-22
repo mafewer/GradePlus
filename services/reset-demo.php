@@ -146,9 +146,7 @@ try {
     // Insert dummy data
     $insertDataSqlAssignment = "
         INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
-        ('ECE 6400', 'A1', NULL , 'I am a description 1' , NULL, 'instructor', 0),
-        ('ECE 6500', 'A1', NULL , 'I am a description 2' , NULL, 'Hammed', 1),
-        ('ECE 6400', 'A2', NULL , 'I am a description 3' , NULL, 'instructor', 2);
+        ('ECE 6400', 'Test', './assignments/Project Presentations.pdf' , 'Test Assignment' , '2024-11-30', 'instructor', 0);
         ";
     $result = mysqli_query($conn, $insertDataSqlAssignment);
     if (!$result) {
@@ -249,9 +247,8 @@ try {
 
     // Insert dummy data
     $insertDataSql = "
-        INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUES
-        (0, 'ECE 6400', 'A1', 'demo', 0,5, '', NULL, 1, NULL),
-        (2, 'ECE 6400', 'A2', 'student', 0,5,'', NULL, 1, NULL);
+        INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUE
+        (0, 'ECE 6400', 'Test', 'student', 0,10, '', NULL, 1, NULL);
         ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {

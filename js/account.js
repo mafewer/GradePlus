@@ -561,4 +561,5 @@ $(window).on("load", () => {
         $("div.mainapp").fadeIn(200);
     }, 200);
     main();
+    
 });
