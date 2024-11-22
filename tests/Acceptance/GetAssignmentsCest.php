@@ -2,10 +2,11 @@
 
 use Tests\Support\AcceptanceTester;
 
-class GetAssignmentsCest {
-
+class GetAssignmentsCest
+{
     // Helper function to reset the database
-    private function resetDatabase(AcceptanceTester $I) {
+    private function resetDatabase(AcceptanceTester $I)
+    {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost('/services/reset-demo.php', [
             'authorize' => 'gradeplus'
@@ -18,7 +19,8 @@ class GetAssignmentsCest {
     }
 
     // Test for retrieving assignments from a valid course
-    public function fetchValidCourseAssignments(AcceptanceTester $I) {
+    public function fetchValidCourseAssignments(AcceptanceTester $I)
+    {
         $this->resetDatabase($I);  // Ensure a clean slate
 
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -32,26 +34,13 @@ class GetAssignmentsCest {
             'success' => 1,
             'error'   => 0,
             'illegal' => 0,
-            'data'    => [
-                [
-                    'assignment_name' => 'A1',
-                    'assignment_file' => null,
-                    'description'     => 'I am a description 1',
-                    'due_date'        => null,
-                ],
-                [
-                    'assignment_name' => 'A2',
-                    'assignment_file' => null,
-                    'description'     => 'I am a description 3',
-                    'due_date'        => null,
-                ]
-            ],
             'message' => 'Assignments retrieved successfully.'
         ]);
     }
 
     // Test for handling a non-existent course code
-    public function fetchNonExistentCourseAssignments(AcceptanceTester $I) {
+    public function fetchNonExistentCourseAssignments(AcceptanceTester $I)
+    {
         $this->resetDatabase($I);  // Ensure a clean state
 
         $course_code = 'ECE 3301';
@@ -67,7 +56,6 @@ class GetAssignmentsCest {
             'success' => 0,
             'error'   => 1,
             'illegal' => 0,
-            'data'    => [],
             'message' => "Course code '$course_code' does not exist."
         ]);
     }

@@ -248,7 +248,7 @@ try {
     // Insert dummy data
     $insertDataSql = "
         INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUE
-        (0, 'ECE 6400', 'Test', 'student', 0,10, '', NULL, 1, NULL);
+        (0, 'ECE 6400', 'Test', 'student', 10,10, 'Excellent', '../submissions/demo.pdf', 1, '2024-11-27');
         ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
