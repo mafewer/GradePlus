@@ -80,6 +80,10 @@ $(".grading").css("display", "flex");
 //Submitting an Assignment
 $("button.assign-submit").click(function() {
 let submitted_pdf = $("input[name='assignfile']")[0].files[0];
+if (!submitted_pdf) {
+    window.alert("Please upload a PDF file");
+    return;
+}
 var assignmentId = $(".grading").data("assignment-id");
 var assignmentName = $(".grading").data("assignment-name");
 

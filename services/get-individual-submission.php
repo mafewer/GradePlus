@@ -2,10 +2,10 @@
 
 require '../config.php';
 header('Content-Type: application/json');
-// Service to recieve all assignment submissions for a course
+// Service to receive all assignment submissions for a course
 
 // Verify parameters
-if (empty($_POST["authorize"]) || empty($_POST["course_code"]) || empty($_POST["assignment_id"]) || empty($_POST["student_name"])) {
+if (!isset($_POST["authorize"]) || !isset($_POST["course_code"]) || !isset($_POST["assignment_id"]) || !isset($_POST["student_name"])) {
     echo json_encode(["success" => 0, "error" => 1, "data" => [], "message" => "Missing or empty parameters."]);
     exit();
 }

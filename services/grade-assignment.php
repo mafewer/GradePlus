@@ -1,7 +1,6 @@
 <?php
 
 require "../config.php";
-
 if ($_POST["authorize"] == "gradeplus") {
     try {
         $conn = new mysqli($DB_HOST, "gradeplusclient", "gradeplussql", "gradeplus");
@@ -11,29 +10,20 @@ if ($_POST["authorize"] == "gradeplus") {
         }
 
         $course_code = $_POST['course_code'];
-        $assignment_name = $_POST['assignment_name'];
-        $dname = $_POST['dname'];  
+        $assignment_id = $_POST['assignment_id'];
+        $username = $_POST['username'];
         $grade = $_POST['grade'];
+        $max_grade = $_POST['max_grade'];
+        $feedback = $_POST['feedback'];
 
-        $usernameQuery = $conn->prepare("
-            SELECT username FROM login WHERE dname = ?
-        ");
-        $usernameQuery->bind_param("s", $dname);
-        $usernameQuery->execute();
-        $usernameResult = $usernameQuery->get_result();
-
-        if ($usernameResult->num_rows > 0) {
-            // Fetch the username
-            $usernameRow = $usernameResult->fetch_assoc();
-            $username = $usernameRow['username'];
-
+        if ($username != null) {
             // Update the grade in the grades table for the specified student, assignment, and course
             $updateGradeQuery = $conn->prepare("
                 UPDATE grades
-                SET grade = ?
-                WHERE course_code = ? AND assignment_name = ? AND username = ?
+                SET grade = ?, max_grade = ?, feedback = ?
+                WHERE course_code = ? AND assignment_id = ? AND username = ?
             ");
-            $updateGradeQuery->bind_param("isss", $grade, $course_code, $assignment_name, $username);
+            $updateGradeQuery->bind_param("iissis", $grade, $max_grade, $feedback, $course_code, $assignment_id, $username);
 
             if ($updateGradeQuery->execute()) {
                 if ($conn->affected_rows > 0) {
@@ -55,7 +45,6 @@ if ($_POST["authorize"] == "gradeplus") {
             $error = 1;
         }
 
-        $usernameQuery->close();
         $conn->close();
 
     } catch (Exception $e) {

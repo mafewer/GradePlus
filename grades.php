@@ -42,6 +42,10 @@
                 <label for="grade">Grade</label>
             </div>
             <div class="input-field">
+                <input type="text" id="score-max-input">
+                <label for="grade">Maximum Grade</label>
+            </div>
+            <div class="input-field">
                 <h6>Feedback</h6>
                 <textarea id="feedback-input"></textarea>
             </div>
