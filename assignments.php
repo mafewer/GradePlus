@@ -91,4 +91,3 @@
 });
 </script>
 <script src="js/assignment.js"></script>
-<script src="js/theme.js"></script>

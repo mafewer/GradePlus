@@ -16,11 +16,13 @@ div.add-assign-card {
     margin-left: 0rem;
     border-radius: 0.5rem;
     background-color: var(--bwcolor);
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .input-field {
     margin: 0.5rem;
     color: var(--font-color);
+    transition: color 0.2s;
 }
 
 span.add-assign {
