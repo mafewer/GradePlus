@@ -3,7 +3,6 @@ if ($("a.addenrolcourse").attr("id")==="enroltrue"){ // Student
     $("div.viewing-input").hide();
     $("div.submitted-list").show();
     $("div.sub-heading").show();
-    $("a.add-assign").hide();
 } else { // Instructor
     $("div.grading-input").hide();
     $("div.viewing-input").show();
@@ -47,9 +46,13 @@ function retrieveAssignments() {
                         assignmentsBody.append(assignCard);
                          
                 });
-                if ($("a.addenrolcourse").attr("id")=="enroltrue") {
-                    $("a.add-announcement").hide();
-                    $("a.delete-assign").hide();
+                if (assignmentsBody.children().length === 0) {
+                    $("h6.no-assignments-header").show();
+                } else {
+                    $("h6.no-assignments-header").hide();
+                }
+                if ($("a.addenrolcourse").attr("id")!=="enroltrue") {
+                    $("a.add-assign").show();
                 }
             }
         }});

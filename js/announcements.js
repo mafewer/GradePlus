@@ -14,7 +14,6 @@ function retrieveAnnouncements() {
                 return;
             } else {
                 announcementBody.empty(); // Clear any existing announcement
-                //console.log(response);
                 let announcement = response["data"];
                 announcement.forEach((announcement) => {
                         let announcementCard = `

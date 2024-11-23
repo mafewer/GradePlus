@@ -1,13 +1,16 @@
 <link rel="stylesheet" type="text/css" href="css/styles-assignments.css">
 <body>
+<a class="add-assign modal-close green white-text waves-effect waves-green btn-flat"><i class="material-symbols-outlined left">add_circle</i>Add</a>
     <div class="assign-container">
+    <h6 class="no-assignments-header">
+        No Assignments Posted
+    </h6>
         <div class="assignments-list">
             <!-- assignments will go here -->
         </div>
         <div class="submitted-list">
             <!-- submitted assignments will go here -->
         </div>
-        <a class="add-assign modal-close green white-text waves-effect waves-green btn-flat"><i class="material-symbols-outlined left">add_circle</i>Add</a>
     </div>
     <!--Assignment view-->
     <div class="grading">

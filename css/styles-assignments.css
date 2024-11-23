@@ -11,10 +11,14 @@ div.assign-container {
 
 a.add-assign {
     position: absolute;
-    right: 0.23rem;
-    top: -2.5rem;
+    right: 4rem;
+    top: 9rem;
+    display: none;
 }
 
+h6.no-assignments-header {
+    margin-top: 2rem;
+}
 
 div.assign-card,
 div.add-assign-card {
