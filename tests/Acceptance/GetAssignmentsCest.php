@@ -26,7 +26,7 @@ class GetAssignmentsCest
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost('/services/get-assignments.php', [
             'authorize'   => 'gradeplus',
-            'course_code' => 'ECE 6400'
+            'invite_code' => 'ABCDEF'
         ]);
 
         $I->seeResponseIsJson();
@@ -43,12 +43,12 @@ class GetAssignmentsCest
     {
         $this->resetDatabase($I);  // Ensure a clean state
 
-        $course_code = 'ECE 3301';
+        $invite_code = '0000000';
 
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPost('/services/get-assignments.php', [
             'authorize'   => 'gradeplus',
-            'course_code' => $course_code
+            'invite_code' => $invite_code
         ]);
 
         $I->seeResponseIsJson();
@@ -56,7 +56,7 @@ class GetAssignmentsCest
             'success' => 0,
             'error'   => 1,
             'illegal' => 0,
-            'message' => "Course code '$course_code' does not exist."
+            'message' => "Invite code '$invite_code' does not exist."
         ]);
     }
 }

@@ -1,20 +1,22 @@
 <?php
+
 use Tests\Support\AcceptanceTester;
 
 class AssignmentUploadCest
 {
-
     public function uploadAssignment(AcceptanceTester $I)
     {
-        $course_code = "ECE 6400"; 
-        $assignment_name = "A3"; 
-        $description = "Description for A3"; 
-        $due_date = "2024-10-30"; 
+        $invite_code = "ABCDEF";
+        $course_code = "ECE 6400";
+        $assignment_name = "A3";
+        $description = "Description for A3";
+        $due_date = "2024-10-30";
         $instructor = "instructor"; // Valid instructor name
 
         // Prepare POST data
         $postData = [
             "authorize" => "gradeplus",
+            "invite_code" => $invite_code,
             "course_code" => $course_code,
             "assignment_name" => $assignment_name,
             "description" => $description,
@@ -36,14 +38,16 @@ class AssignmentUploadCest
 
     public function invalidCourseTest(AcceptanceTester $I)
     {
-        $course_code = "BLUH BLUH"; // Invalid course code
-        $assignment_name = "A3"; 
-        $description = "Description for A3"; 
-        $due_date = "2024-10-30"; 
-        $instructor = "instructor"; 
+        $invite_code = "0000000"; // Invalid course code
+        $course_code = "ECE 6400";
+        $assignment_name = "A3";
+        $description = "Description for A3";
+        $due_date = "2024-10-30";
+        $instructor = "instructor";
 
         $postData = [
             "authorize" => "gradeplus",
+            "invite_code" => $invite_code,
             "course_code" => $course_code,
             "assignment_name" => $assignment_name,
             "description" => $description,
@@ -64,14 +68,16 @@ class AssignmentUploadCest
 
     public function invalidInstructorTest(AcceptanceTester $I)
     {
+        $invite_code = "ABCDEF";
         $course_code = "ECE 6400";
-        $assignment_name = "A3"; 
-        $description = "Description for A3"; 
-        $due_date = "2024-10-30"; 
+        $assignment_name = "A3";
+        $description = "Description for A3";
+        $due_date = "2024-10-30";
         $instructor = "Freddy Fazbear"; // Invalid instructor name
 
         $postData = [
             "authorize" => "gradeplus",
+            "invite_code" => $invite_code,
             "course_code" => $course_code,
             "assignment_name" => $assignment_name,
             "description" => $description,
@@ -92,13 +98,15 @@ class AssignmentUploadCest
 
     public function missingAuthorizationTest(AcceptanceTester $I)
     {
-        $course_code = "ECE 6400"; 
-        $assignment_name = "A3"; 
-        $description = "Description for A3"; 
-        $due_date = "2024-10-30"; 
-        $instructor = "instructor"; 
+        $invite_code = "ABCDEF";
+        $course_code = "ECE 6400";
+        $assignment_name = "A3";
+        $description = "Description for A3";
+        $due_date = "2024-10-30";
+        $instructor = "instructor";
 
         $postData = [
+            "invite_code" => $invite_code,
             "course_code" => $course_code,
             "assignment_name" => $assignment_name,
             "description" => $description,

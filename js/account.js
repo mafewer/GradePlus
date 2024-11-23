@@ -381,6 +381,9 @@ function main() {
         $("div.coursedash").fadeOut(200,()=>{
             $("div.courseholder").fadeIn(200);
         });
+        $("span.logo-head").fadeOut(200,()=>{
+            $("span.logo-head").text("GradePlus").fadeIn(200);
+        });
         retrieve_courses();
     })
     
@@ -520,6 +523,9 @@ function main() {
                             isCourseOpenFirst = true;
                             $("a.announcements").click();
                         }
+                        $("span.logo-head").fadeOut(200,()=>{
+                            $("span.logo-head").text(coursename).fadeIn(200);
+                        });
                     });
                 });
 

@@ -9,7 +9,7 @@ if ($_POST["authorize"] == "gradeplus") {
             throw new Exception("Failed to connect to database");
         }
 
-        $course_code = $_POST['course_code'];
+        $invite_code = $_POST['invite_code'];
         $assignment_id = $_POST['assignment_id'];
         $username = $_POST['username'];
         $grade = $_POST['grade'];
@@ -21,9 +21,9 @@ if ($_POST["authorize"] == "gradeplus") {
             $updateGradeQuery = $conn->prepare("
                 UPDATE grades
                 SET grade = ?, max_grade = ?, feedback = ?
-                WHERE course_code = ? AND assignment_id = ? AND username = ?
+                WHERE invite_code = ? AND assignment_id = ? AND username = ?
             ");
-            $updateGradeQuery->bind_param("iissis", $grade, $max_grade, $feedback, $course_code, $assignment_id, $username);
+            $updateGradeQuery->bind_param("iissis", $grade, $max_grade, $feedback, $invite_code, $assignment_id, $username);
 
             if ($updateGradeQuery->execute()) {
                 if ($conn->affected_rows > 0) {

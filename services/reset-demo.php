@@ -132,6 +132,7 @@ try {
     $createTableSqlAssignment = "
         CREATE TABLE assignment (
             course_code VARCHAR(50),
+            invite_code VARCHAR(10),
             assignment_name VARCHAR(50),
             assignment_file VARCHAR(255),
             description VARCHAR(50),
@@ -146,8 +147,8 @@ try {
 
     // Insert dummy data
     $insertDataSqlAssignment = "
-        INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
-        ('ECE 6400', 'Test', './assignments/Project Presentations.pdf' , 'Test Assignment' , '2024-11-30', 'instructor', 0);
+        INSERT INTO assignment (course_code, invite_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
+        ('ECE 6400', 'ABCDEF', 'Test', './assignments/Project Presentations.pdf' , 'Test Assignment' , '2024-11-30', 'instructor', 0);
         ";
     $result = mysqli_query($conn, $insertDataSqlAssignment);
     if (!$result) {
@@ -166,6 +167,7 @@ try {
         CREATE TABLE reviews (
             assignment_id INT,
             assignment_name VARCHAR(50),
+            invite_code VARCHAR(10),
             student VARCHAR(50),
             review VARCHAR(50) DEFAULT NULL
         );
@@ -178,9 +180,9 @@ try {
 
     // Insert dummy data with NULL for the review field
     $insertDataSql = "
-        INSERT INTO reviews (assignment_id, assignment_name, student, review) VALUES
-        (0, 'Test', 'student', 'Excellent'),
-        (0, 'Test', 'demo', 'Good Work');
+        INSERT INTO reviews (assignment_id, assignment_name, invite_code, student, review) VALUES
+        (0, 'Test', 'ABCDEF', 'student', 'Excellent'),
+        (0, 'Test', 'ABCDEF','demo', 'Good Work');
     ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
@@ -230,7 +232,7 @@ try {
     $createTableSql = "
         CREATE TABLE announcements (
             announcement_id VARCHAR(10) PRIMARY KEY,
-            course_code VARCHAR(255) NOT NULL,
+            invite_code VARCHAR(10),
             header VARCHAR(255),
             text VARCHAR(255),
             date VARCHAR(255)
@@ -262,6 +264,7 @@ try {
         CREATE TABLE grades (
             assignment_id INT,
             course_code VARCHAR(50),
+            invite_code VARCHAR(10),
             assignment_name VARCHAR(50),
             username VARCHAR(50),
             grade INT,
@@ -278,9 +281,9 @@ try {
 
     // Insert dummy data
     $insertDataSql = "
-        INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUE
-        (0, 'ECE 6400', 'Test', 'student', 10,10, 'Excellent', '../submissions/demo.pdf', 1, '2024-11-27'),
-        (0, 'ECE 6400', 'Test', 'demo', 8,10, 'OK', '../submissions/demo.pdf', 1, '2024-11-27');
+        INSERT INTO grades (assignment_id, course_code, invite_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUE
+        (0, 'ECE 6400', 'ABCDEF', 'Test', 'student', 10,10, 'Excellent', '../submissions/demo.pdf', 1, '2024-11-27'),
+        (0, 'ECE 6400', 'ABCDEF', 'Test', 'demo', 8,10, 'OK', '../submissions/demo.pdf', 1, '2024-11-27');
         ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {

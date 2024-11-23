@@ -10,7 +10,7 @@ class DeenrollmentCest
         $postData = [
             'authorize' => 'gradeplus',
             'username' => 'student',
-            'invite_code' => 'ABCDEF'
+            'invite_code' => 'ABCDEF',
         ];
 
         $I->sendPost('/services/remove-student.php', $postData);

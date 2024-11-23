@@ -19,20 +19,21 @@ if ($_POST["authorize"] == "gradeplus") {
         $username = htmlspecialchars($_POST['username'] ?? '');
         $assignment_name = htmlspecialchars($_POST['assignment_name'] ?? '');
         $assignment_id = htmlspecialchars($_POST['assignment_id'] ?? '');
+        $invite_code = htmlspecialchars($_POST['invite_code'] ?? '');
         $review = htmlspecialchars($_POST['review'] ?? '');  // Get the review text
 
         // Check if the record already exists
-        $checkSql = $conn->prepare("SELECT 1 FROM reviews WHERE student = ? AND assignment_id = ?");
-        $checkSql->bind_param("si", $username, $assignment_id);
+        $checkSql = $conn->prepare("SELECT 1 FROM reviews WHERE student = ? AND assignment_id = ? AND invite_code = ?");
+        $checkSql->bind_param("sis", $username, $assignment_id, $invite_code);
         $checkSql->execute();
         $checkSql->store_result();
 
         if ($review != "") {
             $submitSql = $conn->prepare("
-                INSERT INTO reviews (assignment_id, assignment_name, student, review)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO reviews (assignment_id, assignment_name, invite_code, student, review)
+                VALUES (?, ?, ?, ?, ?)
             ");
-            $submitSql->bind_param("isss", $assignment_id, $assignment_name, $username, $review);
+            $submitSql->bind_param("issss", $assignment_id, $assignment_name, $invite_code, $username, $review);
             $result = $submitSql->execute();
             if (!$result) {
                 throw new Exception("Submission query failed: " . $submitSql->error);

@@ -24,6 +24,24 @@ if ($_POST['authorize'] == 'gradeplus') {
         // Execute the SQL command
         $sqlDelete->execute();
 
+        $sqlDelete = $conn->prepare("DELETE FROM reviews WHERE student = ? AND invite_code = ?");
+        $username = htmlspecialchars($_POST['username'] ?? '');
+        $invite_code = htmlspecialchars($_POST['invite_code'] ?? '');
+        // enter Paramters
+        $sqlDelete->bind_param("ss", $username, $invite_code);
+
+        // Execute the SQL command
+        $sqlDelete->execute();
+
+        $sqlDelete = $conn->prepare("DELETE FROM grades WHERE username = ? AND invite_code = ?");
+        $username = htmlspecialchars($_POST['username'] ?? '');
+        $invite_code = htmlspecialchars($_POST['invite_code'] ?? '');
+        // enter Paramters
+        $sqlDelete->bind_param("ss", $username, $invite_code);
+
+        // Execute the SQL command
+        $sqlDelete->execute();
+
         // Check if any rows were affected
         if ($sqlDelete->affected_rows > 0) {
             $success = 1;

@@ -1,4 +1,5 @@
 <?php
+
 // File: /services/get-assignments.php
 
 require '../config.php';
@@ -12,7 +13,8 @@ error_reporting(E_ALL);
 header('Content-Type: application/json');
 
 // Helper function to send JSON responses
-function sendResponse($success, $error, $data = [], $message = "") {
+function sendResponse($success, $error, $data = [], $message = "")
+{
     echo json_encode([
         "success" => $success,
         "error" => $error,
@@ -24,7 +26,7 @@ function sendResponse($success, $error, $data = [], $message = "") {
 }
 
 // Validate input parameters
-if (empty($_POST["authorize"]) || empty($_POST["course_code"])) {
+if (empty($_POST["authorize"]) || empty($_POST["invite_code"])) {
     sendResponse(0, 1, [], "Missing or empty parameters.");
 }
 
@@ -43,15 +45,15 @@ if ($conn->connect_error) {
 }
 
 // Sanitize the course code
-$course_code = htmlspecialchars($_POST["course_code"]);
+$invite_code = htmlspecialchars($_POST["invite_code"]);
 
 // Check if the course exists
-$checkCourseSql = "SELECT COUNT(*) FROM courses WHERE course_code = ?";
+$checkCourseSql = "SELECT COUNT(*) FROM courses WHERE invite_code = ?";
 $checkCourseStmt = $conn->prepare($checkCourseSql);
 if (!$checkCourseStmt) {
     sendResponse(0, 1, [], "Preparation failed for course check: " . $conn->error);
 }
-$checkCourseStmt->bind_param("s", $course_code);
+$checkCourseStmt->bind_param("s", $invite_code);
 $checkCourseStmt->execute();
 $checkCourseStmt->bind_result($courseExists);
 $checkCourseStmt->fetch();
@@ -59,7 +61,7 @@ $checkCourseStmt->close();
 
 // If the course does not exist, return an error
 if ($courseExists == 0) {
-    sendResponse(0, 1, [], "Course code '$course_code' does not exist.");
+    sendResponse(0, 1, [], "Invite code '$invite_code' does not exist.");
 }
 
 // Prepare SQL query to retrieve assignments for the given course code
@@ -74,7 +76,7 @@ SELECT
 FROM 
     assignment
 WHERE 
-    course_code = ?
+    invite_code = ?
 ";
 
 $stmt = $conn->prepare($sql);
@@ -83,7 +85,7 @@ if (!$stmt) {
 }
 
 // Bind course code parameter and execute the query
-$stmt->bind_param("s", $course_code);
+$stmt->bind_param("s", $invite_code);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -110,4 +112,3 @@ $conn->close();
 
 // Send the successful response
 sendResponse(1, 0, $assignments, "Assignments retrieved successfully.");
-?>

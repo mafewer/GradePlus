@@ -15,10 +15,11 @@ if ($_POST["authorize"] == "gradeplus") {
         if ($conn->connect_error) {
             throw new Exception("Database connection failed: " . $conn->connect_error);
         }
-        
+
         // Get required fields
         $username = htmlspecialchars($_POST['username'] ?? '');
         $assignment_name = htmlspecialchars($_POST['assignment_name'] ?? '');
+        $invite_code = htmlspecialchars($_POST['invite_code'] ?? '');
         $course_code = htmlspecialchars($_POST['course_code'] ?? '');
         $assignment_id = htmlspecialchars($_POST['assignment_id'] ?? '');
 
@@ -43,8 +44,8 @@ if ($_POST["authorize"] == "gradeplus") {
         }
 
         // Check if the record already exists
-        $checkSql = $conn->prepare("SELECT 1 FROM grades WHERE username = ? AND assignment_id = ?");
-        $checkSql->bind_param("si", $username, $assignment_id);
+        $checkSql = $conn->prepare("SELECT 1 FROM grades WHERE username = ? AND assignment_id = ? AND invite_code = ?");
+        $checkSql->bind_param("sis", $username, $assignment_id, $invite_code);
         $checkSql->execute();
         $checkSql->store_result();
 
@@ -52,35 +53,35 @@ if ($_POST["authorize"] == "gradeplus") {
             // Record exists, update submission
             $updateSql = $conn->prepare("
                 UPDATE grades 
-                SET submitted_pdf = ?, submitted_flag = ?, submitted_date = ?, course_code = ?, assignment_name = ?
+                SET course_code = ?, submitted_pdf = ?, submitted_flag = ?, submitted_date = ?, invite_code = ?, assignment_name = ?
                 WHERE username = ? AND assignment_id = ?
             ");
-            
-            $updateSql->bind_param("sissssi", $submitted_pdf, $submitted_flag, $submitted_date, $course_code, $assignment_name, $username, $assignment_id);
+
+            $updateSql->bind_param("ssissssi", $course_code, $submitted_pdf, $submitted_flag, $submitted_date, $invite_code, $assignment_name, $username, $assignment_id);
             $result = $updateSql->execute();
-            
+
             if (!$result) {
                 throw new Exception("Update query failed: " . $updateSql->error);
             }
-            
+
             $success = 1;
-            
+
         } else {
             $submitSql = $conn->prepare("
-                INSERT INTO grades (assignment_id, course_code, assignment_name, username, submitted_pdf, submitted_flag, submitted_date)
+                INSERT INTO grades (assignment_id, course_code, invite_code, assignment_name, username, submitted_pdf, submitted_flag, submitted_date)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE 
                     submitted_pdf = VALUES(submitted_pdf), 
                     submitted_flag = VALUES(submitted_flag), 
                     submitted_date = VALUES(submitted_date)
             ");
-            $submitSql->bind_param("issssis", $assignment_id, $course_code, $assignment_name, $username, $submitted_pdf, $submitted_flag, $submitted_date);
+            $submitSql->bind_param("issssis", $assignment_id, $course_code, $invite_code, $assignment_name, $username, $submitted_pdf, $submitted_flag, $submitted_date);
             $result = $submitSql->execute();
-    
+
             if (!$result) {
                 throw new Exception("Submission query failed: " . $submitSql->error);
             }
-    
+
             $success = 1;
         }
 
@@ -95,5 +96,3 @@ if ($_POST["authorize"] == "gradeplus") {
 }
 header('Content-Type: application/json');
 echo json_encode(["success" => $success,"error" => $error]);
-?>
-

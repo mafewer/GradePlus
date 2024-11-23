@@ -64,6 +64,18 @@ if ($_POST['authorize'] === 'gradeplus') {
                 throw new Exception("Failed to update course name: " . $conn->error);
             }
             $stmt->close();
+            $stmt = $conn->prepare("UPDATE assignment SET course_code = ? WHERE invite_code = ?");
+            $stmt->bind_param("ss", $_POST['coursecode'], $_POST['invitecode']);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to update course name: " . $conn->error);
+            }
+            $stmt->close();
+            $stmt = $conn->prepare("UPDATE grades SET course_code = ? WHERE invite_code = ?");
+            $stmt->bind_param("ss", $_POST['coursecode'], $_POST['invitecode']);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to update course name: " . $conn->error);
+            }
+            $stmt->close();
         }
 
         // Close the connection

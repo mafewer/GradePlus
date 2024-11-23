@@ -28,7 +28,7 @@ $course_code = mysqli_real_escape_string($conn, $_POST["invite_code"]);
 $sql = "
 SELECT announcement_id, header, text, date
 FROM announcements
-WHERE course_code = '$course_code'
+WHERE invite_code = '$course_code'
 ORDER BY date DESC
 ";
 

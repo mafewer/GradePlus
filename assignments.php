@@ -9,11 +9,15 @@
         </div>
         <a class="add-assign modal-close green white-text waves-effect waves-green btn-flat"><i class="material-symbols-outlined left">add_circle</i>Add</a>
     </div>
-    <!--assignment view-->
+    <!--Assignment view-->
     <div class="grading">
         <div class="grade-pdf"></div>
         <div class="grading-input">
             <h6 style="margin-bottom: 1rem;">Submit Assigment</h6>
+            <p style="margin-top: 1rem; margin-bottom: 0.5rem;">Description</p>
+            <p style="margin-top: 0rem;" class="assign-info">Loading...</p>
+            <p style="margin-top: 1rem; margin-bottom: 0.5rem;">Due Date</p>
+            <p style="margin-top: 0rem; margin-bottom: 1rem;" class="assign-info-2"></p>
             <div style="display: flex; align-items: center;" class="input-field file-field add-assign-file">
                 <i class="material-symbols-outlined prefix">description</i>
                 <button style="position: relative; margin-left: 3rem; margin-top: -0.5rem;"
@@ -25,9 +29,18 @@
                     <input class="file-path validate" type="text">
                 </div>
             </div>
-            <div style="display: flex; justify-content:end; margin-top: 1.5rem;">
+            <div style="display: flex; justify-content:center; margin-top: 1.5rem;">
             <button class="btn-flat waves-effect waves-light assign-close " style="color: var(--font-color)">Cancel</button>
             <button class="btn waves-effect waves-light green assign-submit">Submit</button>
+            </div>
+        </div>
+        <div class="viewing-input">
+            <h6 style="margin-bottom: 1rem;">Current Assignment</h6>
+            <p style="margin-top: 1rem; margin-bottom: 0.5rem;">Description</p>
+            <p style="margin-top: 0rem;" class="assign-info">Loading...</p>
+            <p style="margin-top: 1rem; margin-bottom: 0.5rem;">Due Date</p>
+            <p style="margin-top: 0rem; margin-bottom: 1rem;" class="assign-info-2">Loading...</p>
+            <button class="btn waves-effect waves-light green assign-close">close</button>
             </div>
         </div>
     </div>

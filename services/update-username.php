@@ -43,6 +43,12 @@ if ($_POST["authorize"] == "gradeplus") {
                 // Update username in enrollment
                 $updateEnrollmentNameSql = sprintf("UPDATE enrollment SET username = '%s' WHERE username = '%s'", $newName, $currentName);
                 $result = mysqli_query($conn, $updateEnrollmentNameSql);
+                //Update username in grades
+                $updateEnrollmentNameSql = sprintf("UPDATE grades SET username = '%s' WHERE username = '%s'", $newName, $currentName);
+                $result = mysqli_query($conn, $updateEnrollmentNameSql);
+                //Update username in reviews
+                $updateEnrollmentNameSql = sprintf("UPDATE reviews SET student = '%s' WHERE student = '%s'", $newName, $currentName);
+                $result = mysqli_query($conn, $updateEnrollmentNameSql);
                 // Check if user is an instructor
                 $checkInstructorSql = sprintf("SELECT 1 FROM login WHERE username = '%s' AND usertype = 'Instructor'", $newName);
                 $result = mysqli_query($conn, $checkInstructorSql);
@@ -55,6 +61,10 @@ if ($_POST["authorize"] == "gradeplus") {
                 if ($row[0] != 0) {
                     // Update instructor_name in courses
                     $updateCoursesNameSql = sprintf("UPDATE courses SET instructor_name = '%s' WHERE instructor_name = '%s'", $newName, $currentName);
+                    $result = mysqli_query($conn, $updateCoursesNameSql);
+
+                    // Update instructor_name in courses
+                    $updateCoursesNameSql = sprintf("UPDATE assignment SET instructor = '%s' WHERE instructor = '%s'", $newName, $currentName);
                     $result = mysqli_query($conn, $updateCoursesNameSql);
 
                     // Update instructor in enrollment

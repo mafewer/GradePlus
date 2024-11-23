@@ -6,14 +6,12 @@ if ($("a.addenrolcourse").attr("id")==="enroltrue"){ // Student
 peerReviews();
 
 function peerReviews() {
-    coursecode = $("p.side-nav-course-code").text();
-
     $.ajax({
         url: 'services/get-all-submissions.php', 
         type: 'POST', 
         data: {
             authorize: "gradeplus", 
-            course_code: coursecode
+            invite_code: $("p.side-nav-course-invite").text()
         }, 
         dataType: 'json',  
         success: function(response) {
@@ -116,6 +114,7 @@ function loadPeerReviews(submission_data) {
         var feedback = $("textarea#feedback-input").val();
         var assignmentId = $(".give-feedback-page").data("assignment-id");
         var studentName = $(".give-feedback-page").data("student-name");
+        var invite_code = $("p.side-nav-course-invite").text();
         var assignmentName = $(".give-feedback-page").data("assignment-name");
 
         if (feedback.length > 0) {
@@ -125,6 +124,7 @@ function loadPeerReviews(submission_data) {
                 data: {
                     authorize: "gradeplus", 
                     username: studentName, 
+                    invite_code: invite_code,
                     assignment_id: assignmentId,
                     assignment_name: assignmentName,
                     review: feedback

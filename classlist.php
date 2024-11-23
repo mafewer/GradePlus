@@ -57,9 +57,9 @@
                         url: "services/remove-student.php",
                         type: "POST",
                         data: {
-                            authorize: 'gradeplus',
-                            username: username,
-                            invite_code: invite_code
+                            'authorize': 'gradeplus',
+                            'username': username,
+                            'invite_code': invite_code
                         },
                         success: function(response) {
                             if (response['success'] == 1) {

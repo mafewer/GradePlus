@@ -37,21 +37,52 @@ if ($_POST["authorize"] == "gradeplus") {
             }
 
             if ($row[0] != 0) {
-                // Delete courses that have this instructor
-                $deleteCoursesSql = sprintf("DELETE FROM courses WHERE instructor_name = '%s'", $currentName);
-                $result = mysqli_query($conn, $deleteCoursesSql);
+                $getInviteCodesSql = sprintf("SELECT invite_code FROM courses WHERE instructor_name = '%s'", $currentName);
+                $result = mysqli_query($conn, $getInviteCodesSql);
 
-                // Delete all enrollments from this instructor's courses
-                $deleteEnrollmentSql = sprintf("DELETE FROM enrollment WHERE instructor = '%s'", $currentName);
-                $result = mysqli_query($conn, $deleteEnrollmentSql);
+                if ($result) {
+                    $inviteCodes = [];
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $inviteCodes[] = $row['invite_code'];
+                    }
+
+                    if (!empty($inviteCodes)) {
+                        $inviteCodesList = "'" . implode("','", $inviteCodes) . "'";
+
+                        $deleteEnrollmentSql = sprintf("DELETE FROM enrollment WHERE invite_code IN (%s)", $inviteCodesList);
+                        mysqli_query($conn, $deleteEnrollmentSql);
+
+                        $deleteCoursesSql = sprintf("DELETE FROM courses WHERE invite_code IN (%s)", $inviteCodesList);
+                        mysqli_query($conn, $deleteCoursesSql);
+
+                        $deleteCoursesSql = sprintf("DELETE FROM announcements WHERE invite_code IN (%s)", $inviteCodesList);
+                        mysqli_query($conn, $deleteCoursesSql);
+
+                        $deleteCoursesSql = sprintf("DELETE FROM assignment WHERE invite_code IN (%s)", $inviteCodesList);
+                        mysqli_query($conn, $deleteCoursesSql);
+
+                        $deleteCoursesSql = sprintf("DELETE FROM grades WHERE invite_code IN (%s)", $inviteCodesList);
+                        mysqli_query($conn, $deleteCoursesSql);
+
+                        $deleteCoursesSql = sprintf("DELETE FROM reviews WHERE invite_code IN (%s)", $inviteCodesList);
+                        mysqli_query($conn, $deleteCoursesSql);
+                    }
+                }
             }
 
             // Delete user from login
             $deleteUserSql = sprintf("DELETE FROM login WHERE username = '%s'", $currentName);
             $result = mysqli_query($conn, $deleteUserSql);
-            // Delete user from enrollment
+
             $deleteUserSql = sprintf("DELETE FROM enrollment WHERE username = '%s'", $currentName);
             $result = mysqli_query($conn, $deleteUserSql);
+
+            $deleteUserSql = sprintf("DELETE FROM grades WHERE username = '%s'", $currentName);
+            $result = mysqli_query($conn, $deleteUserSql);
+
+            $deleteUserSql = sprintf("DELETE FROM reviews WHERE student = '%s'", $currentName);
+            $result = mysqli_query($conn, $deleteUserSql);
+
 
             if ($result) {
                 $success = 1;

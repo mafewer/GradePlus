@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 // Service to receive all assignment submissions for a course
 
 // Verify parameters
-if (!isset($_POST["authorize"]) || !isset($_POST["course_code"]) || !isset($_POST["assignment_id"]) || !isset($_POST["student_name"])) {
+if (!isset($_POST["authorize"]) || !isset($_POST["invite_code"]) || !isset($_POST["assignment_id"]) || !isset($_POST["student_name"])) {
     echo json_encode(["success" => 0, "error" => 1, "data" => [], "message" => "Missing or empty parameters."]);
     exit();
 }
@@ -23,7 +23,7 @@ if (!$conn) {
     exit();
 }
 
-$course_code = $_POST["course_code"];
+$invite_code = $_POST["invite_code"];
 $student_name = $_POST["student_name"];
 $assignment_id = $_POST["assignment_id"];
 
@@ -31,8 +31,8 @@ $assignment_id = $_POST["assignment_id"];
 $get_submissions_sql = sprintf("
 SELECT *
 FROM grades
-WHERE course_code = '%s' and assignment_id = '%s' and username = '%s' and submitted_flag = '1'
-ORDER BY assignment_id ASC", $course_code, $assignment_id, $student_name);
+WHERE invite_code = '%s' and assignment_id = '%s' and username = '%s' and submitted_flag = '1'
+ORDER BY assignment_id ASC", $invite_code, $assignment_id, $student_name);
 
 $result = mysqli_query($conn, $get_submissions_sql);
 if ($result) {
@@ -48,7 +48,7 @@ $submissions = [];
 while ($row = $result->fetch_assoc()) {
     $submissions[] = [
     "assignment_id" => $row['assignment_id'],
-    "course_code" => $row['course_code'],
+    "invite_code" => $row['invite_code'],
     "assignment_name" => $row['assignment_name'],
     "username" => $row['username'],
     "grade" => $row['grade'],

@@ -24,7 +24,7 @@ function studentgrades() {
         type: "POST",
         data: {
             "username": $("span.user-name").text(),
-            "course_code": $("p.side-nav-course-code").text(),
+            "invite_code": $("p.side-nav-course-invite").text(),
             "authorize": "gradeplus"
         },
         dataType : "json",
@@ -70,7 +70,7 @@ function subassignments() {
         url: "services/get-all-submissions.php",
         type: "POST",
         data: {
-            "course_code": $("p.side-nav-course-code").text(),
+            "invite_code": $("p.side-nav-course-invite").text(),
             "authorize": "gradeplus"
         },
         dataType : "json",
@@ -112,7 +112,7 @@ function subassignments() {
                         url: "services/get-individual-submission.php",
                         type: "POST",
                         data: {
-                            "course_code": $("p.side-nav-course-code").text(),
+                            "invite_code": $("p.side-nav-course-invite").text(),
                             "student_name": $(this).data("student-username"),
                             "assignment_id": $(this).data("assignment-id"),
                             "authorize": "gradeplus"
@@ -151,7 +151,7 @@ function subassignments() {
                                         url: "services/grade-assignment.php",
                                         type: "POST",
                                         data: {
-                                            "course_code": $("p.side-nav-course-code").text(),
+                                            "invite_code": $("p.side-nav-course-invite").text(),
                                             "username": $(this).data("student-username"),
                                             "assignment_id": $(this).data("assignment-id"),
                                             "grade": $("input#score-input").val(),

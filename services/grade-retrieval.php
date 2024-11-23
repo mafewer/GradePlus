@@ -11,16 +11,16 @@ if ($_POST["authorize"] == "gradeplus") {
         }
 
         $username = $_POST['username'];
-        $course_code = $_POST['course_code']; // Get the course_code from the request
+        $invite_code = $_POST['invite_code']; // Get the invite_code from the request
 
         if ($username != null) {
             // Fetch grades for the specific course associated with the student
             $gradesQuery = $conn->prepare("
-                SELECT course_code, assignment_name, grade, max_grade, feedback
+                SELECT invite_code, assignment_name, grade, max_grade, feedback
                 FROM grades
-                WHERE username = ? AND course_code = ?
+                WHERE username = ? AND invite_code = ?
             ");
-            $gradesQuery->bind_param("ss", $username, $course_code);
+            $gradesQuery->bind_param("ss", $username, $invite_code);
             $gradesQuery->execute();
             $gradesResult = $gradesQuery->get_result();
 

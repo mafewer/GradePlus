@@ -28,7 +28,7 @@ $id = mysqli_real_escape_string($conn, $_POST["id"]);
 // Delete the announcement
 $sql = "
 DELETE FROM announcements
-WHERE announcement_id = '$id' AND course_code = '$course_code'
+WHERE announcement_id = '$id' AND invite_code = '$course_code'
 ";
 
 if (mysqli_query($conn, $sql)) {

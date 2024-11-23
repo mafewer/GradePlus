@@ -18,6 +18,7 @@ if ($_POST["authorize"] == "gradeplus") {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Get form data
             $course_code = $_POST['course_code'];
+            $invite_code = $_POST['invite_code'];
             $assignment_name = $_POST['assignment_name'];
             $description = $_POST['description'];
             $due_date = $_POST['due_date'];
@@ -41,9 +42,9 @@ if ($_POST["authorize"] == "gradeplus") {
             }
 
             // Verify if the instructor owns the course
-            $verifyInstructorSql = "SELECT * FROM courses WHERE course_code = ? AND instructor_name = ?";
+            $verifyInstructorSql = "SELECT * FROM courses WHERE invite_code = ? AND instructor_name = ?";
             $stmt = $conn->prepare($verifyInstructorSql);
-            $stmt->bind_param("ss", $course_code, $instructor);
+            $stmt->bind_param("ss", $invite_code, $instructor);
             $stmt->execute();
             $result = $stmt->get_result();
 
@@ -53,8 +54,8 @@ if ($_POST["authorize"] == "gradeplus") {
 
                 // Prepare the SQL statement with explicit assignment_id handling
                 $stmt = $conn->prepare("
-                    INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO assignment (course_code, invite_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 ");
 
                 // Get the next available assignment_id (auto-increment equivalent)
@@ -63,7 +64,7 @@ if ($_POST["authorize"] == "gradeplus") {
                 $next_id = ($row['max_id'] !== null) ? $row['max_id'] + 1 : 1;
 
                 // Bind parameters including assignment_id
-                $stmt->bind_param("ssssssi", $course_code, $assignment_name, $upload_dir, $description, $due_date, $instructor, $next_id);
+                $stmt->bind_param("sssssssi", $course_code, $invite_code, $assignment_name, $upload_dir, $description, $due_date, $instructor, $next_id);
 
                 if ($stmt->execute()) {
                     $success = 1;
@@ -71,9 +72,9 @@ if ($_POST["authorize"] == "gradeplus") {
                     $enrolledStudentSql = $conn->prepare("
                     SELECT login.username, dname FROM login
                     INNER JOIN enrollment ON login.username = enrollment.username
-                    WHERE enrollment.course_code = ?
+                    WHERE enrollment.invite_code = ?
                     ");
-                    $enrolledStudentSql->bind_param("s", $course_code);
+                    $enrolledStudentSql->bind_param("s", $invite_code);
                     $enrolledStudentSql->execute();
                     $studentsResult = $enrolledStudentSql->get_result();
 
@@ -85,10 +86,10 @@ if ($_POST["authorize"] == "gradeplus") {
                         $max_grade = 10;
                         $feedback = "Pending";
                         $insertGradeSql = $conn->prepare("
-                            INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade, feedback)
-                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                            INSERT INTO grades (assignment_id, course_code, invite_code, assignment_name, username, grade, max_grade, feedback)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                         ");
-                        $insertGradeSql->bind_param("isssiis", $next_id, $course_code, $assignment_name, $username, $initial_grade, $max_grade, $feedback);
+                        $insertGradeSql->bind_param("issssiis", $next_id, $course_code, $invite_code, $assignment_name, $username, $initial_grade, $max_grade, $feedback);
                         $insertGradeSql->execute();
                         $insertGradeSql->close();
                     }

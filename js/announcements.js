@@ -69,6 +69,8 @@ function addAnnouncement() {
                 success: function(response) {
                     if (response['success']!=1) {
                         window.alert("500 - Server Error");
+                    } else {
+                        retrieveAnnouncements();
                     }
                     $("a.announcement-cancel-btn").click();
                 }

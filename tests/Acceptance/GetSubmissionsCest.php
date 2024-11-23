@@ -15,7 +15,7 @@ class GetSubmissionsCest
         //Call to return all submissions
         $I->sendPost('/services/get-all-submissions.php', [
             'authorize' => 'gradeplus',
-            'course_code' => 'ECE 6400'
+            'invite_code' => 'ABCDEF'
         ]);
 
         $I->seeResponseIsJson();
@@ -29,7 +29,7 @@ class GetSubmissionsCest
         //Call to return one submission
         $I->sendPost('/services/get-individual-submission.php', [
             'authorize' => 'gradeplus',
-            'course_code' => 'ECE 6400',
+            'invite_code' => 'ABCDEF',
             'student_name' => 'student',
             'assignment_id' => '2'
         ]);

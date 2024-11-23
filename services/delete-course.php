@@ -19,16 +19,53 @@ if ($_POST['authorize'] === 'gradeplus') {
 
         // Update the course code using a prepared statement
         if ($_POST['invitecode'] != null) {
+            $inviteCode = $_POST['invitecode'];
+
+            // Delete from courses
             $stmt = $conn->prepare("DELETE FROM courses WHERE invite_code = ?");
-            $stmt->bind_param("s", $_POST['invitecode']);
+            $stmt->bind_param("s", $inviteCode);
             if (!$stmt->execute()) {
-                throw new Exception("Failed to update course name: " . $conn->error);
+                throw new Exception("Failed to delete from courses: " . $stmt->error);
             }
             $stmt->close();
-            $stmt = $conn->prepare("DELETE FROM enrollment WHERE invite_code = ?");
-            $stmt->bind_param("s", $_POST['invitecode']);
+
+            // Delete from announcements
+            $stmt = $conn->prepare("DELETE FROM announcements WHERE invite_code = ?");
+            $stmt->bind_param("s", $inviteCode);
             if (!$stmt->execute()) {
-                throw new Exception("Failed to update course name: " . $conn->error);
+                throw new Exception("Failed to delete from announcements: " . $stmt->error);
+            }
+            $stmt->close();
+
+            // Delete from enrollment
+            $stmt = $conn->prepare("DELETE FROM enrollment WHERE invite_code = ?");
+            $stmt->bind_param("s", $inviteCode);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to delete from enrollment: " . $stmt->error);
+            }
+            $stmt->close();
+
+            // Delete from reviews
+            $stmt = $conn->prepare("DELETE FROM reviews WHERE invite_code = ?");
+            $stmt->bind_param("s", $inviteCode);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to delete from reviews: " . $stmt->error);
+            }
+            $stmt->close();
+
+            // Delete from grades
+            $stmt = $conn->prepare("DELETE FROM grades WHERE invite_code = ?");
+            $stmt->bind_param("s", $inviteCode);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to delete from grades: " . $stmt->error);
+            }
+            $stmt->close();
+
+            // Delete from assignment
+            $stmt = $conn->prepare("DELETE FROM assignment WHERE invite_code = ?");
+            $stmt->bind_param("s", $inviteCode);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to delete from assignment: " . $stmt->error);
             }
             $stmt->close();
         }

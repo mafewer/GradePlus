@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 // Service to recieve all assignment submissions for a course
 
 // Verify parameters
-if (empty($_POST["authorize"]) || empty($_POST["course_code"])) {
+if (empty($_POST["authorize"]) || empty($_POST["invite_code"])) {
     echo json_encode(["success" => 0, "error" => 1, "data" => [], "message" => "Missing or empty parameters."]);
     exit();
 }
@@ -23,14 +23,14 @@ if (!$conn) {
     exit();
 }
 
-$course_code = $_POST["course_code"];
+$invite_code = $_POST["invite_code"];
 
 // Retrieve submissions
 $get_submissions_sql = sprintf("
 SELECT assignment_id, assignment_name, grade, max_grade, feedback, submitted_pdf, username, submitted_flag
 FROM grades
-WHERE course_code = '%s' and submitted_flag = '1'
-ORDER BY assignment_id ASC", $course_code);
+WHERE invite_code = '%s' and submitted_flag = '1'
+ORDER BY assignment_id ASC", $invite_code);
 
 $result = mysqli_query($conn, $get_submissions_sql);
 if ($result) {

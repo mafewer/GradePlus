@@ -33,7 +33,7 @@
         <div class="review-pdf"></div>
         <div class="review-input">
             <div class="input-field">
-                <h6>Feedback</h6>
+                <h6>Give Feedback</h6>
                 <textarea id="feedback-input" style="background-color: var(--hover-color); color: var(--font-color)"></textarea>
             </div>
             <button class="btn-flat waves-effect waves-light give-feedback-close" style="color: var(--font-color)">Cancel</button>
@@ -45,11 +45,11 @@
 <div class="view-feedback-page">
         <div class="review-pdf"></div>
         <div class="review-input">
-            <h6>Feedback</h6>
+            <h6>Received Feedbacks</h6>
                 <ul>
                     <li style="background-color: var(--bwcolor); color: var(--font-color);"><p></p></li>
                 </ul>
-            <button class="btn waves-effect waves-light view-feedback-close bwcolortext">Return</button>
+            <button class="btn waves-effect waves-light view-feedback-close bwcolortext">Close</button>
         </div>
 </div>
 <script src="js/peer-reviews.js"></script>

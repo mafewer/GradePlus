@@ -41,6 +41,9 @@ $("a.save-course-info").click(() => {
                     $("input[name='updatedcode']").val("");
                 }
                 if (courseName) {
+                    $("span.logo-head").fadeOut(200,()=>{
+                        $("span.logo-head").text(courseName).fadeIn(200);
+                    });
                     $("input[name='updatedname']").attr("placeholder", courseName);
                     $("input[name='updatedcode']").val("");
                 }

@@ -24,6 +24,18 @@ if ($_POST['authorize'] === 'gradeplus') {
                 throw new Exception("Failed to update course name: " . $conn->error);
             }
             $stmt->close();
+            $stmt = $conn->prepare("DELETE FROM grades WHERE invite_code = ? AND username = ?");
+            $stmt->bind_param("ss", $_POST['invitecode'], $_POST['username']);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to update course name: " . $conn->error);
+            }
+            $stmt->close();
+            $stmt = $conn->prepare("DELETE FROM reviews WHERE invite_code = ? AND student = ?");
+            $stmt->bind_param("ss", $_POST['invitecode'], $_POST['username']);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to update course name: " . $conn->error);
+            }
+            $stmt->close();
         }
 
         // Close the connection
