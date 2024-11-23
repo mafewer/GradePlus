@@ -74,11 +74,12 @@ $courses = [];
             <p class="side-nav-course-invite">Loading</p>
             <p style="display: none;" class="side-nav-course-name">Loading</p>
             <i class="material-icons course-invite-copy">content_copy</i>
+            <li><a class="side-nav-item bwcolor announcements"><i
+                        class="material-icons">notifications</i>Announcements</a></li>
             <li><a class="side-nav-item bwcolor assignments"><i class="material-icons">assignment</i>Assignments</a>
             </li>
             <li><a class="side-nav-item bwcolor grades"><i class="material-icons">bar_chart</i>Grades</a></li>
-            <li><a class="side-nav-item bwcolor peer-reviews"><i class="material-icons">reviews</i>Peer Reviews</a></li>
-            <li><a class="side-nav-item bwcolor discussions"><i class="material-icons">chat</i>Discussions</a></li>
+            <li><a class="side-nav-item bwcolor peer-reviews"><i class="material-icons">chat</i>Peer Reviews</a></li>
             <li><a class="side-nav-item bwcolor classlist"><i class="material-icons">group</i>Classlist</a></li>
             <li><a class="side-nav-item bwcolor csettings"><i class="material-icons">settings</i>Course Settings</a>
             </li>

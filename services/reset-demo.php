@@ -114,6 +114,7 @@ try {
     $insertDataSqlEnrollment = "
         INSERT INTO enrollment VALUES
         ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
+        ('demo', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
         ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor');
         ";
     $result = mysqli_query($conn, $insertDataSqlEnrollment);
@@ -178,8 +179,8 @@ try {
     // Insert dummy data with NULL for the review field
     $insertDataSql = "
         INSERT INTO reviews (assignment_id, assignment_name, student, review) VALUES
-        (0, 'A1', 'student', NULL),
-        (1, 'A1', 'student', NULL);
+        (0, 'Test', 'student', 'Excellent'),
+        (0, 'Test', 'demo', 'Good Work');
     ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
@@ -248,7 +249,8 @@ try {
     // Insert dummy data
     $insertDataSql = "
         INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUE
-        (0, 'ECE 6400', 'Test', 'student', 10,10, 'Excellent', '../submissions/demo.pdf', 1, '2024-11-27');
+        (0, 'ECE 6400', 'Test', 'student', 10,10, 'Excellent', '../submissions/demo.pdf', 1, '2024-11-27'),
+        (0, 'ECE 6400', 'Test', 'demo', 8,10, 'OK', '../submissions/demo.pdf', 1, '2024-11-27');
         ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
@@ -266,7 +268,3 @@ try {
 mysqli_close($conn);
 header('Content-Type: application/json');
 echo json_encode(["success" => $success,"error" => $error,"illegal" => 0]);
-/*} else {
-    // User is not authorized
-    header("Location: illegal.php");
-}*/

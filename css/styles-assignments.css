@@ -1,6 +1,7 @@
 div.assignments-list,
 div.submitted-list {
     display: flex;
+    flex-wrap: wrap;
 }
 
 div.assign-card,

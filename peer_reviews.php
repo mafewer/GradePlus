@@ -1,34 +1,31 @@
 <link rel="stylesheet" type="text/css" href="css/styles-peer_reviews.css">
 
-<div class = "instructor">
-    <p> Peer Reviews are only available to students at this moment. </p>
-</div>
-
 <div class = "peer-reviews-main">
-    <!--Submitted Assignments -->
-    <div class="sub-assignments">
-        <h3 class="sub-assignments-header">
-            Give Feedback
-        </h3>
-        <table class="table-sub-assignments">
-            <tbody id="table-sub-assignments-body">
-                <!-- Data Will populate here -->
-            </tbody>
-        </table>
+    <div class = "peer-instructor">
+        <h6 class="instructor-assignments-header">
+            Student Reviews
+        </h6>
+        <div class="instructor-assignments">
+            <!--Data will populate here-->
+        </div>
     </div>
-
-    <!--My Reviewed Assignments -->
-    <div class="rev-assignments">
-        <h3 class="rev-assignments-header">
-            Review Feedback
-        </h3>
-        <table class="table-rev-assignments">
-            <tbody id="table-rev-assignments-body">
-                <!--Data Will populate here-->
-            </tbody>
-        </table>
+    <div class="peer-student">
+        <!--Available Reviews -->
+        <h6 class="sub-assignments-header">
+            Give Reviews
+        </h6>
+        <div class="sub-assignments">
+            <!--Data will populate here-->
+        </div>
+        
+        <!--My Reviewed Assignments -->
+        <h6 class="rev-assignments-header">
+            Received Reviews
+        </h6>
+        <div class="rev-assignments">
+            <!--Data will populate here-->
+        </div>
     </div>
-
 </div>
 
 <!-- Give Feedback Form-->
@@ -37,9 +34,9 @@
         <div class="review-input">
             <div class="input-field">
                 <h6>Feedback</h6>
-                <textarea id="feedback-input" class="bwcolor"></textarea>
+                <textarea id="feedback-input" style="background-color: var(--hover-color); color: var(--font-color)"></textarea>
             </div>
-            <button class="btn-flat waves-effect waves-light give-feedback-close bwcolortext">Cancel</button>
+            <button class="btn-flat waves-effect waves-light give-feedback-close" style="color: var(--font-color)">Cancel</button>
             <button class="btn waves-effect waves-light give-feedback-save">Save</button>
         </div>
 </div>
@@ -50,14 +47,9 @@
         <div class="review-input">
             <h6>Feedback</h6>
                 <ul>
-                    <li><p> DEMO FEEDBACK </p></li>
-                    <li><p> DEMO FEEDBACK </p></li>
-                    <li><p> DEMO FEEDBACK </p></li>
-                    <li><p> DEMO FEEDBACK </p></li>
+                    <li style="background-color: var(--bwcolor); color: var(--font-color);"><p></p></li>
                 </ul>
             <button class="btn waves-effect waves-light view-feedback-close bwcolortext">Return</button>
         </div>
 </div>
-
-<script src="js/account.js"></script>
 <script src="js/peer-reviews.js"></script>

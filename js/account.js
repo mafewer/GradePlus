@@ -415,9 +415,9 @@ function main() {
         loadContent('peer_reviews.php', 'Peer Reviews');
     });
 
-    // Discussions
-    $("a.discussions").click(() => {
-        loadContent('discussions.php', 'Discussions');
+    // Announcements
+    $("a.announcements").click(() => {
+        loadContent('announcements.php', 'Announcements');
     });
 
     // Classlist

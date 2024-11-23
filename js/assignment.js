@@ -33,6 +33,7 @@ function retrieveAssignments() {
                             <div class="card assign-card std-hover" data-file="${assign.assignment_file}" data-id="${assign.assignment_id}" data-assignment-name="${assign.assignment_name}" 
                             data-instructor="${assign.instructor}">
                                 <div class="card-content">
+                                    <i class="material-icons">assignment</i>
                                     <span style="font-weight: bold;" class="card-title">${assign.assignment_name}</span>
                                     <p>${assign.description}</p>
                                     <p>Due Date: ${assign.due_date}</p>
@@ -48,7 +49,7 @@ function retrieveAssignments() {
                     assignmentsBody.append(
                     `<div class="card add-assign-card std-hover">
                         <div class="card-content">
-                        <span style="font-weight: bold;" class="add-assign material-symbols-outlined green-text">
+                        <span style="font-weight: bold; position: relative; top: 1rem;" class="add-assign material-symbols-outlined green-text">
                         add
                         </span>
                         </div>

@@ -47,9 +47,9 @@
             </div>
             <div class="input-field">
                 <h6>Feedback</h6>
-                <textarea id="feedback-input"></textarea>
+                <textarea id="feedback-input" style="background-color: var(--hover-color); color: var(--font-color)"></textarea>
             </div>
-            <button class="btn-flat waves-effect waves-light grade-review-close bwcolortext">Cancel</button>
+            <button class="btn-flat waves-effect waves-light grade-review-close" style="color: var(--font-color)">Cancel</button>
             <button class="btn waves-effect waves-light grade-review-save">Save</button>
         </div>
     </div>

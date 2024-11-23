@@ -51,4 +51,3 @@ if ($_POST["authorize"] == "gradeplus") {
 
 header('Content-Type: application/json');
 echo json_encode(["success" => $success, "error" => $error]);
-?>

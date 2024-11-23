@@ -1,75 +1,32 @@
-/* Center the icon in the card-image div */
-.card-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 125px;
-    /* Adjust height as needed */
-}
-
-/* Make the AssignmentName div class stand out more */
-.assignmentName {
-    font-weight: bold;
-    text-align: center;
-    padding: 10px;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.studentName {
-    text-align: center;
-    font-size: 1em;
-    padding: 0px 10px 15px 10px;
-}
-
-.card-action {
-    display: flex;
-    justify-content: center;
-}
-
-.table-sub-assignments,
-.table-rev-assignments {
-    display: block;
-    max-width: 100%;
-    overflow-x: auto;
-}
-
-.table-sub-assignments-body,
-.table-rev-assignments-body {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}
-
-.table-sub-assignments-body tr,
-.table-rev-assignments-body tr {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    flex-shrink: 0;
-    /* Prevent rows from shrinking */
-    min-width: 150px;
-    /* Set a minimum width to avoid squishing */
-    max-width: 100%;
-    /* Restrict each row from expanding beyond container width */
-    overflow-wrap: break-word;
-    /* Allow content to wrap properly within cells */
-}
-
-h3.sub-assignments-header,
-h3.rev-assignments-header {
-    text-align: left;
-    font-size: 2em;
-    padding: 0px;
-    margin-top: 30px;
-    margin-bottom: 15px;
+h6.sub-assignments-header,
+h6.rev-assignments-header,
+h6.instructor-assignments-header {
+    margin-top: 2rem;
+    margin-left: 0.25rem;
+    margin-bottom: 0;
 }
 
 .sub-assignments,
-.rev-assignments {
+.rev-assignments,
+.instructor-assignments {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.review-card {
     display: flex;
     flex-direction: column;
-    padding: 0px;
+    align-items: center;
+    text-align: center;
+    width: 22rem;
+    padding: 0rem;
+    margin: 2rem;
+    margin-bottom: 0rem;
+    margin-top: 1.5rem;
+    margin-left: 0rem;
+    border-radius: 0.5rem;
+    background-color: var(--bwcolor);
+    transition: background-color 0.2s, color 0.2s;
 }
 
 /* Reviewing */
@@ -77,17 +34,14 @@ div.review-pdf {
     width: 50rem;
     height: 50rem;
     background-color: var(--hover-color);
-    transition: all 0.25s;
+    transition: background-color 0.2s;
 }
 
 div.give-feedback-page,
 div.view-feedback-page {
     display: none;
-    padding: 10px;
-    margin-top: 30px;
+    margin-top: 2rem;
     gap: 1.5rem;
-    transition: all 0.25s;
-
 }
 
 div.review-input {
@@ -96,13 +50,12 @@ div.review-input {
 
 textarea#feedback-input {
     height: 15rem;
-    border: 1px solid grey;
+    border: 0px;
 }
 
 .review-input li {
-    margin-bottom: 10px;
-    /* Add margin between list items */
-    padding: 10px;
-    /* Add padding to list items */
-    border: 1px solid grey;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 0;
 }

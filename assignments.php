@@ -25,13 +25,13 @@
                 </div>
             </div>
             <div style="display: flex; justify-content:end; margin-top: 1.5rem;">
-            <button class="btn-flat waves-effect waves-light assign-close bwcolortext">Cancel</button>
+            <button class="btn-flat waves-effect waves-light assign-close " style="color: var(--font-color)">Cancel</button>
             <button class="btn waves-effect waves-light green assign-submit">Submit</button>
             </div>
         </div>
     </div>
     <!-- Add assign Modal -->
-    <div class="modal addassign-modal bwcolor">
+    <div class="modal addassign-modal" style="background-color: var(--bwcolor); color: var(--font-color)">
         <div class="modal-content">
             <h4 style="margin-bottom: 1.5rem;">Add Assignment</h4>
             <p class="status-text"></p>
@@ -63,8 +63,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer bwcolor">
-            <a class="addassign-modal-cancel waves-effect bwcolortext btn-flat">CANCEL</a>
+        <div class="modal-footer" style="background-color: var(--bwcolor); color: var(--font-color)">
+            <a class="addassign-modal-cancel waves-effect btn-flat" style="color: var(--font-color)">CANCEL</a>
             <a class="addassign-modal-add waves-effect white-text green btn-flat">ADD</a>
         </div>
     </div>
@@ -75,7 +75,7 @@
             <p>Are you sure you want to <span class="confirm-modal-text">delete this assignment</span>?</p>
         </div>
         <div class="delete-modal-footer bwcolor" style="display: flex; justify-content:end;">
-            <a class="cancel-btn modal-close bwcolortext waves-effect waves-green btn-flat">Cancel</a>
+            <a class="cancel-btn modal-close waves-effect waves-green btn-flat" style="color: var(--font-color)">Cancel</a>
             <a class="delete-btn modal-close red white-text waves-effect waves-red btn-flat">Delete</a>
         </div>
     </div>

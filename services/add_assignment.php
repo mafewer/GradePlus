@@ -13,7 +13,7 @@ if ($_POST["authorize"] == "gradeplus") {
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        
+
         // Handle form submission
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Get form data
@@ -22,7 +22,7 @@ if ($_POST["authorize"] == "gradeplus") {
             $description = $_POST['description'];
             $due_date = $_POST['due_date'];
             $instructor = $_POST['instructor'];
-        
+
             // File upload handling
             if (isset($_FILES['assignment_file']) && $_FILES['assignment_file']['error'] == UPLOAD_ERR_OK) {
                 // Read the file content
@@ -37,20 +37,20 @@ if ($_POST["authorize"] == "gradeplus") {
                 //$file_content = file_get_contents($file_temp_path);
                 //$file_content = mysqli_real_escape_string($conn, $file_content);
             } else {
-                $file_content = NULL;
+                $file_content = null;
             }
-        
+
             // Verify if the instructor owns the course
             $verifyInstructorSql = "SELECT * FROM courses WHERE course_code = ? AND instructor_name = ?";
             $stmt = $conn->prepare($verifyInstructorSql);
             $stmt->bind_param("ss", $course_code, $instructor);
             $stmt->execute();
             $result = $stmt->get_result();
-        
+
             if ($result->num_rows > 0) {
                 // Instructor owns the course, execute SQL query
                 $stmt->close();
-                
+
                 // Prepare the SQL statement with explicit assignment_id handling
                 $stmt = $conn->prepare("
                     INSERT INTO assignment (course_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) 
@@ -81,9 +81,9 @@ if ($_POST["authorize"] == "gradeplus") {
                     while ($student = $studentsResult->fetch_assoc()) {
                         $username = $student['username'];
                         $display_name = $student['dname'];
-                        $initial_grade = 0;  
-                        $max_grade = 10; 
-                        $feedback = "";  
+                        $initial_grade = 0;
+                        $max_grade = 10;
+                        $feedback = "Pending";
                         $insertGradeSql = $conn->prepare("
                             INSERT INTO grades (assignment_id, course_code, assignment_name, username, grade, max_grade, feedback)
                             VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -94,7 +94,7 @@ if ($_POST["authorize"] == "gradeplus") {
                     }
 
                     $enrolledStudentSql->close();
-                    
+
                 } else {
                     $error = 1;
                 }
@@ -115,4 +115,3 @@ if ($_POST["authorize"] == "gradeplus") {
 
 header('Content-Type: application/json');
 echo json_encode(["success" => $success,"invalid_course" => $invalid_course,"error" => $error]);
-?>
