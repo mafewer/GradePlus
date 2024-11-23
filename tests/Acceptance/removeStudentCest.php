@@ -9,7 +9,7 @@ class DeenrollmentCest
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $postData = [
             'authorize' => 'gradeplus',
-            'username' => 'student',
+            'username' => 'asamanta',
             'invite_code' => 'ABCDEF',
         ];
 

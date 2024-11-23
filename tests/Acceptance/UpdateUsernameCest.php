@@ -55,7 +55,7 @@ class UpdateUsernameCest
         //Call to attempt to update to taken name
         $I->sendPost('/services/update-username.php', [
             'authorize' => 'gradeplus',
-            'newname' => 'student'
+            'newname' => 'demo'
         ]);
 
         $I->seeResponseIsJson();

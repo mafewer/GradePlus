@@ -10,7 +10,7 @@ class DeleteUserCest
         //Set session variable using helper service
         $I->sendPost('/services/set-session.php', [
             'key' => 'username',
-            'value' => 'student'
+            'value' => 'demo'
         ]);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(["success" => 1]);

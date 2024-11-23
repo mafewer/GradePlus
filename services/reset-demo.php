@@ -79,10 +79,20 @@ try {
     // Insert dummy data
     $insertDataSql = "
         INSERT INTO login (username, email, password, dname, loggedin, usertype) VALUES
-        ('demo', 'demo@gradeplus.com', 'demo', 'Demo', 0, 'Student'),
-        ('admin', 'admin@gradeplus.com', 'admin', 'Administrator', 0, 'Admin'),
-        ('instructor', 'instructor@gradeplus.com', 'instructor', 'Instructor', 0, 'Instructor'),
-        ('student', 'student@gradeplus.com', 'student', 'Student', 0, 'Student');
+        ('demo', 'demo@gradeplus.com', 'demo@', 'Demo', 0, 'Student'),
+        ('admin', 'admin@gradeplus.com', 'admin@', 'Administrator', 0, 'Admin'),
+        ('asamanta', 'asamanta@gradeplus.com', 'asamanta', 'Akash Samanta', 0, 'Student'),
+        ('mafewer', 'mafewer@gradeplus.com', 'mafewer', 'Matthew Fewer', 0, 'Student'),
+        ('jfbrown03', 'jfbrown03@gradeplus.com', 'jfbrown03', 'Jordan Brown', 0, 'Student'),
+        ('duplic8e', 'duplic8e@gradeplus.com', 'duplic8e', 'Abdulrahman', 0, 'Student'),
+        ('shanehillier', 'shanehillier@gradeplus.com', 'shanehillier', 'Shane Hiller', 0, 'Student'),
+        ('moaaz', 'moaaz@gradeplus.com', 'moaaz', 'Moaaz Elshabasy', 0, 'Student'),
+        ('ddolomount', 'ddolomount@gradeplus.com', 'ddolomount', 'Daniel Dolomount', 0, 'Student'),
+        ('brjthomas', 'brjthomas@gradeplus.com', 'brjthomas', 'Ben Thomas', 0, 'Student'),
+        ('rabbas', 'rabbas@gradeplus.com', 'rabbas', 'Raja Abbas', 0, 'Instructor'),
+        ('hnasiri', 'hnasiri@gradeplus.com', 'hnasiri', 'Hamed Nasiri', 0, 'Instructor'),
+        ('weimin', 'weimin@gradeplus.com', 'weimin', 'Weimin Huang', 0, 'Instructor'),
+        ('thumeerawa', 'thumeerawa@gradeplus.com', 'thumeerawa', 'Thumeera Wanasinghe', 0, 'Instructor');
         ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
@@ -113,9 +123,42 @@ try {
     // Insert dummy data
     $insertDataSqlEnrollment = "
         INSERT INTO enrollment VALUES
-        ('student', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
-        ('demo', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor'),
-        ('instructor', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'instructor');
+        ('asamanta', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'rabbas'),
+        ('mafewer', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'rabbas'),
+        ('jfbrown03', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'rabbas'),
+        ('duplic8e', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'rabbas'),
+        ('shanehillier', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'rabbas'),
+        ('moaaz', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'rabbas'),
+        ('ddolomount', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'rabbas'),
+        ('brjthomas', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'rabbas'),
+        ('rabbas', 'ECE 6400', 'Software Development', 1 , 'ABCDEF', 'rabbas'),
+        ('hnasiri', 'ECE 6500', 'Computer Architecture', 1 , 'GHIJK', 'hnasiri'),
+        ('asamanta', 'ECE 6500', 'Computer Architecture', 1 , 'GHIJK', 'hnasiri'),
+        ('mafewer', 'ECE 6500', 'Computer Architecture', 1 , 'GHIJK', 'hnasiri'),
+        ('jfbrown', 'ECE 6500', 'Computer Architecture', 1 , 'GHIJK', 'hnasiri'),
+        ('duplic8e', 'ECE 6500', 'Computer Architecture', 1 , 'GHIJK', 'hnasiri'),
+        ('shanehillier', 'ECE 6500', 'Computer Architecture', 1 , 'GHIJK', 'hnasiri'),
+        ('moaaz', 'ECE 6500', 'Computer Architecture', 1 , 'GHIJK', 'hnasiri'),
+        ('ddolomount', 'ECE 6500', 'Computer Architecture', 1 , 'GHIJK', 'hnasiri'),
+        ('brjthomas', 'ECE 6500', 'Computer Architecture', 1 , 'GHIJK', 'hnasiri'),
+        ('weimin', 'ECE 6600', 'Communication Principles', 1 , 'LMNOP', 'weimin'),
+        ('asamanta', 'ECE 6600', 'Communication Principles', 1 , 'LMNOP', 'weimin'),
+        ('mafewer', 'ECE 6600', 'Communication Principles', 1 , 'LMNOP', 'weimin'),
+        ('jfbrown', 'ECE 6600', 'Communication Principles', 1 , 'LMNOP', 'weimin'),
+        ('duplic8e', 'ECE 6600', 'Communication Principles', 1 , 'LMNOP', 'weimin'),
+        ('shanehillier', 'ECE 6600', 'Communication Principles', 1 , 'LMNOP', 'weimin'),
+        ('moaaz', 'ECE 6600', 'Communication Principles', 1 , 'LMNOP', 'weimin'),
+        ('ddolomount', 'ECE 6600', 'Communication Principles', 1 , 'LMNOP', 'weimin'),
+        ('brjthomas', 'ECE 6600', 'Communication Principles', 1 , 'LMNOP', 'weimin'),
+        ('thumeerawa', 'ECE 6610', 'Communication Networks', 1 , 'QRSTU', 'thumeerawa'),
+        ('asamanta', 'ECE 6610', 'Communication Networks', 1 , 'QRSTU', 'thumeerawa'),
+        ('mafewer', 'ECE 6610', 'Communication Networks', 1 , 'QRSTU', 'thumeerawa'),
+        ('jfbrown', 'ECE 6610', 'Communication Networks', 1 , 'QRSTU', 'thumeerawa'),
+        ('duplic8e', 'ECE 6610', 'Communication Networks', 1 , 'QRSTU', 'thumeerawa'),
+        ('shanehillier', 'ECE 6610', 'Communication Networks', 1 , 'QRSTU', 'thumeerawa'),
+        ('moaaz', 'ECE 6610', 'Communication Networks', 1 , 'QRSTU', 'thumeerawa'),
+        ('ddolomount', 'ECE 6610', 'Communication Networks', 1 , 'QRSTU', 'thumeerawa'),
+        ('brjthomas', 'ECE 6610', 'Communication Networks', 1 , 'QRSTU', 'thumeerawa');
         ";
     $result = mysqli_query($conn, $insertDataSqlEnrollment);
     if (!$result) {
@@ -148,7 +191,7 @@ try {
     // Insert dummy data
     $insertDataSqlAssignment = "
         INSERT INTO assignment (course_code, invite_code, assignment_name, assignment_file, description, due_date, instructor, assignment_id) VALUES
-        ('ECE 6400', 'ABCDEF', 'Test', './assignments/Project Presentations.pdf' , 'Test Assignment' , '2024-11-30', 'instructor', 0);
+        ('ECE 6400', 'ABCDEF', 'Final Report', './assignments/Project Presentations.pdf' , 'Project Presentation and Report' , '2024-11-28', 'rabbas', 0);
         ";
     $result = mysqli_query($conn, $insertDataSqlAssignment);
     if (!$result) {
@@ -181,8 +224,8 @@ try {
     // Insert dummy data with NULL for the review field
     $insertDataSql = "
         INSERT INTO reviews (assignment_id, assignment_name, invite_code, student, review) VALUES
-        (0, 'Test', 'ABCDEF', 'student', 'Excellent'),
-        (0, 'Test', 'ABCDEF','demo', 'Good Work');
+        (0, 'Final Report', 'ABCDEF', 'asamanta', 'Excellent'),
+        (0, 'Final Report', 'ABCDEF','mafewer', 'Good Work');
     ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {
@@ -215,7 +258,10 @@ try {
     // Insert dummy data
     $insertDataSqlCourses = "
                 INSERT INTO courses VALUES
-                ('ECE 6400', 'Software Development', '../img/card.jpg', 'instructor', 'Instructor', 'ABCDEF');
+                ('ECE 6400', 'Software Development', '../img/card1.jpg', 'rabbas', 'Raja Abbas', 'ABCDEF'),
+                ('ECE 6500', 'Computer Architecture', '../img/card2.jpg', 'hnasiri', 'Hamed Nasiri', 'GHIJK'),
+                ('ECE 6600', 'Communication Principles', '../img/card3.jpg', 'weimin', 'Weimin Huang', 'LMNOP'),
+                ('ECE 6610', 'Communication Networks', '../img/card4.jpg', 'thumeerawa', 'Thumeera Wanasinghe', 'QRSTU');
                 ";
     $result = mysqli_query($conn, $insertDataSqlCourses);
     if (!$result) {
@@ -246,7 +292,7 @@ try {
     // Insert dummy data
     $insertDataSqlAnnouncements = "
         INSERT INTO announcements VALUES
-        ('1', 'ABCDEF', 'Welcome to the course', 'This is a test announcement', '2024-11-23');
+        ('1', 'ABCDEF', 'Final Submissions', 'Final Report and Presentations due soon', '2024-11-23');
         ";
     $result = mysqli_query($conn, $insertDataSqlAnnouncements);
     if (!$result) {
@@ -282,8 +328,8 @@ try {
     // Insert dummy data
     $insertDataSql = "
         INSERT INTO grades (assignment_id, course_code, invite_code, assignment_name, username, grade, max_grade,feedback,submitted_pdf,submitted_flag,submitted_date) VALUE
-        (0, 'ECE 6400', 'ABCDEF', 'Test', 'student', 10,10, 'Excellent', '../submissions/demo.pdf', 1, '2024-11-27'),
-        (0, 'ECE 6400', 'ABCDEF', 'Test', 'demo', 8,10, 'OK', '../submissions/demo.pdf', 1, '2024-11-27');
+        (0, 'ECE 6400', 'ABCDEF', 'Final Report', 'asamanta', 10,10, 'Excellent', '../submissions/demo.pdf', 1, '2024-11-27'),
+        (0, 'ECE 6400', 'ABCDEF', 'Final Report', 'mafewer', 8,10, 'OK', '../submissions/demo.pdf', 1, '2024-11-27');
         ";
     $result = mysqli_query($conn, $insertDataSql);
     if (!$result) {

@@ -53,7 +53,7 @@ class UpdateEmailCest
 
         $I->sendPost('/services/update-email.php', [
             'authorize' => 'gradeplus',
-            'newemail' => 'student@gradeplus.com'
+            'newemail' => 'demo@gradeplus.com'
         ]);
 
         $I->seeResponseIsJson();

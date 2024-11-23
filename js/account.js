@@ -38,6 +38,7 @@ function main() {
         $("h2.top-info-header").text(greeting + " " + dname + "!");
         $("a.assignments").click();
         $("div.modal").fadeOut(200);
+        $("html, body").animate({ scrollTop: 0 }, "slow");
     })
 
     //Edit Accounts Settings
@@ -385,6 +386,7 @@ function main() {
             $("span.logo-head").text("GradePlus").fadeIn(200);
         });
         retrieve_courses();
+        $("html, body").animate({ scrollTop: 0 }, "slow");
     })
     
     function loadContent(url, headerText) {
@@ -527,6 +529,7 @@ function main() {
                             $("span.logo-head").text(coursename).fadeIn(200);
                         });
                     });
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
                 });
 
                 //Pinning a Course

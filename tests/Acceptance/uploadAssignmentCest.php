@@ -11,7 +11,7 @@ class AssignmentUploadCest
         $assignment_name = "A3";
         $description = "Description for A3";
         $due_date = "2024-10-30";
-        $instructor = "instructor"; // Valid instructor name
+        $instructor = "rabbas"; // Valid instructor name
 
         // Prepare POST data
         $postData = [
@@ -43,7 +43,7 @@ class AssignmentUploadCest
         $assignment_name = "A3";
         $description = "Description for A3";
         $due_date = "2024-10-30";
-        $instructor = "instructor";
+        $instructor = "rabbas";
 
         $postData = [
             "authorize" => "gradeplus",
@@ -103,7 +103,7 @@ class AssignmentUploadCest
         $assignment_name = "A3";
         $description = "Description for A3";
         $due_date = "2024-10-30";
-        $instructor = "instructor";
+        $instructor = "rabbas";
 
         $postData = [
             "invite_code" => $invite_code,

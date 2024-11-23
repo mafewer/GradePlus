@@ -53,6 +53,8 @@ function retrieveAssignments() {
                 }
                 if ($("a.addenrolcourse").attr("id")!=="enroltrue") {
                     $("a.add-assign").show();
+                } else {
+                    $("a.delete-assign").hide();
                 }
             }
         }});

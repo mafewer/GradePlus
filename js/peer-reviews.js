@@ -74,23 +74,25 @@ function loadPeerReviews(submission_data) {
                 </div>`;
                 instructor_assignments.append(card);
             }
-            if (receivedbody.children().length == 0) {
-                $("h6.rev-assignments-header").text("No Received Reviews");
-            } else {
-                $("h6.rev-assignments-header").text("Student Reviews");
-            }
-            if (receivedbody.children().length == 0) {
-                $("h6.rev-assignments-header").text("No Received Reviews");
-            } else {
-                $("h6.rev-assignments-header").text("Received Reviews");
-            }
-            if (givebody.children().length == 0) {
-                $("h6.sub-assignments-header").text("No Assignments to Review");
-            } else {
-                $("h6.sub-assignments-header").text("Give Reviews");
-            }
         }
     });
+
+    
+    if (instructor_assignments.children().length == 0) {
+        $("h6.instructor-assignments-header").text("No Submitted Reviews");
+    } else {
+        $("h6.instructor-assignments-header").text("Student Reviews");
+    }
+    if (receivedbody.children().length == 0) {
+        $("h6.rev-assignments-header").text("No Received Reviews");
+    } else {
+        $("h6.rev-assignments-header").text("Received Reviews");
+    }
+    if (givebody.children().length == 0) {
+        $("h6.sub-assignments-header").text("No Submissions to Review");
+    } else {
+        $("h6.sub-assignments-header").text("Give Reviews");
+    }
     
     // Open the "Give Feedback" page and load the assignment PDF
     $("div.give-feedback").on("click", function() {

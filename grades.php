@@ -1,5 +1,8 @@
 <link rel="stylesheet" type="text/css" href="css/styles-grades.css">
 <!--Grades (Student only)-->
+<h6 class="no-grades-header">
+        No Grades Available
+</h6>
 <div class="grades">
     <div class="reveal-holder">
         <label class="reveal-text" for="swipe-to-reveal">Swipe to Reveal</label>

@@ -8,6 +8,7 @@ div.sub-assignments {
 table.table-sub-assignments,
 table.table-grades {
     height: auto;
+    display: none;
     margin: 2rem auto;
     border-radius: 0.5rem;
     background-color: var(--bwcolor);
@@ -17,6 +18,10 @@ table.table-grades {
 table.table-sub-assignments th,
 table.table-grades th {
     background-color: var(--hover-color);
+}
+
+h6.no-grades-header {
+    margin-top: 2rem;
 }
 
 div.grades {

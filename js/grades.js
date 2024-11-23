@@ -55,6 +55,13 @@ function studentgrades() {
                     tableBody.append(tr);
                 });
                 update_reveal();
+                if (data.length === 0) {
+                    $("h6.no-grades-header").text("No Grades Available").show();
+                    $("table.table-grades").hide();
+                } else {
+                    $("h6.no-grades-header").hide();
+                    $("table.table-grades").show();
+                }
             }
         }});
 }
@@ -172,6 +179,14 @@ function subassignments() {
                                     });});
                             }}});
                 });
+                
+                if (data.length === 0) {
+                    $("h6.no-grades-header").text("No Submissions to Grade").show();
+                    $("table.table-sub-assignments").hide();
+                } else {
+                    $("h6.no-grades-header").hide();
+                    $("table.table-sub-assignments").show();
+                }
             }}});
 }
 
