@@ -2,6 +2,7 @@ if ($("a.addenrolcourse").attr("id")==="enroltrue"){ // Student
     $("div.grading-input").show();
     $("div.submitted-list").show();
     $("div.sub-heading").show();
+    $("a.add-assign").hide();
 } else { // Instructor
     $("div.grading-input").hide();
     $("div.submitted-list").hide();
