@@ -7,8 +7,8 @@
             <p>Are you sure you want to <span class="confirm-modal-text">withdraw from this course</span>?</p>
         </div>
         <div class="modal-footer bwcolor">
+            <a class="cancel-btn modal-close waves-effect waves-green btn-flat" style="color: var(--font-color);">Cancel</a>
             <a class="agree-btn modal-close red white-text waves-effect waves-red btn-flat">Withdraw</a>
-            <a class="cancel-btn modal-close bwcolortext waves-effect waves-green btn-flat">Cancel</a>
         </div>
     </div>
 

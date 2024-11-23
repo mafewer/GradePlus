@@ -235,7 +235,7 @@ if ($hour >= 5 && $hour < 12) {
                     </div>
                 </div>
                 <div class="modal-footer bwcolor">
-                    <a class="addenrol-modal-cancel waves-effect bwcolortext btn-flat">CANCEL</a>
+                    <a class="addenrol-modal-cancel waves-effect btn-flat" style="color: var(--font-color);">CANCEL</a>
                     <a class="addenrol-modal-add waves-effect white-text green btn-flat">ADD</a>
                     <a class="addenrol-modal-enrol waves-effect white-text green btn-flat">ENROLL</a>
                 </div>

@@ -1,0 +1,54 @@
+div.announcement-main {
+    position: relative;
+}
+
+div.announcements-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100rem;
+}
+
+h6.no-announcements-header {
+    margin-top: 2rem;
+}
+
+div.announcement-card,
+div.add-announcement-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 22rem;
+    padding: 0rem;
+    margin: 2rem;
+    margin-bottom: 0rem;
+    margin-left: 0rem;
+    border-radius: 0.5rem;
+    background-color: var(--bwcolor);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+i.card-icon {
+    font-size: 2rem;
+    margin: 0.5rem 0rem;
+}
+
+.input-field {
+    margin: 1.5rem;
+    color: var(--font-color);
+    transition: color 0.2s;
+}
+
+div.add-announcement {
+    margin-top: 5rem;
+    width: 35rem;
+    height: 20rem;
+    padding: 2rem;
+    background-color: var(--bwcolor);
+}
+
+a.add-announcement {
+    position: absolute;
+    right: 4rem;
+    top: 9rem;
+}

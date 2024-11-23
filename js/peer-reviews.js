@@ -47,7 +47,7 @@ function loadPeerReviews(submission_data) {
                 var card = `
                 <div class="card give-feedback review-card std-hover" data-file="${pdfFile}" data-id="${data.assignment_id}" data-assignment-name="${data.assignment_name}" data-student="${data.username}">
                     <div class="card-content">
-                        <i class="material-icons">chat</i>
+                        <i class="material-icons card-icon">chat</i>
                         <span style="font-weight: bold;" class="card-title">${data.assignment_name}</span>
                         <p>Submitted by: ${data.username}</p>
                     </div>
@@ -58,7 +58,7 @@ function loadPeerReviews(submission_data) {
                 card = `
                 <div class="card view-feedback review-card std-hover" data-file="${pdfFile}" data-id="${data.assignment_id}" data-assignment-name="${data.assignment_name}">
                     <div class="card-content">
-                        <i class="material-icons">chat</i>
+                        <i class="material-icons card-icon">chat</i>
                         <span style="font-weight: bold;" class="card-title">${data.assignment_name}</span>
                         <p>Your Work</p>
                     </div>
@@ -69,7 +69,7 @@ function loadPeerReviews(submission_data) {
                 var card = `
                 <div class="card view-feedback review-card std-hover" data-file="${pdfFile}" data-id="${data.assignment_id}" data-assignment-name="${data.assignment_name}" data-student="${data.username}">
                     <div class="card-content">
-                        <i class="material-icons">chat</i>
+                        <i class="material-icons card-icon">chat</i>
                         <span style="font-weight: bold;" class="card-title">${data.assignment_name}</span>
                         <p>Submitted by: ${data.username}</p>
                     </div>

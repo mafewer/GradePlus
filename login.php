@@ -43,7 +43,7 @@ if (isset($_POST['username'])) {
                     $sqlCommand->bind_result($username, $dname, $email, $usertype);
                     $sqlCommand->fetch();
 
-                    $_SESSION['logtime'] = time() + (60 * 6);
+                    $_SESSION['logtime'] = time() + (60 * 15);
                     $_SESSION['username'] = $username;
                     $_SESSION['dname'] = $dname;
                     $_SESSION['email'] = $email;

@@ -518,7 +518,7 @@ function main() {
                         $("div.coursedash").fadeIn(200).css("display", "flex");
                         if (isCourseOpenFirst == false){
                             isCourseOpenFirst = true;
-                            $("a.assignments").click();
+                            $("a.announcements").click();
                         }
                     });
                 });

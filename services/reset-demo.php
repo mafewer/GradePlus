@@ -220,13 +220,43 @@ try {
         error_log("Insert dummy data query failed: " . mysqli_error($conn));
     }
 
+    $resetTableSql = "DROP TABLE IF EXISTS announcements;";
+    $result = mysqli_query($conn, $resetTableSql);
+    if (!$result) {
+        error_log("Drop table query failed: " . mysqli_error($conn));
+    }
+
+    // Create announcements table
+    $createTableSql = "
+        CREATE TABLE announcements (
+            announcement_id VARCHAR(10) PRIMARY KEY,
+            course_code VARCHAR(255) NOT NULL,
+            header VARCHAR(255),
+            text VARCHAR(255),
+            date VARCHAR(255)
+        );";
+
+    $result = mysqli_query($conn, $createTableSql);
+    if (!$result) {
+        error_log("Failed to create announcements table: " . mysqli_error($conn));
+    }
+
+    // Insert dummy data
+    $insertDataSqlAnnouncements = "
+        INSERT INTO announcements VALUES
+        ('1', 'ABCDEF', 'Welcome to the course', 'This is a test announcement', '2024-11-23');
+        ";
+    $result = mysqli_query($conn, $insertDataSqlAnnouncements);
+    if (!$result) {
+        error_log("Insert dummy data query failed: " . mysqli_error($conn));
+    }
+
     $resetTableSql = "DROP TABLE IF EXISTS grades;";
     $result = mysqli_query($conn, $resetTableSql);
     if (!$result) {
         error_log("Drop table query failed: " . mysqli_error($conn));
     }
 
-    // Moaaz was here
     // Create table
     $createTableSql = "
         CREATE TABLE grades (

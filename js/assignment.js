@@ -33,7 +33,7 @@ function retrieveAssignments() {
                             <div class="card assign-card std-hover" data-file="${assign.assignment_file}" data-id="${assign.assignment_id}" data-assignment-name="${assign.assignment_name}" 
                             data-instructor="${assign.instructor}">
                                 <div class="card-content">
-                                    <i class="material-icons">assignment</i>
+                                    <i class="material-icons card-icon">assignment</i>
                                     <span style="font-weight: bold;" class="card-title">${assign.assignment_name}</span>
                                     <p>${assign.description}</p>
                                     <p>Due Date: ${assign.due_date}</p>
@@ -44,19 +44,8 @@ function retrieveAssignments() {
                         assignmentsBody.append(assignCard);
                          
                 });
-                if ($("a.addenrolcourse").attr("id")!=="enroltrue") { // Instructor
-                    //add assignment button
-                    assignmentsBody.append(
-                    `<div class="card add-assign-card std-hover">
-                        <div class="card-content">
-                        <span style="font-weight: bold; position: relative; top: 1rem;" class="add-assign material-symbols-outlined green-text">
-                        add
-                        </span>
-                        </div>
-                    </div>`
-                );
-                }
-                else {
+                if ($("a.addenrolcourse").attr("id")=="enroltrue") {
+                    $("a.add-announcement").hide();
                     $("a.delete-assign").hide();
                 }
             }
@@ -128,7 +117,7 @@ $("button.assign-close").click(function() {
 });
 
 //Adding an assignment modal (instructors only)
-$("div.assignments-list").on("click", "div.add-assign-card", function() {
+$("a.add-assign").click(() => {
     $("div.addassign-modal").fadeIn(100);
 });
 

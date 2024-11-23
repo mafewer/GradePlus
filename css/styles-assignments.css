@@ -2,7 +2,19 @@ div.assignments-list,
 div.submitted-list {
     display: flex;
     flex-wrap: wrap;
+    max-width: 100rem;
 }
+
+div.assign-container {
+    position: relative;
+}
+
+a.add-assign {
+    position: absolute;
+    right: 0.23rem;
+    top: -2.5rem;
+}
+
 
 div.assign-card,
 div.add-assign-card {
@@ -20,6 +32,11 @@ div.add-assign-card {
     transition: background-color 0.2s, color 0.2s;
 }
 
+
+div.add-assign-card {
+    justify-content: center;
+}
+
 .input-field {
     margin: 0.5rem;
     color: var(--font-color);
@@ -33,6 +50,11 @@ span.add-assign {
     font-size: 5rem;
     margin-top: 0rem;
     cursor: pointer;
+}
+
+i.card-icon {
+    font-size: 2rem;
+    margin: 0.5rem 0rem;
 }
 
 div.submitted-list {

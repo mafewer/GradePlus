@@ -7,6 +7,7 @@
         <div class="submitted-list">
             <!-- submitted assignments will go here -->
         </div>
+        <a class="add-assign modal-close green white-text waves-effect waves-green btn-flat"><i class="material-symbols-outlined left">add_circle</i>Add</a>
     </div>
     <!--assignment view-->
     <div class="grading">
