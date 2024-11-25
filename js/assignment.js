@@ -146,7 +146,7 @@ $("a.addassign-modal-add").click(function() {
     var invite_code = $("p.side-nav-course-invite").text();
     var course_code = $("p.side-nav-course-code").text();
     var assignment_file = $("input[name='instructionfile']")[0].files[0];
-    var instructor = $("span.display-name").html();
+    var instructor = $("span.user-name").html();
 
     var formData = new FormData();
 

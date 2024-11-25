@@ -35,7 +35,8 @@ div.input-field {
 }
 
 .input-field input[type="text"],
-.input-field input[type="password"] {
+.input-field input[type="password"],
+.input-field input[type="email"] {
     color: var(--form-color) !important;
 }
 

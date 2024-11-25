@@ -68,18 +68,19 @@ if ($_POST["authorize"] == "gradeplus") {
 
         } else {
             $submitSql = $conn->prepare("
-                INSERT INTO grades (assignment_id, course_code, invite_code, assignment_name, username, submitted_pdf, submitted_flag, submitted_date)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO grades (assignment_id, course_code, invite_code, assignment_name, username, grade, max_grade, feedback, submitted_pdf, submitted_flag, submitted_date)
+                VALUES (?, ?, ?, ?, ?, 0, 10, 'Pending', ?, ?, ?)
                 ON DUPLICATE KEY UPDATE 
                     submitted_pdf = VALUES(submitted_pdf), 
                     submitted_flag = VALUES(submitted_flag), 
                     submitted_date = VALUES(submitted_date)
             ");
-            $submitSql->bind_param("issssis", $assignment_id, $course_code, $invite_code, $assignment_name, $username, $submitted_pdf, $submitted_flag, $submitted_date);
+            $submitSql->bind_param("isssssis", $assignment_id, $course_code, $invite_code, $assignment_name, $username, $submitted_pdf, $submitted_flag, $submitted_date);
             $result = $submitSql->execute();
 
             if (!$result) {
                 throw new Exception("Submission query failed: " . $submitSql->error);
+                echo json_encode($submitSql->error);
             }
 
             $success = 1;
@@ -88,7 +89,6 @@ if ($_POST["authorize"] == "gradeplus") {
         $checkSql->close();
         $conn->close();
     } catch (Exception $e) {
-        error_log($e->getMessage());
         $success = 0;
         $error = 1;
     }
